@@ -48,7 +48,7 @@ router.get('/:id', (req, res) => {
 // @access  Private
 router.post(
   '/',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     const { errors, isValid } = validatePostInput(req.body);
 
@@ -74,7 +74,7 @@ router.post(
 // @access  Private
 router.delete(
   '/:id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id }).then(profile => {
       Post.findById(req.params.id)
@@ -99,7 +99,7 @@ router.delete(
 // @access  Private
 router.post(
   '/like/:id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id }).then(profile => {
       Post.findById(req.params.id)
@@ -128,7 +128,7 @@ router.post(
 // @access  Private
 router.post(
   '/unlike/:id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id }).then(profile => {
       Post.findById(req.params.id)
@@ -163,7 +163,7 @@ router.post(
 // @access  Private
 router.post(
   '/comment/:id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     const { errors, isValid } = validatePostInput(req.body);
 
@@ -197,7 +197,7 @@ router.post(
 // @access  Private
 router.delete(
   '/comment/:id/:comment_id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     Post.findById(req.params.id)
       .then(post => {

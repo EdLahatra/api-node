@@ -50,7 +50,7 @@ router.get('/:id', (req, res) => {
 // const JWTStrategy = require('passport-jwt').Strategy;
 // const opts = {};
 
-// opts.jwtFromRequest = ExtractJWT.fromAuthHeaderWithScheme('JWT');
+// opts.jwtFromRequest = ExtractJWT.fromAuthHeaderWithScheme('local');
 // opts.secretOrKey = keys.secretOrKey;
 
 // @route   POST api/posts
@@ -58,7 +58,7 @@ router.get('/:id', (req, res) => {
 // @access  Private
 router.post(
   '/',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateAllergieInput(req.body);
 
@@ -81,7 +81,7 @@ router.post(
 // @access  Private
 router.delete(
   '/:id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     Allergie.findById(req.params.id)
       .then(post => {
@@ -97,7 +97,7 @@ router.delete(
 // @access  Private
 router.put(
   '/:id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateAllergieInput(req.body);
 
@@ -127,7 +127,7 @@ router.put(
 // @access  Private
 router.post(
   '/comment/:id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateAllergieInput(req.body);
 
@@ -161,7 +161,7 @@ router.post(
 // @access  Private
 router.delete(
   '/comment/:id/:comment_id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     Allergie.findById(req.params.id)
       .then(post => {

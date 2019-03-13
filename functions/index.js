@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
-const session = require('express-session');
+// const session = require('express-session');
 
 // Express
 // requires trailing slash
@@ -43,9 +43,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // DB Config
-const db = require('./src/config/keys').mongoURI;
+const db = 'mongodb://reactpwa:reactpwa@reactpwacluster-shard-00-00-2tzai.mongodb.net:27017,reactpwacluster-shard-00-01-2tzai.mongodb.net:27017,reactpwacluster-shard-00-02-2tzai.mongodb.net:27017/test?ssl=true&replicaSet=reactpwaCluster-shard-0&authSource=admin&retryWrites=true';
 const secretOrKey = require('./src/config/keys').secretOrKey;
-
 // Connect to MongoDB
 
 // mongoose.connection.openUri(db)
@@ -53,11 +52,34 @@ const secretOrKey = require('./src/config/keys').secretOrKey;
 //   .on('error', (error) => {
 //     console.warn('Warning', error);
 //   });
+// mongoose
+//   .connect(db, { useMongoClient: true })
+//   .then(() => console.log('MongoDB Connected'))
+//   .catch(err => console.log(err));
 
-mongoose
-  .connect(db, { useMongoClient: true })
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
+mongoose.MongoClient.connect(db)
+  //mongoose
+    .connect(db, { useNewUrlParser: true })
+    .then(() => console.log('Best Best =======>'))
+    .catch(e => {
+      console.error(e.message);
+    });
+
+  // mongoose.connection.on('connected', () => {
+  //   console.log(`connected to database: ${db}`);
+  // });
+
+  // mongoose.connection.once('open', () => {
+  //   console.log('MongoDB Connected');
+  // });
+
+  // mongoose.connection.on('error', () => {
+  //   console.log(`unable to connect to database: ${db}`);
+  // });
+
+  // mongoose.connection.on('disconnected', () => {
+  //   console.log(`Disconnected to database: ${db}`);
+  // });
 
 // mongoose.connect(db, {useMongoClient: true});
 // mongoose.connection.once('open', function(){
@@ -68,11 +90,11 @@ mongoose
 
 // Passport middleware
 // app.use(passport.initialize());
-app.use(session({
-  secret: secretOrKey,
-  resave: true,
-  saveUninitialized: true
-}));
+// app.use(session({
+//   secret: secretOrKey,
+//   resave: true,
+//   saveUninitialized: true
+// }));
 app.use(passport.initialize());
 app.use(passport.session());
 

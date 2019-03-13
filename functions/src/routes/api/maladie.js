@@ -3,24 +3,24 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 
-// Questions model
-const Questions = require('../../models/Questions');
+// Post model
+const Maladie = require('../../models/Maladie');
 // Profile model
 const Profile = require('../../models/Profile');
 
 // Validation
-const validateQuestionsInput = require('../../validation/questions');
+const validatePostInput = require('../../validation/maladie');
 
 // @route   GET api/posts/test
 // @desc    Tests post route
 // @access  Public
-router.get('/test', (req, res) => res.json({ msg: 'Questionss Works' }));
+router.get('/test', (req, res) => res.json({ msg: 'Posts Works' }));
 
 // @route   GET api/posts
 // @desc    Get posts
 // @access  Public
 router.get('/', (req, res) => {
-  Questions.find()
+  Post.find()
     .sort({ date: -1 })
     .then(posts => res.json(posts))
     .catch(err => res.status(404).json({ nopostsfound: 'No posts found' }));
@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
 // @desc    Get post by id
 // @access  Public
 router.get('/:id', (req, res) => {
-  Questions.findById(req.params.id)
+  Post.findById(req.params.id)
     .then(post => {
       if (post) {
         res.json(post);
@@ -50,19 +50,22 @@ router.post(
   '/',
   passport.authenticate('local', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateQuestionsInput(req.body);
+    // const { errors, isValid } = validatePostInput(req.body);
 
-    // Check Validation
-    if (!isValid) {
-      // If any errors, send 400 with errors object
-      return res.status(400).json(errors);
-    }
+    // // Check Validation
+    // if (!isValid) {
+    //   // If any errors, send 400 with errors object
+    //   return res.status(400).json(errors);
+    // }
 
-    const newQuestions = new Questions({
-      description: req.body.description,
+    const newMaladie = new Maladie({
+      name: req.body.name,
+      medecin: req.body.vaccin || [],
+      vaccin: req.body.vaccin || [],
+      vaccinSugg: req.body.vaccin || [],
     });
 
-    newQuestions.save().then(post => res.json(post));
+    newMaladie.save().then(post => res.json(post));
   }
 );
 
@@ -73,40 +76,85 @@ router.delete(
   '/:id',
   passport.authenticate('local', { session: false }),
   (req, res) => {
-    Questions.findById(req.params.id)
-      .then(post => {
-        // Delete
-        post.remove().then(() => res.json({ success: true }));
-      })
-      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      Post.findById(req.params.id)
+        .then(post => {
+          // Check for post owner
+          if (post.user.toString() !== req.user.id) {
+            return res
+              .status(401)
+              .json({ notauthorized: 'User not authorized' });
+          }
+
+          // Delete
+          post.remove().then(() => res.json({ success: true }));
+        })
+        .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+    });
   }
 );
 
-// @route   POST api/posts/comment/:id
-// @desc    Add comment to post
+// @route   POST api/posts/like/:id
+// @desc    Like post
 // @access  Private
-router.put(
-  '/:id',
+router.post(
+  '/like/:id',
   passport.authenticate('local', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateQuestionsInput(req.body);
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      Post.findById(req.params.id)
+        .then(post => {
+          if (
+            post.likes.filter(like => like.user.toString() === req.user.id)
+              .length > 0
+          ) {
+            return res
+              .status(400)
+              .json({ alreadyliked: 'User already liked this post' });
+          }
 
-    // Check Validation
-    if (!isValid) {
-      // If any errors, send 400 with errors object
-      return res.status(400).json(errors);
-    }
+          // Add user id to likes array
+          post.likes.unshift({ user: req.user.id });
 
-    Questions.findById(req.params.id)
-      .then(post => {
+          post.save().then(post => res.json(post));
+        })
+        .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+    });
+  }
+);
 
-        // Add to comments array
-        post.description = req.body.description;
+// @route   POST api/posts/unlike/:id
+// @desc    Unlike post
+// @access  Private
+router.post(
+  '/unlike/:id',
+  passport.authenticate('local', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      Post.findById(req.params.id)
+        .then(post => {
+          if (
+            post.likes.filter(like => like.user.toString() === req.user.id)
+              .length === 0
+          ) {
+            return res
+              .status(400)
+              .json({ notliked: 'You have not yet liked this post' });
+          }
 
-        // Save
-        post.save().then(post => res.json(post));
-      })
-      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+          // Get remove index
+          const removeIndex = post.likes
+            .map(item => item.user.toString())
+            .indexOf(req.user.id);
+
+          // Splice out of array
+          post.likes.splice(removeIndex, 1);
+
+          // Save
+          post.save().then(post => res.json(post));
+        })
+        .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+    });
   }
 );
 
@@ -114,10 +162,10 @@ router.put(
 // @desc    Add comment to post
 // @access  Private
 router.post(
-  '/comment/:id',
+  '/add/:id',
   passport.authenticate('local', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateQuestionsInput(req.body);
+    const { errors, isValid } = validatePostInput(req.body);
 
     // Check Validation
     if (!isValid) {
@@ -125,7 +173,7 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    Questions.findById(req.params.id)
+    Post.findById(req.params.id)
       .then(post => {
         const newComment = {
           text: req.body.text,
@@ -151,7 +199,7 @@ router.delete(
   '/comment/:id/:comment_id',
   passport.authenticate('local', { session: false }),
   (req, res) => {
-    Questions.findById(req.params.id)
+    Post.findById(req.params.id)
       .then(post => {
         // Check to see if comment exists
         if (

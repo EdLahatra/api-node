@@ -23,7 +23,7 @@ router.get('/test', (req, res) => res.json({ msg: 'Profile Works' }));
 // @access  Private
 router.get(
   '/',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     const errors = {};
 
@@ -106,7 +106,7 @@ router.get('/user/:user_id', (req, res) => {
 // @access  Private
 router.post(
   '/',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateProfileInput(req.body);
 
@@ -171,7 +171,7 @@ router.post(
 // @access  Private
 router.post(
   '/experience',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateExperienceInput(req.body);
 
@@ -205,7 +205,7 @@ router.post(
 // @access  Private
 router.post(
   '/education',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateEducationInput(req.body);
 
@@ -239,7 +239,7 @@ router.post(
 // @access  Private
 router.delete(
   '/experience/:exp_id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id })
       .then(profile => {
@@ -263,7 +263,7 @@ router.delete(
 // @access  Private
 router.delete(
   '/education/:edu_id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id })
       .then(profile => {
@@ -287,7 +287,7 @@ router.delete(
 // @access  Private
 router.delete(
   '/',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     Profile.findOneAndRemove({ user: req.user.id }).then(() => {
       User.findOneAndRemove({ _id: req.user.id }).then(() =>

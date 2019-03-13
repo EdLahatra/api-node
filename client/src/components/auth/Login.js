@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
+import  StatefulMultiSelect from '@khanacademy/react-multi-select';
 
 class Login extends Component {
   constructor() {
@@ -74,6 +75,14 @@ class Login extends Component {
                   value={this.state.password}
                   onChange={this.onChange}
                   error={errors.password}
+                />
+                <StatefulMultiSelect
+                    overrideStrings={{
+                        selectSomeItems: "Select Some items...",
+                        allItemsAreSelected: "All Items are Selected",
+                        selectAll: "Select All",
+                        search: "Search",
+                    }}
                 />
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>

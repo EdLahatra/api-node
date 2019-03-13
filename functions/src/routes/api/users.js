@@ -106,7 +106,7 @@ router.post('/login', (req, res) => {
         return res.status(400).json(errors);
       }
     });
-  });
+  }).catch(err => res.status(400).json(err));
 });
 
 // @route   GET api/users/current
@@ -114,7 +114,7 @@ router.post('/login', (req, res) => {
 // @access  Private
 router.get(
   '/current',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('local', { session: false }),
   (req, res) => {
     res.json({
       id: req.user.id,
