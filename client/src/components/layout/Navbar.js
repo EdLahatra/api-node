@@ -18,13 +18,13 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/feed">
-            Post Feed
+          <Link className="nav-link" to="/sante">
+            santé
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/dashboard">
-            Dashboard
+          <Link className="nav-link" to="/voyage">
+            Voyage
           </Link>
         </li>
         <li className="nav-item">
@@ -64,10 +64,22 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
         <div className="container">
-          <Link className="navbar-brand" to="/">
-            DevConnector
+          <Link className="navbar-brand" to="/pays">
+            Pays
           </Link>
-          <button
+          <Link className="navbar-brand" to="/maladie">
+            Maladie
+          </Link>
+          <Link className="navbar-brand" to="/questions">
+            Questions
+          </Link>
+          <Link className="navbar-brand" to="/vaccin">
+            Vaccin
+          </Link>
+          <Link className="navbar-brand" to="/medec">
+            Medecin
+          </Link>
+          {/* <button
             className="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -75,16 +87,8 @@ class Navbar extends Component {
           >
             <span className="navbar-toggler-icon" />
           </button>
-
+             */}
           <div className="collapse navbar-collapse" id="mobile-nav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/profiles">
-                  {' '}
-                  Developers
-                </Link>
-              </li>
-            </ul>
             {isAuthenticated ? authLinks : guestLinks}
           </div>
         </div>

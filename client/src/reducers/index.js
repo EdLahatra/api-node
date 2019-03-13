@@ -1,14 +1,22 @@
 import { combineReducers } from 'redux';
-import authReducer from './authReducer';
-import errorReducer from './errorReducer';
-import profileReducer from './profileReducer';
-import paysReducer from './paysReducer';
-import questionReducer from './questionReducer';
+import auth from './authReducer';
+import errors from './errorReducer';
+import profile from './profileReducer';
+import maladie from './maladieReducer';
+import vaccin from './vaccinReducer';
+import question from './questionReducer';
+import pays from './paysReducer';
+import voyage from './voyageReducer';
+import sante from './santeReducer';
 
 export default combineReducers({
-  auth: authReducer,
-  errors: errorReducer,
-  profile: profileReducer,
-  pays: paysReducer,
-  question: questionReducer,
+  auth,
+  errors,
+  profile,
+  maladie,
+  vaccin,
+  pays,
+  question,
+  sante,
+  voyage,
 });

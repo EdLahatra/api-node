@@ -4,9 +4,9 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 import { clearCurrentProfile } from './actions/profileActions';
-
+import { PersistGate } from 'redux-persist/es/integration/react';
 import { Provider } from 'react-redux';
-import store from './store';
+import store, { persistor } from './store';
 
 import PrivateRoute from './components/common/PrivateRoute';
 
@@ -25,6 +25,11 @@ import Profile from './components/profile/Profile';
 import Questions from './components/questions/Questions';
 import Question from './components/questions/Questions';
 import Pays from './components/pays/Pays';
+import Maladie from './components/maladie/Maladie';
+import Vaccin from './components/vaccin/Vaccin';
+import Voyage from './components/voyage/Voyage';
+import Sante from './components/sante/Sante';
+
 import NotFound from './components/not-found/NotFound';
 
 import './App.css';
@@ -54,6 +59,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
+        <PersistGate persistor={persistor}>
         <Router>
           <div className="App">
             <Navbar />
@@ -95,10 +101,22 @@ class App extends Component {
                 />
               </Switch>
               <Switch>
+                <PrivateRoute exact path="/voyage" component={Voyage} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/sante" component={Sante} />
+              </Switch>
+              <Switch>
                 <PrivateRoute exact path="/feed" component={Questions} />
               </Switch>
               <Switch>
+                <PrivateRoute exact path="/maladie" component={Maladie} />
+              </Switch>
+              <Switch>
                 <PrivateRoute exact path="/pays" component={Pays} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/vaccin" component={Vaccin} />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/question" component={Questions} />
@@ -111,6 +129,7 @@ class App extends Component {
             <Footer />
           </div>
         </Router>
+        </PersistGate>
       </Provider>
     );
   }

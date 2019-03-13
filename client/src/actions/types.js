@@ -6,12 +6,42 @@ export const PROFILE_LOADING = 'PROFILE_LOADING';
 export const PROFILE_NOT_FOUND = 'PROFILE_NOT_FOUND';
 export const CLEAR_CURRENT_PROFILE = 'CLEAR_CURRENT_PROFILE';
 export const GET_PROFILES = 'GET_PROFILES';
+
 export const QUESTION_LOADING = 'QUESTION_LOADING';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
 export const GET_QUESTION = 'GET_QUESTION';
 export const ADD_QUESTION = 'ADD_QUESTION';
 export const DELETE_QUESTION = 'DELETE_QUESTION';
 export const UPDATE_QUESTION = 'UPDATE_QUESTION';
+
+export const GET_MALADIE = 'GET_MALADIE';
+export const ADD_MALADIE = 'ADD_MALADIE';
+export const GET_ONE_MALADIE = 'GET_ONE_MALADIE';
+export const DELETE_MALADIE = 'DELETE_MALADIE';
+export const UPDATE_MALADIE = 'UPDATE_MALADIE';
+export const MALADIE_LOADING = 'MALADIE_LOADING';
+
+export const GET_VACCIN = 'GET_VACCIN';
+export const ADD_VACCIN = 'ADD_VACCIN';
+export const GET_ONE_VACCIN = 'GET_ONE_VACCIN';
+export const DELETE_VACCIN = 'DELETE_VACCIN';
+export const UPDATE_VACCIN = 'UPDATE_VACCIN';
+export const VACCIN_LOADING = 'VACCIN_LOADING';
+
+export const GET_SANTE = 'GET_SANTE';
+export const ADD_SANTE = 'ADD_SANTE';
+export const GET_ONE_SANTE = 'GET_ONE_SANTE';
+export const DELETE_SANTE = 'DELETE_SANTE';
+export const UPDATE_SANTE = 'UPDATE_SANTE';
+export const SANTE_LOADING = 'SANTE_LOADING';
+
+export const GET_VOYAGE = 'GET_VOYAGE';
+export const ADD_VOYAGE = 'ADD_VOYAGE';
+export const GET_ONE_VOYAGE = 'GET_ONE_VOYAGE';
+export const DELETE_VOYAGE = 'DELETE_VOYAGE';
+export const UPDATE_VOYAGE = 'UPDATE_VOYAGE';
+export const VOYAGE_LOADING = 'VOYAGE_LOADING';
+
 export const GET_PAYS = 'GET_PAYS';
 export const ADD_PAYS = 'ADD_PAYS';
 export const GET_ONE_PAYS = 'GET_ONE_PAYS';

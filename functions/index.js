@@ -37,6 +37,7 @@ const vaccin = require('./src/routes/api/vaccin');
 const medecin = require('./src/routes/api/medecin');
 const allergie = require('./src/routes/api/allergie');
 const sanguin = require('./src/routes/api/sanguin');
+const maladie = require('./src/routes/api/maladie');
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -57,12 +58,11 @@ const secretOrKey = require('./src/config/keys').secretOrKey;
 //   .then(() => console.log('MongoDB Connected'))
 //   .catch(err => console.log(err));
 
-mongoose.MongoClient.connect(db)
-  //mongoose
+  mongoose
     .connect(db, { useNewUrlParser: true })
     .then(() => console.log('Best Best =======>'))
     .catch(e => {
-      console.error(e.message);
+      console.error('error ==========>', e.message);
     });
 
   // mongoose.connection.on('connected', () => {
@@ -98,6 +98,8 @@ mongoose.MongoClient.connect(db)
 app.use(passport.initialize());
 app.use(passport.session());
 
+require('./src/config/passport')(passport);
+
 // Passport Config
 // require('./src/config/passport')(passport);
 
@@ -112,6 +114,7 @@ app.use('/api/medecin', medecin);
 app.use('/api/allergie', allergie);
 app.use('/api/sanguin', sanguin);
 app.use('/api/pays', pays);
+app.use('/api/maladie', maladie);
 
 // app.post("/login", async (req, res) => {
 //     const Entry = firebase.database().ref('users/');
