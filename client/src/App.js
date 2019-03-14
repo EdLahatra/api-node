@@ -29,7 +29,10 @@ import Maladie from './components/maladie/Maladie';
 import Vaccin from './components/vaccin/Vaccin';
 import Voyage from './components/voyage/Voyage';
 import Sante from './components/sante/Sante';
-
+import Medecin from './components/medecin/Medecin';
+import Centres from './components/centre/Centres';
+import Sejours from './components/sejour/Sejours';
+import Urgences from './components/urgence/Urgences';
 import NotFound from './components/not-found/NotFound';
 
 import './App.css';
@@ -101,7 +104,19 @@ class App extends Component {
                 />
               </Switch>
               <Switch>
+                <PrivateRoute exact path="/centre" component={Centres} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/sejour" component={Sejours} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/urgence" component={Urgences} />
+              </Switch>
+              <Switch>
                 <PrivateRoute exact path="/voyage" component={Voyage} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/medecin" component={Medecin} />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/sante" component={Sante} />

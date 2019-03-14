@@ -5,9 +5,9 @@ import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import { deleteMaladie, updateMaladie } from '../../actions/MaladieActions';
+import { deleteMedecin, updateMedecin } from '../../actions/MedecinActions';
 
-class MaladieItem extends Component {
+class MedecinItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +39,7 @@ class MaladieItem extends Component {
   };
 
   onDeleteClick(id) {
-    this.props.deleteMaladie(id);
+    this.props.deleteMedecin(id);
   }
 
   onUpdateClick(id) {
@@ -48,28 +48,28 @@ class MaladieItem extends Component {
       id,
     };
     this.onCloseModal();
-    this.props.updateMaladie(description);
+    this.props.updateMedecin(description);
   }
 
   render() {
-    const { maladie } = this.props;
+    const { medecin } = this.props;
     const { open, errors } = this.state;
 
     return (
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-10">
-            <p className="lead">{maladie.name}</p>
+            <p className="lead">{medecin.name}</p>
               <span>
                 <button
-                  onClick={this.onDeleteClick.bind(this, maladie._id)}
+                  onClick={this.onDeleteClick.bind(this, medecin._id)}
                   type="button"
                   className="btn btn-danger mr-1"
                 >
                   <i className="fas fa-times" />
                 </button>
                 <button
-                  onClick={this.onOpenModal.bind(this, maladie)}
+                  onClick={this.onOpenModal.bind(this, medecin)}
                   type="button"
                   className="btn btn-info mr-1"
                 >
@@ -79,14 +79,14 @@ class MaladieItem extends Component {
           </div>
         </div>
         <Modal open={open} onClose={this.onCloseModal} center>
-          <div className="Maladie-form mb-3">
+          <div className="Medecin-form mb-3">
             <div className="card card-info">
               <div className="card-header bg-info text-white">Say Something...</div>
               <div className="card-body">
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
                     <TextAreaFieldGroup
-                      placeholder="Create a Maladie"
+                      placeholder="Create a Medecin"
                       name="text"
                       value={this.state.text}
                       onChange={this.onChange}
@@ -94,7 +94,7 @@ class MaladieItem extends Component {
                     />
                   </div>
                 </form>
-                <button onClick={this.onUpdateClick.bind(this, maladie._id)} type="submit" className="btn btn-dark">
+                <button onClick={this.onUpdateClick.bind(this, medecin._id)} type="submit" className="btn btn-dark">
                   Update
                 </button>
               </div>
@@ -106,14 +106,14 @@ class MaladieItem extends Component {
   }
 }
 
-MaladieItem.defaultProps = {
+MedecinItem.defaultProps = {
   showActions: true
 };
 
-MaladieItem.propTypes = {
-  deleteMaladie: PropTypes.func.isRequired,
-  updateMaladie: PropTypes.func.isRequired,
-  maladie: PropTypes.object.isRequired,
+MedecinItem.propTypes = {
+  deleteMedecin: PropTypes.func.isRequired,
+  updateMedecin: PropTypes.func.isRequired,
+  medecin: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
 
@@ -121,6 +121,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { deleteMaladie, updateMaladie })(
-  MaladieItem
+export default connect(mapStateToProps, { deleteMedecin, updateMedecin })(
+  MedecinItem
 );

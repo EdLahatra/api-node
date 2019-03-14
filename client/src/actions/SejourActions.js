@@ -1,105 +1,105 @@
 import axios from 'axios';
 
 import {
-  ADD_VOYAGE,
-  GET_ERRORS_VOYAGE,
+  ADD_SEJOUR,
+  GET_ERRORS,
   CLEAR_ERRORS,
-  GET_ONE_VOYAGE,
-  GET_VOYAGE,
-  VOYAGE_LOADING,
-  DELETE_VOYAGE,
-  UPDATE_VOYAGE,
+  GET_SEJOURS,
+  GET_SEJOUR,
+  SEJOUR_LOADING,
+  DELETE_SEJOUR,
+  UPDATE_SEJOUR,
 } from './types';
 
 // Add Post
-export const updateVoyage = voyageData => dispatch => {
+export const updateSejour = sejourData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/voyage/${voyageData.id}`, voyageData)
+    .put(`/api/sejours/${sejourData.id}`, sejourData)
     .then(res =>
       dispatch({
-        type: UPDATE_VOYAGE,
+        type: UPDATE_SEJOUR,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS_VOYAGE,
+        type: GET_ERRORS,
         payload: err.response.data
       })
     );
 };
 
 // Add Post
-export const addVoyage = voyageData => dispatch => {
+export const addSejour = sejourData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/voyage', voyageData)
+    .post('/api/sejours', sejourData)
     .then(res =>
       dispatch({
-        type: ADD_VOYAGE,
+        type: ADD_SEJOUR,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS_VOYAGE,
-        payload: err.response
+        type: GET_ERRORS,
+        payload: err.response.data
       })
     );
 };
 
-// Get Voyages
-export const getVoyage = () => dispatch => {
-  dispatch(setVoyagesLoading());
+// Get Sejours
+export const getSejours = () => dispatch => {
+  dispatch(setSejoursLoading());
   axios
-    .get('/api/voyage')
+    .get('/api/sejours')
     .then(res =>
       dispatch({
-        type: GET_VOYAGE,
+        type: GET_SEJOURS,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_VOYAGE,
-        payload: []
-      })
-    );
-};
-
-// Get Post
-export const postVoyage = id => dispatch => {
-  dispatch(setVoyagesLoading());
-  axios
-    .get(`/api/voyage/${id}`)
-    .then(res =>
-      dispatch({
-        type: GET_ONE_VOYAGE,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ONE_VOYAGE,
+        type: GET_SEJOURS,
         payload: null
       })
     );
 };
 
-// Delete Voyages
-export const deleteVoyage = id => dispatch => {
+// Get Post
+export const postSejour = id => dispatch => {
+  dispatch(setSejoursLoading());
   axios
-    .delete(`/api/voyage/${id}`)
+    .get(`/api/sejours/${id}`)
     .then(res =>
       dispatch({
-        type: DELETE_VOYAGE,
+        type: GET_SEJOUR,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_SEJOUR,
+        payload: null
+      })
+    );
+};
+
+// Delete Sejours
+export const deleteSejour = id => dispatch => {
+  axios
+    .delete(`/api/sejours/${id}`)
+    .then(res =>
+      dispatch({
+        type: DELETE_SEJOUR,
         payload: id
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS_VOYAGE,
+        type: GET_ERRORS,
         payload: err.response.data
       })
     );
@@ -107,9 +107,9 @@ export const deleteVoyage = id => dispatch => {
 
 
 // Set loading state
-export const setVoyagesLoading = () => {
+export const setSejoursLoading = () => {
   return {
-    type: VOYAGE_LOADING
+    type: SEJOUR_LOADING
   };
 };
 

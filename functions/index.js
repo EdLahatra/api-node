@@ -38,6 +38,9 @@ const medecin = require('./src/routes/api/medecin');
 const allergie = require('./src/routes/api/allergie');
 const sanguin = require('./src/routes/api/sanguin');
 const maladie = require('./src/routes/api/maladie');
+const sante = require('./src/routes/api/sante');
+const voyage = require('./src/routes/api/voyage');
+const centre = require('./src/routes/api/centre');
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -115,6 +118,9 @@ app.use('/api/allergie', allergie);
 app.use('/api/sanguin', sanguin);
 app.use('/api/pays', pays);
 app.use('/api/maladie', maladie);
+app.use('/api/sante', sante);
+app.use('/api/voyage', voyage);
+app.use('/api/centres', centre);
 
 // app.post("/login", async (req, res) => {
 //     const Entry = firebase.database().ref('users/');

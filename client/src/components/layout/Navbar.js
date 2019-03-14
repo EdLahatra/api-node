@@ -76,18 +76,18 @@ class Navbar extends Component {
           <Link className="navbar-brand" to="/vaccin">
             Vaccin
           </Link>
-          <Link className="navbar-brand" to="/medec">
+          <Link className="navbar-brand" to="/medecin">
             Medecin
           </Link>
-          {/* <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#mobile-nav"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-             */}
+          <Link className="navbar-brand" to="/sejour">
+            Sejour
+          </Link>
+          <Link className="navbar-brand" to="/centre">
+            Centre de Vacc
+          </Link>
+          <Link className="navbar-brand" to="/urgence">
+            Num Urgence
+          </Link>
           <div className="collapse navbar-collapse" id="mobile-nav">
             {isAuthenticated ? authLinks : guestLinks}
           </div>

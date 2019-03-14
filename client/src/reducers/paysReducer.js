@@ -28,7 +28,7 @@ export default function(state = initialState, action) {
     case GET_PAYS:
       return {
         ...state,
-        pays: action.payload,
+        pays: action.payload ? action.payload : state.pays,
         loading: false
       };
     case GET_ONE_PAYS:

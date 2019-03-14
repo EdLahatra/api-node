@@ -1,105 +1,105 @@
 import axios from 'axios';
 
 import {
-  ADD_VOYAGE,
-  GET_ERRORS_VOYAGE,
+  ADD_URGENCE,
+  GET_ERRORS,
   CLEAR_ERRORS,
-  GET_ONE_VOYAGE,
-  GET_VOYAGE,
-  VOYAGE_LOADING,
-  DELETE_VOYAGE,
-  UPDATE_VOYAGE,
+  GET_URGENCES,
+  GET_URGENCE,
+  URGENCE_LOADING,
+  DELETE_URGENCE,
+  UPDATE_URGENCE,
 } from './types';
 
 // Add Post
-export const updateVoyage = voyageData => dispatch => {
+export const updateUrgence = urgenceData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/voyage/${voyageData.id}`, voyageData)
+    .put(`/api/urgences/${urgenceData.id}`, urgenceData)
     .then(res =>
       dispatch({
-        type: UPDATE_VOYAGE,
+        type: UPDATE_URGENCE,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS_VOYAGE,
+        type: GET_ERRORS,
         payload: err.response.data
       })
     );
 };
 
 // Add Post
-export const addVoyage = voyageData => dispatch => {
+export const addUrgence = urgenceData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/voyage', voyageData)
+    .post('/api/urgences', urgenceData)
     .then(res =>
       dispatch({
-        type: ADD_VOYAGE,
+        type: ADD_URGENCE,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS_VOYAGE,
-        payload: err.response
+        type: GET_ERRORS,
+        payload: err.response.data
       })
     );
 };
 
-// Get Voyages
-export const getVoyage = () => dispatch => {
-  dispatch(setVoyagesLoading());
+// Get Urgences
+export const getUrgences = () => dispatch => {
+  dispatch(setUrgencesLoading());
   axios
-    .get('/api/voyage')
+    .get('/api/urgences')
     .then(res =>
       dispatch({
-        type: GET_VOYAGE,
+        type: GET_URGENCES,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_VOYAGE,
-        payload: []
-      })
-    );
-};
-
-// Get Post
-export const postVoyage = id => dispatch => {
-  dispatch(setVoyagesLoading());
-  axios
-    .get(`/api/voyage/${id}`)
-    .then(res =>
-      dispatch({
-        type: GET_ONE_VOYAGE,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ONE_VOYAGE,
+        type: GET_URGENCES,
         payload: null
       })
     );
 };
 
-// Delete Voyages
-export const deleteVoyage = id => dispatch => {
+// Get Post
+export const postUrgence = id => dispatch => {
+  dispatch(setUrgencesLoading());
   axios
-    .delete(`/api/voyage/${id}`)
+    .get(`/api/urgences/${id}`)
     .then(res =>
       dispatch({
-        type: DELETE_VOYAGE,
+        type: GET_URGENCE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_URGENCE,
+        payload: null
+      })
+    );
+};
+
+// Delete Urgences
+export const deleteUrgence = id => dispatch => {
+  axios
+    .delete(`/api/urgences/${id}`)
+    .then(res =>
+      dispatch({
+        type: DELETE_URGENCE,
         payload: id
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS_VOYAGE,
+        type: GET_ERRORS,
         payload: err.response.data
       })
     );
@@ -107,9 +107,9 @@ export const deleteVoyage = id => dispatch => {
 
 
 // Set loading state
-export const setVoyagesLoading = () => {
+export const setUrgencesLoading = () => {
   return {
-    type: VOYAGE_LOADING
+    type: URGENCE_LOADING
   };
 };
 

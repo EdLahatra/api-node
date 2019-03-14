@@ -1,105 +1,105 @@
 import axios from 'axios';
 
 import {
-  ADD_QUESTION,
-  GET_ERRORS,
+  ADD_CENTRE,
+  GET_ERRORS_CENTRE,
   CLEAR_ERRORS,
-  GET_QUESTIONS,
-  GET_QUESTION,
-  QUESTION_LOADING,
-  DELETE_QUESTION,
-  UPDATE_QUESTION,
+  GET_CENTRES,
+  GET_CENTRE,
+  CENTRE_LOADING,
+  DELETE_CENTRE,
+  UPDATE_CENTRE,
 } from './types';
 
 // Add Post
-export const updateQuestion = questionData => dispatch => {
+export const updateCentre = centreData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/questions/${questionData.id}`, questionData)
+    .put(`/api/centres/${centreData.id}`, centreData)
     .then(res =>
       dispatch({
-        type: UPDATE_QUESTION,
+        type: UPDATE_CENTRE,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS,
+        type: GET_ERRORS_CENTRE,
         payload: err.response.data
       })
     );
 };
 
 // Add Post
-export const addQuestion = questionData => dispatch => {
+export const addCentre = centreData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/questions', questionData)
+    .post('/api/centres', centreData)
     .then(res =>
       dispatch({
-        type: ADD_QUESTION,
+        type: ADD_CENTRE,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS,
+        type: GET_ERRORS_CENTRE,
         payload: err.response.data
       })
     );
 };
 
-// Get Questions
-export const getQuestions = () => dispatch => {
-  dispatch(setQuestionsLoading());
+// Get Centres
+export const getCentres = () => dispatch => {
+  dispatch(setCentresLoading());
   axios
-    .get('/api/questions')
+    .get('/api/centres')
     .then(res =>
       dispatch({
-        type: GET_QUESTIONS,
+        type: GET_CENTRES,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_QUESTIONS,
-        payload: null
+        type: GET_CENTRES,
+        payload: []
       })
     );
 };
 
 // Get Post
-export const postQuestion = id => dispatch => {
-  dispatch(setQuestionsLoading());
+export const postCentre = id => dispatch => {
+  dispatch(setCentresLoading());
   axios
-    .get(`/api/questions/${id}`)
+    .get(`/api/centres/${id}`)
     .then(res =>
       dispatch({
-        type: GET_QUESTION,
+        type: GET_CENTRE,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_QUESTION,
-        payload: null
+        type: GET_CENTRE,
+        payload: {}
       })
     );
 };
 
-// Delete Questions
-export const deleteQuestion = id => dispatch => {
+// Delete Centres
+export const deleteCentre = id => dispatch => {
   axios
-    .delete(`/api/questions/${id}`)
+    .delete(`/api/centres/${id}`)
     .then(res =>
       dispatch({
-        type: DELETE_QUESTION,
+        type: DELETE_CENTRE,
         payload: id
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS,
+        type: GET_ERRORS_CENTRE,
         payload: err.response.data
       })
     );
@@ -107,9 +107,9 @@ export const deleteQuestion = id => dispatch => {
 
 
 // Set loading state
-export const setQuestionsLoading = () => {
+export const setCentresLoading = () => {
   return {
-    type: QUESTION_LOADING
+    type: CENTRE_LOADING
   };
 };
 

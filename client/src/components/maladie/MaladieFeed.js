@@ -4,14 +4,16 @@ import MaladieItem from './MaladieItem';
 
 class MaladieFeed extends Component {
   render() {
-    const { pays } = this.props;
-
-    return pays.map(pays => <MaladieItem key={pays._id} pays={pays} />);
+    const { maladie } = this.props;
+    if(!maladie) {
+      return <div />
+    }
+    return maladie.map(maladie => <MaladieItem key={maladie._id} maladie={maladie} />);
   }
 }
 
 MaladieFeed.propTypes = {
-  pays: PropTypes.array.isRequired
+  maladie: PropTypes.array.isRequired
 };
 
 export default MaladieFeed;

@@ -4,12 +4,12 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 // Post model
-const Maladie = require('../../models/Maladie');
+const Sante = require('../../models/Sante');
 // Profile model
 const Profile = require('../../models/Profile');
 
 // Validation
-const validatePostInput = require('../../validation/maladie');
+const validatePostInput = require('../../validation/sante');
 
 // @route   GET api/posts/test
 // @desc    Tests post route
@@ -58,14 +58,14 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    const newMaladie = new Maladie({
+    const newSante = new Sante({
       name: req.body.name,
       medecin: req.body.medecin || [],
       vaccin: req.body.vaccin || [],
       vaccinSugg: req.body.vaccinSugg || [],
     });
 
-    newMaladie.save().then(post => res.json(post));
+    newSante.save().then(post => res.json(post));
   }
 );
 

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import SelectListGroup from '../common/SelectListGroupId';
+import TextFieldGroup from '../common/TextFieldGroup';
 import { addVoyage } from '../../actions/VoyageActions';
 
 class VoyageForm extends Component {
@@ -9,7 +11,12 @@ class VoyageForm extends Component {
     super(props);
     this.state = {
       text: '',
-      errors: {}
+      errors: {
+        pays: '',
+      },
+      pays: '',
+      depart: '',
+      arrive: '',
     };
 
     this.onChange = this.onChange.bind(this);
@@ -29,9 +36,21 @@ class VoyageForm extends Component {
 
     const newVoyage = {
       name: this.state.text,
+      dateDepart: this.state.dateDepart,
+      dateArrive: this.state.dateDepart,
+      id: user._id,
+      pays: this.state.pays || [],
     };
     this.props.addVoyage(newVoyage);
-    this.setState({ text: '' });
+    this.setState({
+      text: '',
+      errors: {
+        pays: '',
+      },
+      pays: '',
+      depart: '',
+      arrive: '',
+    });
   }
 
   onChange(e) {
@@ -55,6 +74,31 @@ class VoyageForm extends Component {
                   onChange={this.onChange}
                   error={errors.text}
                 />
+                <SelectListGroup
+                  placeholder="Status"
+                  name="pays"
+                  value={this.state.pays}
+                  onChange={this.onChange}
+                  options={this.props.pays || []}
+                  error={errors.pays}
+                  info="Give us an idea of where you are at in your career"
+                />
+                <h6>Date Depart</h6>
+                <TextFieldGroup
+                  name="depart"
+                  type="date"
+                  value={this.state.depart}
+                  onChange={this.onChange}
+                  error={errors.from}
+                />
+                <h6>Date Arrivée</h6>
+                <TextFieldGroup
+                  name="arrive"
+                  type="date"
+                  value={this.state.arrive}
+                  onChange={this.onChange}
+                  error={errors.from}
+                />
               </div>
               <button type="submit" className="btn btn-dark">
                 Submit
@@ -70,7 +114,8 @@ class VoyageForm extends Component {
 VoyageForm.propTypes = {
   addVoyage: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  pays: PropTypes.any,
 };
 
 const mapStateToProps = state => ({

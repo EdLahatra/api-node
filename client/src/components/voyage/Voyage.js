@@ -5,14 +5,19 @@ import VoyageForm from './VoyageForm';
 import VoyageFeed from './VoyageFeed';
 import Spinner from '../common/Spinner';
 import { getVoyage } from '../../actions/VoyageActions';
+import { getPays } from '../../actions/PaysActions';
 
 class Voyage extends Component {
   componentDidMount() {
-    this.props.getVoyage();
+    // this.props.getVoyage();
+    this.props.getPays();
   }
 
   render() {
     const { voyage, loading } = this.props.voyage;
+    const { pays } = this.props.pays;
+
+    console.log('pays pays', pays);
     let voyageContent;
 
     if (voyage === null || loading) {
@@ -26,7 +31,7 @@ class Voyage extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <VoyageForm />
+              <VoyageForm pays={pays} />
               {voyageContent}
             </div>
           </div>
@@ -38,11 +43,14 @@ class Voyage extends Component {
 
 Voyage.propTypes = {
   getVoyage: PropTypes.func.isRequired,
-  voyage: PropTypes.object.isRequired
+  getPays: PropTypes.func.isRequired,
+  voyage: PropTypes.object.isRequired,
+  pays: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  voyage: state.voyage
+  voyage: state.voyage,
+  pays: state.pays,
 });
 
-export default connect(mapStateToProps, { getVoyage })(Voyage);
+export default connect(mapStateToProps, { getVoyage, getPays })(Voyage);

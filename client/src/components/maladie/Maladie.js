@@ -12,16 +12,16 @@ class Maladie extends Component {
   }
 
   render() {
-    const { pays, loading } = this.props.pays;
+    const { maladie, loading } = this.props.maladie;
     const { vaccin } = this.props.vaccin;
 
     console.log('vaccin', vaccin);
-    let paysContent;
+    let maladieContent;
 
-    if (pays === null || loading) {
-      paysContent = <Spinner />;
+    if (maladie === null || loading) {
+      maladieContent = <Spinner />;
     } else {
-      paysContent = <MaladieFeed pays={pays} />;
+      maladieContent = <MaladieFeed maladie={maladie} />;
     }
 
     return (
@@ -29,8 +29,8 @@ class Maladie extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <MaladieForm vaccin={vaccin} />
-              {paysContent}
+              <MaladieForm vaccin={vaccin} maladie={maladie} />
+              {maladieContent}
             </div>
           </div>
         </div>
@@ -41,12 +41,12 @@ class Maladie extends Component {
 
 Maladie.propTypes = {
   getMaladie: PropTypes.func.isRequired,
-  pays: PropTypes.object.isRequired,
+  maladie: PropTypes.object.isRequired,
   vaccin: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-  pays: state.pays,
+  maladie: state.maladie,
   vaccin: state.vaccin
 });
 
