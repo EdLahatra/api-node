@@ -9,6 +9,13 @@ class CentreForm extends Component {
     super(props);
     this.state = {
       text: '',
+      service: '',
+      numero: '',
+      rue: '',
+      cp: '',
+      ville: '',
+      telephone: '',
+      email: '',
       errors: {}
     };
 
@@ -29,10 +36,26 @@ class CentreForm extends Component {
 
     const newCentre = {
       name: this.state.text,
+      service: this.state.service,
+      numero: this.state.numero,
+      rue: this.state.rue,
+      cp: this.state.cp,
+      ville: this.state.ville,
+      telephone: this.state.telephone,
+      email: this.state.email,
     };
 
     this.props.addCentre(newCentre);
-    this.setState({ text: '' });
+    this.setState({
+      text: '',
+      service: '',
+      numero: '',
+      rue: '',
+      cp: '',
+      ville: '',
+      telephone: '',
+      email: '',
+    });
   }
 
   onChange(e) {
@@ -50,11 +73,60 @@ class CentreForm extends Component {
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <TextAreaFieldGroup
-                  placeholder="Create a Centre"
+                  placeholder="name"
                   name="text"
                   value={this.state.text}
                   onChange={this.onChange}
                   error={errors.text}
+                />
+                <TextAreaFieldGroup
+                  placeholder="service"
+                  name="service"
+                  value={this.state.service}
+                  onChange={this.onChange}
+                  error={errors.service}
+                />
+                <TextAreaFieldGroup
+                  placeholder="numero"
+                  name="numero"
+                  value={this.state.numero}
+                  onChange={this.onChange}
+                  error={errors.numero}
+                />
+                <TextAreaFieldGroup
+                  placeholder="rue"
+                  name="rue"
+                  value={this.state.rue}
+                  onChange={this.onChange}
+                  error={errors.rue}
+                />
+                <TextAreaFieldGroup
+                  placeholder="ville"
+                  name="ville"
+                  value={this.state.ville}
+                  onChange={this.onChange}
+                  error={errors.ville}
+                />
+                <TextAreaFieldGroup
+                  placeholder="Code postal"
+                  name="cp"
+                  value={this.state.cp}
+                  onChange={this.onChange}
+                  error={errors.cp}
+                />
+                <TextAreaFieldGroup
+                  placeholder="telephone"
+                  name="telephone"
+                  value={this.state.telephone}
+                  onChange={this.onChange}
+                  error={errors.telephone}
+                />
+                <TextAreaFieldGroup
+                  placeholder="email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                  error={errors.email}
                 />
               </div>
               <button type="submit" className="btn btn-dark">

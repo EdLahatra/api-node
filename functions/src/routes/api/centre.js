@@ -60,6 +60,13 @@ router.post(
 
     const newCentre = new Centre({
       name: req.body.name,
+      service: req.body.service,
+      numero: req.body.numero,
+      rue: req.body.rue,
+      cp: req.body.cp,
+      ville: req.body.ville,
+      telephone: req.body.telephone,
+      email: req.body.email,
     });
 
     newCentre.save().then(post => res.json(post));
