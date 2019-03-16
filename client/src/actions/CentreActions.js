@@ -56,13 +56,13 @@ export const getCentres = () => dispatch => {
     .get('/api/centres')
     .then(res =>
       dispatch({
-        type: GET_CENTRES,
+        type: GET_CENTRE,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_CENTRES,
+        type: GET_CENTRE,
         payload: []
       })
     );

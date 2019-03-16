@@ -4,14 +4,14 @@ import QuestionItem from './QuestionItem';
 
 class QuestionFeed extends Component {
   render() {
-    const { questions } = this.props;
+    const { checklists } = this.props;
 
-    return questions.map(question => <QuestionItem key={question._id} question={question} />);
+    return checklists.map(checklist => <QuestionItem key={checklist._id} checklist={checklist} />);
   }
 }
 
 QuestionFeed.propTypes = {
-  questions: PropTypes.array.isRequired
+  checklists: PropTypes.array.isRequired
 };
 
 export default QuestionFeed;

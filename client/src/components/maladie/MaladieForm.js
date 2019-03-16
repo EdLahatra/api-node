@@ -13,6 +13,7 @@ class MaladieForm extends Component {
       errors: {},
       vaccin: '',
       vaccinList: [],
+      sejourList: []
     };
 
     this.onChange = this.onChange.bind(this);
@@ -33,7 +34,9 @@ class MaladieForm extends Component {
     const newMaladie = {
       name: this.state.text,
       vaccin: this.state.vaccinList,
+      sejour: this.state.isCheckedSejour,
     };
+
     this.props.addMaladie(newMaladie);
     this.setState({ text: '', vaccin: [] });
   }
@@ -52,7 +55,19 @@ class MaladieForm extends Component {
     this.setState({ vaccinList });
   }
 
+  toggleChangeSejour = item => {
+    let sejourList = [];
+    if (this.isCheckedSejour(item)){
+      sejourList = this.state.sejourList.filter(key => key._id !== item._id)
+    } else {
+      sejourList = [...this.state.sejourList, item]
+    }
+    this.setState({ sejourList });
+  }
+
   isChecked = item => this.state.vaccinList.filter(key => key._id === item._id).length > 0
+
+  isCheckedSejour = item => this.state.sejourList.filter(key => key._id === item._id).length > 0
 
   render() {
     const { errors, vaccinList } = this.state;
@@ -71,12 +86,26 @@ class MaladieForm extends Component {
                   onChange={this.onChange}
                   error={errors.text}
                 />
+                <p>Vaccin</p>
                 {
                   this.props.vaccin.map((item, key) => {
-                    console.log('this.isChecked(item._id)', this.isChecked(item._id))
                     return (
                       <div key={key}>
                         {item.name}
+                        <input type="checkbox"
+                          checked={this.isChecked(item)}
+                          onChange={() => this.toggleChange(item)}
+                        />
+                      </div>
+                    )
+                  })
+                }
+                <p>Sejour</p>
+                {
+                  this.props.sejour.map((item, key) => {
+                    return (
+                      <div key={`${key} sejour`}>
+                        {item.description}
                         <input type="checkbox"
                           checked={this.isChecked(item)}
                           onChange={() => this.toggleChange(item)}

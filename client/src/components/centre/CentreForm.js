@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import { addCentre } from '../../actions/CentreActions';
+import { addCentre, updateCentre } from '../../actions/CentreActions';
 
 class CentreForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
-      service: '',
-      numero: '',
-      rue: '',
-      cp: '',
-      ville: '',
-      telephone: '',
-      email: '',
+      name: this.props.data.name || '',
+      service: this.props.data.service || '',
+      numero: this.props.data.numero || '',
+      rue: this.props.data.rue || '',
+      cp: this.props.data.cp || '',
+      ville: this.props.data.ville || '',
+      telephone: this.props.data.telephone || '',
+      email: this.props.data.email || '',
       errors: {}
     };
 
@@ -35,7 +35,7 @@ class CentreForm extends Component {
     const { user } = this.props.auth;
 
     const newCentre = {
-      name: this.state.text,
+      name: this.state.name,
       service: this.state.service,
       numero: this.state.numero,
       rue: this.state.rue,
@@ -45,9 +45,15 @@ class CentreForm extends Component {
       email: this.state.email,
     };
 
-    this.props.addCentre(newCentre);
+    if(this.props.data._id) {
+      newCentre.id = this.props.data._id
+      this.props.updateCentre(newCentre);
+    } else {
+      this.props.addCentre(newCentre);
+    }
+    this.props.onClose();
     this.setState({
-      text: '',
+      name: '',
       service: '',
       numero: '',
       rue: '',
@@ -64,7 +70,6 @@ class CentreForm extends Component {
 
   render() {
     const { errors } = this.state;
-
     return (
       <div className="Centre-form mb-3">
         <div className="card card-info">
@@ -74,8 +79,8 @@ class CentreForm extends Component {
               <div className="form-group">
                 <TextAreaFieldGroup
                   placeholder="name"
-                  name="text"
-                  value={this.state.text}
+                  name="name"
+                  value={this.state.name}
                   onChange={this.onChange}
                   error={errors.text}
                 />
@@ -141,6 +146,7 @@ class CentreForm extends Component {
 }
 
 CentreForm.propTypes = {
+  updateCentre: PropTypes.func.isRequired,
   addCentre: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
@@ -151,4 +157,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addCentre })(CentreForm);
+export default connect(mapStateToProps, { addCentre, updateCentre })(CentreForm);

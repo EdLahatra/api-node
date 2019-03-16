@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { deleteSejour, updateSejour } from '../../actions/SejourActions';
+// import attribut from '../../attributs';
 
 class SejourItem extends Component {
   constructor(props) {

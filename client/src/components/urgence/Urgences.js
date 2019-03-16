@@ -1,24 +1,46 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Modal from 'react-responsive-modal';
 import UrgenceForm from './UrgenceForm';
 import UrgenceFeed from './UrgenceFeed';
 import Spinner from '../common/Spinner';
-import { getUrgences } from '../../actions/UrgenceActions';
+import { getUrgence } from '../../actions/UrgenceActions';
 
 class Urgences extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      data: {}
+    };
+  }
+
+  onOpenModal = () => {
+    this.setState({ open: true, data: {} });
+  };
+
+  onUpdate = data => {
+    this.setState({ open: true, data });
+  };
+ 
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
+
   componentDidMount() {
-    this.props.getUrgences();
+    this.props.getUrgence();
   }
 
   render() {
-    const { urgences, loading } = this.props.urgence;
+    const { urgence, loading } = this.props.urgence;
+    const { open, data } = this.state;
     let urgenceContent;
 
-    if (urgences === null || loading) {
+    if (urgence === null || loading) {
       urgenceContent = <Spinner />;
     } else {
-      urgenceContent = <UrgenceFeed urgences={urgences} />;
+      urgenceContent = <UrgenceFeed urgence={urgence} onUpdate={this.onUpdate} />;
     }
 
     return (
@@ -26,18 +48,23 @@ class Urgences extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <UrgenceForm />
+                <button onClick={this.onOpenModal} type="submit" className="btn btn-dark">
+                  Ajout
+                </button>
               {urgenceContent}
             </div>
           </div>
         </div>
+        <Modal open={open} onClose={this.onCloseModal} center>
+          <UrgenceForm onClose={this.onCloseModal} data={data} />
+        </Modal>
       </div>
     );
   }
 }
 
 Urgences.propTypes = {
-  getUrgences: PropTypes.func.isRequired,
+  getUrgence: PropTypes.func.isRequired,
   urgence: PropTypes.object.isRequired
 };
 
@@ -45,4 +72,4 @@ const mapStateToProps = state => ({
   urgence: state.urgence
 });
 
-export default connect(mapStateToProps, { getUrgences })(Urgences);
+export default connect(mapStateToProps, { getUrgence })(Urgences);

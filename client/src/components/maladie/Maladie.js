@@ -14,8 +14,7 @@ class Maladie extends Component {
   render() {
     const { maladie, loading } = this.props.maladie;
     const { vaccin } = this.props.vaccin;
-
-    console.log('vaccin', vaccin);
+    const { sejour } = this.props.sejour;
     let maladieContent;
 
     if (maladie === null || loading) {
@@ -29,7 +28,7 @@ class Maladie extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <MaladieForm vaccin={vaccin} maladie={maladie} />
+              <MaladieForm vaccin={vaccin} maladie={maladie} sejour={sejour} />
               {maladieContent}
             </div>
           </div>
@@ -47,7 +46,8 @@ Maladie.propTypes = {
 
 const mapStateToProps = state => ({
   maladie: state.maladie,
-  vaccin: state.vaccin
+  vaccin: state.vaccin,
+  sejour: state.sejour
 });
 
 export default connect(mapStateToProps, { getMaladie })(Maladie);

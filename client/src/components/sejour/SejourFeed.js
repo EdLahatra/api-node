@@ -4,16 +4,16 @@ import SejourItem from './SejourItem';
 
 class SejourFeed extends Component {
   render() {
-    const { sejours } = this.props;
-    if(!sejours) {
+    const { sejour } = this.props;
+    if(!sejour) {
       return <div />
     }
-    return sejours.map(sejour => <SejourItem key={sejour._id} sejour={sejour} />);
+    return sejour.map(item => <SejourItem key={item._id} sejour={item} />);
   }
 }
 
 SejourFeed.propTypes = {
-  sejours: PropTypes.array.isRequired
+  sejour: PropTypes.array.isRequired
 };
 
 export default SejourFeed;

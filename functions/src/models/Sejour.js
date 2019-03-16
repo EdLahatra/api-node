@@ -3,9 +3,13 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const SejourSchema = new Schema({
-  name: {
+  description: {
     type: String,
     required: true
+  },
+  isQuestion: {
+    type: Boolean,
+    default: false
   },
   date: {
     type: Date,

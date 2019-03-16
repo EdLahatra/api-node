@@ -4,16 +4,22 @@ import CentreItem from './CentreItem';
 
 class CentreFeed extends Component {
   render() {
-    const { centres } = this.props;
-    if(!centres) {
+    const { centre } = this.props;
+    if(!centre) {
       return <div />
     }
-    return centres.map(centre => <CentreItem key={centre._id} centre={centre} />);
+    
+    return centre.map(item => <CentreItem
+      key={item._id}
+      centre={item}
+      onUpdate={() => this.props.onUpdate(item)}
+      />);
   }
 }
 
+
 CentreFeed.propTypes = {
-  centres: PropTypes.array.isRequired
+  centre: PropTypes.array.isRequired
 };
 
 export default CentreFeed;

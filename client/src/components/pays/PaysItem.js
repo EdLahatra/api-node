@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { deletePays, updatePays } from '../../actions/PaysActions';
+import attribut from '../../attributs';
 
 class PaysItem extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ class PaysItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-10">
-            <p className="lead">{pays.name}</p>
+          {attribut.pays.map((key, i) => <div key={i}>{key}: {pays[key]}</div>)}
               <span>
                 <button
                   onClick={this.onDeleteClick.bind(this, pays._id)}

@@ -72,6 +72,39 @@ router.post(
   }
 );
 
+// @route   PUT api/voyage/:id
+// @desc    Update voyage to post
+// @access  Private
+router.put(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validatePostInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // If any errors, send 400 with errors object
+      return res.status(400).json(errors);
+    }
+    console.log('ffsdfsdfsdfsdf ====================+>')
+    Voyage.findById(req.params.id)
+      .then(post => {
+
+        post.name = req.body.name,
+        post.dateDepart = req.body.dateDepart,
+        post.dateArrive = req.body.dateArrive,
+        post.id = Types.ObjectId(req.user.id),
+        post.pays = Types.ObjectId(req.body.pays),
+
+        // Save
+        post.save()
+        .then(post => res.json(post))
+        .catch(err => res.status(400).json({ errors: 'No found' }));
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+  }
+);
+
 // @route   DELETE api/posts/:id
 // @desc    Delete post
 // @access  Private

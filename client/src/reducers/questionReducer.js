@@ -8,8 +8,8 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  questions: [],
-  question: {},
+  checklists: [],
+  checklist: {},
   loading: false,
 };
 
@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
     case UPDATE_QUESTION:
       return {
         ...state,
-        questions: [action.payload, ...state.questions.filter(item => item._id !== action.payload._id)]
+        checklists: [action.payload, ...state.checklists.filter(item => item._id !== action.payload._id)]
       };
     case QUESTION_LOADING:
       return {
@@ -28,24 +28,24 @@ export default function(state = initialState, action) {
     case GET_QUESTIONS:
       return {
         ...state,
-        questions: action.payload,
+        checklists: action.payload,
         loading: false
       };
     case GET_QUESTION:
       return {
         ...state,
-        question: action.payload,
+        checklist: action.payload,
         loading: false
       };
     case ADD_QUESTION:
       return {
         ...state,
-        questions: [action.payload, ...state.questions]
+        checklists: [action.payload, ...state.checklists]
       };
     case DELETE_QUESTION:
       return {
         ...state,
-        questions: state.questions.filter(question => question._id !== action.payload)
+        checklists: state.checklists.filter(checklist => checklist._id !== action.payload)
       };
     default:
       return state;

@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroupId';
 import TextFieldGroup from '../common/TextFieldGroup';
-import { addVoyage } from '../../actions/VoyageActions';
+import { addVoyage, updateVoyage } from '../../actions/VoyageActions';
 
 class VoyageForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
       errors: {
         pays: '',
       },
-      pays: '',
-      depart: '',
-      arrive: '',
+      name: this.props.data.name || '',
+      depart: this.props.data.depart || '',
+      arrive: this.props.data.arrive || '',
+      pays: this.props.data.pays || '',
     };
 
     this.onChange = this.onChange.bind(this);
@@ -35,15 +35,22 @@ class VoyageForm extends Component {
     const { user } = this.props.auth;
 
     const newVoyage = {
-      name: this.state.text,
+      name: this.state.name,
       dateDepart: this.state.dateDepart,
       dateArrive: this.state.dateDepart,
       id: user._id,
       pays: this.state.pays || [],
     };
-    this.props.addVoyage(newVoyage);
+    if(this.props.data._id) {
+      newVoyage.id = this.props.data._id
+      this.props.updateVoyage(newVoyage);
+    } else {
+      this.props.addVoyage(newVoyage);
+    }
+    this.props.onClose();
+
     this.setState({
-      text: '',
+      name: '',
       errors: {
         pays: '',
       },
@@ -69,13 +76,13 @@ class VoyageForm extends Component {
               <div className="form-group">
                 <TextAreaFieldGroup
                   placeholder="Create a Voyage"
-                  name="text"
-                  value={this.state.text}
+                  name="name"
+                  value={this.state.name}
                   onChange={this.onChange}
-                  error={errors.text}
+                  error={errors.name}
                 />
                 <SelectListGroup
-                  placeholder="Status"
+                  placeholder="pays"
                   name="pays"
                   value={this.state.pays}
                   onChange={this.onChange}
@@ -112,6 +119,7 @@ class VoyageForm extends Component {
 }
 
 VoyageForm.propTypes = {
+  updateVoyage: PropTypes.func.isRequired,
   addVoyage: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
@@ -123,4 +131,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addVoyage })(VoyageForm);
+export default connect(mapStateToProps, { addVoyage, updateVoyage })(VoyageForm);

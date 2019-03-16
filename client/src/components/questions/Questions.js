@@ -12,13 +12,13 @@ class Questions extends Component {
   }
 
   render() {
-    const { questions, loading } = this.props.question;
+    const { checklists, loading } = this.props.checklist;
     let questionContent;
 
-    if (questions === null || loading) {
+    if (checklists === null || loading) {
       questionContent = <Spinner />;
     } else {
-      questionContent = <QuestionFeed questions={questions} />;
+      questionContent = <QuestionFeed checklists={checklists} />;
     }
 
     return (
@@ -38,11 +38,11 @@ class Questions extends Component {
 
 Questions.propTypes = {
   getQuestions: PropTypes.func.isRequired,
-  question: PropTypes.object.isRequired
+  checklist: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  question: state.question
+  checklist: state.checklist,
 });
 
 export default connect(mapStateToProps, { getQuestions })(Questions);

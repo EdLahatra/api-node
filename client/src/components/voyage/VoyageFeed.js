@@ -5,8 +5,10 @@ import VoyageItem from './VoyageItem';
 class VoyageFeed extends Component {
   render() {
     const { voyage } = this.props;
-
-    return voyage.map(voyage => <VoyageItem key={voyage._id} voyage={voyage} />);
+    if (!voyage){
+      return <div />
+    }
+    return voyage.map(voyage => <VoyageItem key={voyage._id} voyage={voyage} onUpdate={() => this.props.onUpdate(voyage)} />);
   }
 }
 

@@ -15,7 +15,7 @@ import {
 export const updateUrgence = urgenceData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/urgences/${urgenceData.id}`, urgenceData)
+    .put(`/api/urgence/${urgenceData.id}`, urgenceData)
     .then(res =>
       dispatch({
         type: UPDATE_URGENCE,
@@ -34,7 +34,7 @@ export const updateUrgence = urgenceData => dispatch => {
 export const addUrgence = urgenceData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/urgences', urgenceData)
+    .post('/api/urgence', urgenceData)
     .then(res =>
       dispatch({
         type: ADD_URGENCE,
@@ -49,20 +49,20 @@ export const addUrgence = urgenceData => dispatch => {
     );
 };
 
-// Get Urgences
-export const getUrgences = () => dispatch => {
-  dispatch(setUrgencesLoading());
+// Get urgence
+export const getUrgence = () => dispatch => {
+  dispatch(setUrgenceLoading());
   axios
-    .get('/api/urgences')
+    .get('/api/urgence')
     .then(res =>
       dispatch({
-        type: GET_URGENCES,
+        type: GET_URGENCE,
         payload: res.data
       })
     )
     .catch(err =>
       dispatch({
-        type: GET_URGENCES,
+        type: GET_URGENCE,
         payload: null
       })
     );
@@ -70,9 +70,9 @@ export const getUrgences = () => dispatch => {
 
 // Get Post
 export const postUrgence = id => dispatch => {
-  dispatch(setUrgencesLoading());
+  dispatch(setUrgenceLoading());
   axios
-    .get(`/api/urgences/${id}`)
+    .get(`/api/urgence/${id}`)
     .then(res =>
       dispatch({
         type: GET_URGENCE,
@@ -87,10 +87,10 @@ export const postUrgence = id => dispatch => {
     );
 };
 
-// Delete Urgences
+// Delete urgence
 export const deleteUrgence = id => dispatch => {
   axios
-    .delete(`/api/urgences/${id}`)
+    .delete(`/api/urgence/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_URGENCE,
@@ -107,7 +107,7 @@ export const deleteUrgence = id => dispatch => {
 
 
 // Set loading state
-export const setUrgencesLoading = () => {
+export const setUrgenceLoading = () => {
   return {
     type: URGENCE_LOADING
   };

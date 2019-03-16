@@ -109,6 +109,13 @@ router.put(
 
         // Add to comments array
         post.name = req.body.name;
+        post.service = req.body.service,
+        post.numero = req.body.numero,
+        post.rue = req.body.rue,
+        post.cp = req.body.cp,
+        post.ville = req.body.ville,
+        post.telephone = req.body.telephone,
+        post.email = req.body.email,
 
         // Save
         post.save()

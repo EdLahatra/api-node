@@ -4,14 +4,21 @@ import UrgenceItem from './UrgenceItem';
 
 class UrgenceFeed extends Component {
   render() {
-    const { urgences } = this.props;
-
-    return urgences.map(urgence => <UrgenceItem key={urgence._id} urgence={urgence} />);
+    const { urgence } = this.props;
+    if (!urgence){
+      return <div />
+    }
+    return urgence.map(urgence => <UrgenceItem
+      key={urgence._id}
+      urgence={urgence}
+      onUpdate={() => this.props.onUpdate(urgence)}
+      />);
   }
 }
 
+
 UrgenceFeed.propTypes = {
-  urgences: PropTypes.array.isRequired
+  urgence: PropTypes.array.isRequired
 };
 
 export default UrgenceFeed;

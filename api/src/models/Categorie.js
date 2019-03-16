@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Create Schema
-const QuestionSchema = new Schema({
-  description: {
+const CategorieSchema = new Schema({
+  name: {
     type: String,
     required: true
   },
@@ -13,4 +13,4 @@ const QuestionSchema = new Schema({
   }
 });
 
-module.exports = Questions = mongoose.model('question', QuestionSchema);
+export default mongoose.model('categorie',CategorieSchema);

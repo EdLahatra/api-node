@@ -59,7 +59,9 @@ router.post(
     }
 
     const newMaladie = new Maladie({
+      description: req.body.description,
       name: req.body.name,
+      sejour: req.body.medecin || [],
       medecin: req.body.medecin || [],
       vaccin: req.body.vaccin || [],
       vaccinSugg: req.body.vaccinSugg || [],

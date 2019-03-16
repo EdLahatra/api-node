@@ -71,7 +71,7 @@ class SejourForm extends Component {
 SejourForm.propTypes = {
   addSejour: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  // errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

@@ -15,7 +15,7 @@ import {
 export const updateQuestion = questionData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/questions/${questionData.id}`, questionData)
+    .put(`/api/checklist/${questionData.id}`, questionData)
     .then(res =>
       dispatch({
         type: UPDATE_QUESTION,
@@ -34,7 +34,7 @@ export const updateQuestion = questionData => dispatch => {
 export const addQuestion = questionData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/questions', questionData)
+    .post('/api/checklist', questionData)
     .then(res =>
       dispatch({
         type: ADD_QUESTION,
@@ -53,7 +53,7 @@ export const addQuestion = questionData => dispatch => {
 export const getQuestions = () => dispatch => {
   dispatch(setQuestionsLoading());
   axios
-    .get('/api/questions')
+    .get('/api/checklist')
     .then(res =>
       dispatch({
         type: GET_QUESTIONS,
@@ -72,7 +72,7 @@ export const getQuestions = () => dispatch => {
 export const postQuestion = id => dispatch => {
   dispatch(setQuestionsLoading());
   axios
-    .get(`/api/questions/${id}`)
+    .get(`/api/checklist/${id}`)
     .then(res =>
       dispatch({
         type: GET_QUESTION,
@@ -90,7 +90,7 @@ export const postQuestion = id => dispatch => {
 // Delete Questions
 export const deleteQuestion = id => dispatch => {
   axios
-    .delete(`/api/questions/${id}`)
+    .delete(`/api/checklist/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_QUESTION,

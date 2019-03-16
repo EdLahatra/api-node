@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { deleteCentre, updateCentre } from '../../actions/CentreActions';
+import attribut from '../../attributs';
 
 class CentreItem extends Component {
   constructor(props) {
@@ -16,7 +17,6 @@ class CentreItem extends Component {
       open: false,
       id: null,
     };
-
     this.onChange = this.onChange.bind(this);
   }
 
@@ -59,7 +59,7 @@ class CentreItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-10">
-            <p className="lead">{centre.description}</p>
+            {attribut.centre.map((key, i) => <div key={i}>{key}: {centre[key]}</div>)}
               <span>
                 <button
                   onClick={this.onDeleteClick.bind(this, centre._id)}
@@ -69,7 +69,7 @@ class CentreItem extends Component {
                   <i className="fas fa-times" />
                 </button>
                 <button
-                  onClick={this.onOpenModal.bind(this, centre)}
+                  onClick={() => this.props.onUpdate(centre)}
                   type="button"
                   className="btn btn-info mr-1"
                 >
@@ -78,29 +78,6 @@ class CentreItem extends Component {
               </span>
           </div>
         </div>
-        <Modal open={open} onClose={this.onCloseModal} center>
-          <div className="Centre-form mb-3">
-            <div className="card card-info">
-              <div className="card-header bg-info text-white">Say Something...</div>
-              <div className="card-body">
-                <form onSubmit={this.onSubmit}>
-                  <div className="form-group">
-                    <TextAreaFieldGroup
-                      placeholder="Create a Centre"
-                      name="text"
-                      value={this.state.text}
-                      onChange={this.onChange}
-                      error={errors.text}
-                    />
-                  </div>
-                </form>
-                <button onClick={this.onUpdateClick.bind(this, centre._id)} type="submit" className="btn btn-dark">
-                  Update
-                </button>
-              </div>
-            </div>
-          </div>
-        </Modal>
       </div>
     );
   }

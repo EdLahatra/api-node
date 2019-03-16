@@ -6,6 +6,14 @@ const MaladieSchema = new Schema({
   name: {
     type: String
   },
+  sejour: [
+    {
+      sejour: {
+        type: Schema.Types.ObjectId,
+        ref: 'sejour'
+      }
+    }
+  ],
   vaccin: [
     {
       vaccin: {

@@ -15,3 +15,30 @@
 [debug] [2019-03-14T16:25:04.731Z] <<< HTTP RESPONSE 200
 [debug] [2019-03-14T16:25:04.738Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/notedefrais-1525433608047:testIamPermissions  
 
+[debug] [2019-03-16T12:30:05.939Z] ----------------------------------------------------------------------
+[debug] [2019-03-16T12:30:05.943Z] Command:       /Users/lahnjara/.nvm/versions/node/v8.11.1/bin/node /Users/lahnjara/.nvm/versions/node/v8.11.1/bin/firebase functions:shell
+[debug] [2019-03-16T12:30:05.943Z] CLI Version:   6.4.0
+[debug] [2019-03-16T12:30:05.943Z] Platform:      darwin
+[debug] [2019-03-16T12:30:05.943Z] Node Version:  v8.11.1
+[debug] [2019-03-16T12:30:05.945Z] Time:          Sat Mar 16 2019 15:30:05 GMT+0300 (EAT)
+[debug] [2019-03-16T12:30:05.945Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-03-16T12:30:05.958Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-03-16T12:30:05.958Z] > authorizing via signed-in user
+[debug] [2019-03-16T12:30:05.958Z] [iam] checking project notedefrais-1525433608047 for permissions ["firebase.projects.get"]
+[debug] [2019-03-16T12:30:05.960Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/notedefrais-1525433608047:testIamPermissions  
+
+[debug] [2019-03-16T12:30:08.037Z] <<< HTTP RESPONSE 200
+[info] i  functions: Preparing to emulate functions.
+[debug] [2019-03-16T12:30:08.905Z] Fetching environment
+[debug] [2019-03-16T12:30:09.416Z] Error: EACCES: permission denied, open '/Users/lahnjara/.config/gcloud/application_default_credentials.json'
+    at Object.fs.openSync (fs.js:646:18)
+    at Object.fs.writeFileSync (fs.js:1299:33)
+    at module.exports (/Users/lahnjara/.nvm/versions/node/v8.11.1/lib/node_modules/firebase-tools/lib/ensureDefaultCredentials.js:28:8)
+    at FunctionsEmulator.start (/Users/lahnjara/.nvm/versions/node/v8.11.1/lib/node_modules/firebase-tools/lib/functionsEmulator.js:106:5)
+    at Command.module.exports [as _action] (/Users/lahnjara/.nvm/versions/node/v8.11.1/lib/node_modules/firebase-tools/lib/functionsShellCommandAction.js:13:10)
+    at /Users/lahnjara/.nvm/versions/node/v8.11.1/lib/node_modules/firebase-tools/lib/command.js:167:37
+    at <anonymous>
+    at process._tickDomainCallback (internal/process/next_tick.js:228:7)
+[error] 
+[error] Error: An unexpected error has occurred.

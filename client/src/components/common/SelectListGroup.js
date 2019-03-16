@@ -18,6 +18,9 @@ const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
         value={value}
         onChange={onChange}
       >
+        <option key={'option.label'} value={''}>
+          placeholder
+        </option>
         {selectOptions}
       </select>
       {info && <small className="form-text text-muted">{info}</small>}

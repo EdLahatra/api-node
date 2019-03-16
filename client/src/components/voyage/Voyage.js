@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Modal from 'react-responsive-modal';
 import VoyageForm from './VoyageForm';
 import VoyageFeed from './VoyageFeed';
 import Spinner from '../common/Spinner';
@@ -8,34 +9,60 @@ import { getVoyage } from '../../actions/VoyageActions';
 import { getPays } from '../../actions/PaysActions';
 
 class Voyage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      data: {}
+    };
+  }
+
+  onOpenModal = () => {
+    this.setState({ open: true, data: {} });
+  };
+
+  onUpdate = data => {
+    this.setState({ open: true, data });
+  };
+ 
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
+
   componentDidMount() {
-    // this.props.getVoyage();
-    this.props.getPays();
+    const { pays } = this.props.pays;
+    this.props.getVoyage();
+    if(pays.length === 0) this.props.getPays();
   }
 
   render() {
     const { voyage, loading } = this.props.voyage;
     const { pays } = this.props.pays;
+    const { open, data } = this.state;
 
-    console.log('pays pays', pays);
     let voyageContent;
 
     if (voyage === null || loading) {
       voyageContent = <Spinner />;
     } else {
-      voyageContent = <VoyageFeed voyage={voyage} />;
+      voyageContent = <VoyageFeed voyage={voyage} onUpdate={this.onUpdate} />;
     }
 
     return (
       <div className="feed">
         <div className="container">
           <div className="row">
+          <button onClick={this.onOpenModal} type="submit" className="btn btn-dark">
+                  Ajout
+                </button>
             <div className="col-md-12">
-              <VoyageForm pays={pays} />
               {voyageContent}
             </div>
           </div>
         </div>
+        <Modal open={open} onClose={this.onCloseModal} center>
+          <VoyageForm pays={pays} onClose={this.onCloseModal} data={data} />
+        </Modal>
       </div>
     );
   }

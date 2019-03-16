@@ -20,7 +20,6 @@ export const registerUser = (userData, history) => dispatch => {
 
 // Login - Get User Token
 export const loginUser = userData => dispatch => {
-  console.log('userData', userData);
   axios
     .post(`${config.baseUrl}/api/users/login`, userData)
     .then(res => {
@@ -36,7 +35,6 @@ export const loginUser = userData => dispatch => {
       dispatch(setCurrentUser(decoded));
     })
     .catch(err => {
-      console.log('errr', err);
       const payload = err.response ? err.response.data : err
       dispatch({
         type: GET_ERRORS,

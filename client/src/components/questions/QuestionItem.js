@@ -52,24 +52,24 @@ class QuestionItem extends Component {
   }
 
   render() {
-    const { question } = this.props;
+    const { checklist } = this.props;
     const { open, errors } = this.state;
 
     return (
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-10">
-            <p className="lead">{question.description}</p>
+            <p className="lead">{checklist.description}</p>
               <span>
                 <button
-                  onClick={this.onDeleteClick.bind(this, question._id)}
+                  onClick={this.onDeleteClick.bind(this, checklist._id)}
                   type="button"
                   className="btn btn-danger mr-1"
                 >
                   <i className="fas fa-times" />
                 </button>
                 <button
-                  onClick={this.onOpenModal.bind(this, question)}
+                  onClick={this.onOpenModal.bind(this, checklist)}
                   type="button"
                   className="btn btn-info mr-1"
                 >
@@ -94,7 +94,7 @@ class QuestionItem extends Component {
                     />
                   </div>
                 </form>
-                <button onClick={this.onUpdateClick.bind(this, question._id)} type="submit" className="btn btn-dark">
+                <button onClick={this.onUpdateClick.bind(this, checklist._id)} type="submit" className="btn btn-dark">
                   Update
                 </button>
               </div>
@@ -113,7 +113,7 @@ QuestionItem.defaultProps = {
 QuestionItem.propTypes = {
   deleteQuestion: PropTypes.func.isRequired,
   updateQuestion: PropTypes.func.isRequired,
-  question: PropTypes.object.isRequired,
+  checklist: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
 

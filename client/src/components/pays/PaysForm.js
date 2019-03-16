@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import TextFieldGroup from '../common/TextFieldGroup';
+import SelectListGroup from '../common/SelectListGroupId';
 import { addPays } from '../../actions/PaysActions';
+import attribut from '../../attributs';
 
 class PaysForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
+      name: '',
+      capital: '',
+      indicatifPhone: '',
+      decalageHoraore: '',
+      monnaie: '',
+      permis: '',
+      maladie: '',
       errors: {}
     };
 
@@ -28,7 +36,13 @@ class PaysForm extends Component {
     const { user } = this.props.auth;
 
     const newPays = {
-      name: this.state.text,
+      name: this.state.name,
+      capital: this.state.capital,
+      indicatifPhone: this.state.indicatifPhone,
+      decalageHoraore: this.state.decalageHoraore,
+      monnaie: this.state.monnaie,
+      permis: this.state.permis,
+      maladie: this.state.maladie,
     };
     this.props.addPays(newPays);
     this.setState({ text: '' });
@@ -48,13 +62,38 @@ class PaysForm extends Component {
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
-                <TextAreaFieldGroup
+              {
+                attribut.pays.map((key, i) => {
+                  if (key === 'maladie') {
+                    return (
+                      <SelectListGroup
+                        key={`${i} ${key}`}
+                        placeholder={key}
+                        value={this.state[key]}
+                        onChange={this.onChange}
+                        options={this.props.maladie || []}
+                        error={errors.maladie}
+                        info=""
+                      />
+                    )
+                  }
+                  return <TextFieldGroup
+                  key={`${i} ${key}`}
+                  placeholder={key}
+                  name={key}
+                  value={this.state[key]}
+                  onChange={this.onChange}
+                  error={errors[key]}
+                />
+                })
+              }
+                {/* <TextFieldGroup
                   placeholder="Create a Pays"
                   name="text"
                   value={this.state.text}
                   onChange={this.onChange}
                   error={errors.text}
-                />
+                /> */}
               </div>
               <button type="submit" className="btn btn-dark">
                 Submit

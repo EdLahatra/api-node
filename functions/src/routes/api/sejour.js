@@ -5,8 +5,6 @@ const passport = require('passport');
 
 // Sejour model
 const Sejour = require('../../models/Sejour');
-// Profile model
-const Profile = require('../../models/Profile');
 
 // Validation
 const validateSejourInput = require('../../validation/sejour');
@@ -59,7 +57,7 @@ router.post(
     }
 
     const newSejour = new Sejour({
-      name: req.body.name,
+      description: req.body.description,
     });
 
     newSejour.save().then(post => res.json(post));
@@ -101,7 +99,7 @@ router.put(
       .then(post => {
 
         // Add to comments array
-        post.name = req.body.name;
+        post.description = req.body.description;
 
         // Save
         post.save()
@@ -131,7 +129,7 @@ router.post(
       .then(post => {
         const newComment = {
           text: req.body.text,
-          name: req.body.name,
+          description: req.body.description,
           avatar: req.body.avatar,
           user: req.user.id
         };

@@ -4,14 +4,14 @@ const isEmpty = require('./is-empty');
 module.exports = function validateSejourInput(data) {
   let errors = {};
 
-  data.name = !isEmpty(data.name) ? data.name : '';
+  data.description = !isEmpty(data.description) ? data.description : '';
 
-  if (!Validator.isLength(data.name, { min: 10, max: 300 })) {
-    errors.name = 'Post must be between 10 and 300 characters';
+  if (!Validator.isLength(data.description, { min: 2, max: 300 })) {
+    errors.description = 'Post must be between 2 and 300 characters';
   }
 
-  if (Validator.isEmpty(data.name)) {
-    errors.name = 'Text field is required';
+  if (Validator.isEmpty(data.description)) {
+    errors.description = 'Text field is required';
   }
 
   return {

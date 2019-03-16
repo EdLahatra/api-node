@@ -33,6 +33,8 @@ import Medecin from './components/medecin/Medecin';
 import Centres from './components/centre/Centres';
 import Sejours from './components/sejour/Sejours';
 import Urgences from './components/urgence/Urgences';
+import Sanguin from './components/sanguin/Sanguin';
+import Categorie from './components/categorie/Categorie';
 import NotFound from './components/not-found/NotFound';
 
 import './App.css';
@@ -131,13 +133,19 @@ class App extends Component {
                 <PrivateRoute exact path="/pays" component={Pays} />
               </Switch>
               <Switch>
+                <PrivateRoute exact path="/sanguin" component={Sanguin} />
+              </Switch>
+              <Switch>
                 <PrivateRoute exact path="/vaccin" component={Vaccin} />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/question" component={Questions} />
+                <PrivateRoute exact path="/checklist" component={Questions} />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/question/:id" component={Question} />
+                <PrivateRoute exact path="/categorie" component={Categorie} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/checklist/:id" component={Question} />
               </Switch>
               <Route exact path="/not-found" component={NotFound} />
             </div>

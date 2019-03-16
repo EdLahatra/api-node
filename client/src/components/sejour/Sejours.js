@@ -12,13 +12,13 @@ class Sejours extends Component {
   }
 
   render() {
-    const { sejours, loading } = this.props.sejour;
+    const { sejour, loading } = this.props.sejour;
     let sejourContent;
 
-    if (sejours === null || loading) {
+    if (sejour === null || loading) {
       sejourContent = <Spinner />;
     } else {
-      sejourContent = <SejourFeed sejours={sejours} />;
+      sejourContent = <SejourFeed sejour={sejour} />;
     }
 
     return (

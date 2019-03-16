@@ -30,9 +30,10 @@ app.use((req, res, next) => {
 const users = require('./src/routes/api/users');
 const profile = require('./src/routes/api/profile');
 const posts = require('./src/routes/api/posts');
-const questions = require('./src/routes/api/questions');
+const checklist = require('./src/routes/api/checklist');
 const pays = require('./src/routes/api/pays');
 const sejour = require('./src/routes/api/sejour');
+const categorie = require('./src/routes/api/categorie');
 const vaccin = require('./src/routes/api/vaccin');
 const medecin = require('./src/routes/api/medecin');
 const allergie = require('./src/routes/api/allergie');
@@ -41,6 +42,7 @@ const maladie = require('./src/routes/api/maladie');
 const sante = require('./src/routes/api/sante');
 const voyage = require('./src/routes/api/voyage');
 const centre = require('./src/routes/api/centre');
+const urgence = require('./src/routes/api/urgence');
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -110,9 +112,10 @@ require('./src/config/passport')(passport);
 app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts', posts);
-app.use('/api/questions', questions);
+app.use('/api/checklist', checklist);
 app.use('/api/sejour', sejour);
 app.use('/api/vaccin', vaccin);
+app.use('/api/categorie', categorie);
 app.use('/api/medecin', medecin);
 app.use('/api/allergie', allergie);
 app.use('/api/sanguin', sanguin);
@@ -121,6 +124,7 @@ app.use('/api/maladie', maladie);
 app.use('/api/sante', sante);
 app.use('/api/voyage', voyage);
 app.use('/api/centres', centre);
+app.use('/api/urgence', urgence);
 
 // app.post("/login", async (req, res) => {
 //     const Entry = firebase.database().ref('users/');

@@ -13,6 +13,7 @@ class Pays extends Component {
 
   render() {
     const { pays, loading } = this.props.pays;
+    const { maladie } = this.props.maladie;
     let paysContent;
 
     if (pays === null || loading) {
@@ -26,7 +27,7 @@ class Pays extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <PaysForm />
+              <PaysForm maladie={maladie} />
               {paysContent}
             </div>
           </div>
@@ -42,7 +43,8 @@ Pays.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  pays: state.pays
+  pays: state.pays,
+  maladie: state.maladie,
 });
 
 export default connect(mapStateToProps, { getPays })(Pays);

@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
+const SelectListGroup = ({ name, value, error, info, onChange, options, placeholder }) => {
   const selectOptions = options.map(option => (
     <option key={option._id} value={option._id}>
       {option.name}
@@ -18,6 +18,9 @@ const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
         value={value}
         onChange={onChange}
       >
+        <option key={'option.label'} value={''}>
+          {placeholder}
+        </option>
         {selectOptions}
       </select>
       {info && <small className="form-text text-muted">{info}</small>}

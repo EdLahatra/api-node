@@ -60,6 +60,12 @@ router.post(
 
     const newPays = new Pays({
       name: req.body.name,
+      capital: req.body.name,
+      indicatifPhone: req.body.indicatifPhone,
+      decalageHoraore: req.body.decalageHoraore,
+      monnaie: req.body.monnaie,
+      permis: req.body.permis,
+      maladie: req.body.maladie || [],
     });
 
     newPays.save().then(post => res.json(post));
