@@ -35,6 +35,7 @@ import Sejours from './components/sejour/Sejours';
 import Urgences from './components/urgence/Urgences';
 import Sanguin from './components/sanguin/Sanguin';
 import Categorie from './components/categorie/Categorie';
+import Allergie from './components/allergie/Allergie';
 import NotFound from './components/not-found/NotFound';
 
 import './App.css';
@@ -110,6 +111,9 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/sejour" component={Sejours} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/allergie" component={Allergie} />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/urgence" component={Urgences} />

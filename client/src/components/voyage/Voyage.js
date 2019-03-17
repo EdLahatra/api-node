@@ -22,6 +22,7 @@ class Voyage extends Component {
   };
 
   onUpdate = data => {
+    console.log('data', data);
     this.setState({ open: true, data });
   };
  

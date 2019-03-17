@@ -64,6 +64,8 @@ router.post(
       monnaie: req.body.monnaie,
       permis: req.body.permis,
       maladie: req.body.maladie || [],
+      centre: req.body.centre || [],
+      medecin: req.body.medecin || [],
     });
 
     newPays.save().then(post => res.json(post));
@@ -105,6 +107,14 @@ router.put(
       .then((post) => {
         // Add to comments array
         post.name = req.body.name;
+        post.capital = req.body.capital;
+        post.indicatifPhone = req.body.indicatifPhone;
+        post.decalageHoraore = req.body.name;
+        post.monnaie = req.body.monnaie;
+        post.permis = req.body.permis;
+        post.maladie = req.body.maladie;
+        post.centre = req.body.centre;
+        post.medecin = req.body.medecin;
 
         // Save
         post.save()

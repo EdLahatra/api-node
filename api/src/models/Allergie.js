@@ -8,6 +8,12 @@ const AllergieSchema = new Schema({
     type: String,
     required: true,
   },
+  categorie: {
+    type: String,
+  },
+  description: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,

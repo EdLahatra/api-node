@@ -62,9 +62,7 @@ class PaysItem extends Component {
           <div className="col-md-10">
           {attribut.pays.map((key, i) => {
             if (key === 'maladie') {
-              console.log(pays[key]);
               return<div key={i}>{key}: {pays[key].map(k => <p key={k._id}>{k._id}</p>)}</div>
-              // return<div key={i}>{key}: {pays[key]}</div>;
             }
             return <div key={i}>{key}: {pays[key]}</div>
           })}

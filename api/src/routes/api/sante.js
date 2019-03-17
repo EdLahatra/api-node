@@ -1,16 +1,14 @@
 // Post model
 import Sante from '../../models/Sante';
-// Profile model
 import Profile from '../../models/Profile';
-
-// Validation
 import validatePostInput from '../../validation/sante';
 
+const mongoose = require('mongoose');
 const passport = require('passport');
 const express = require('express');
 
 const router = express.Router();
-
+const Types = mongoose.Types;
 // @route   GET api/posts/test
 // @desc    Tests post route
 // @access  Public
@@ -57,15 +55,60 @@ router.post(
       // If any errors, send 400 with errors object
       return res.status(400).json(errors);
     }
-
+    //   'sanguin',
+    // 'poids',
+    // 'age',
+    // 'user',
+    // 'allergie',
+    // 'problemeSantePasse',
+    // 'problemeSanteEncours',
+    // 'naissance',
     const newSante = new Sante({
-      name: req.body.name,
-      medecin: req.body.medecin || [],
-      vaccin: req.body.vaccin || [],
-      vaccinSugg: req.body.vaccinSugg || [],
+      poids: req.body.poids,
+      naissance: req.body.naissance,
+      problemeSantePasse: req.body.problemeSantePasse,
+      problemeSanteEncours: req.body.problemeSanteEncours,
+      user: Types.ObjectId(req.user.id),
+      allergie: Types.ObjectId(req.body.allergie),
+      sanguin: Types.ObjectId(req.body.sanguin),
     });
 
+
     newSante.save().then(post => res.json(post));
+  },
+);
+
+// @route   POST api/posts/comment/:id
+// @desc    Add comment to post
+// @access  Private
+router.put(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validatePostInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // If any errors, send 400 with errors object
+      return res.status(400).json(errors);
+    }
+
+    Sante.findById(req.params.id)
+      .then((post) => {
+        // Add to comments array
+        post.poids = req.body.poids;
+        post.naissance = req.body.naissance;
+        post.problemeSantePasse = req.body.problemeSantePasse;
+        post.problemeSanteEncours = req.body.problemeSanteEncours;
+        post.user = Types.ObjectId(req.user.id);
+        post.sanguin = Types.ObjectId(req.body.sanguin);
+        post.allergie = Types.ObjectId(req.body.allergie);
+        // Save
+        post.save()
+          .then(post => res.json(post))
+          .catch(err => res.status(400).json({ errors: 'No found' }));
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
   },
 );
 

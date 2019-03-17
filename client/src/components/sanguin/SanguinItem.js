@@ -59,7 +59,7 @@ class SanguinItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-10">
-            <p className="lead">{sanguin.description}</p>
+            <p className="lead">{sanguin.name}</p>
               <span>
                 <button
                   onClick={this.onDeleteClick.bind(this, sanguin._id)}

@@ -14,6 +14,8 @@ const initilState = {
   permis: '',
   maladie: '',
   maladieList: [],
+  centreList: [],
+  medecinList: [],
 };
 
 class PaysForm extends Component {
@@ -45,6 +47,8 @@ class PaysForm extends Component {
       monnaie: this.state.monnaie,
       permis: this.state.permis,
       maladie: this.state.maladieList,
+      centre: this.state.centreList,
+      medecin: this.state.medecinList,
     };
     this.props.addPays(newPays);
     this.setState(initilState);
@@ -54,21 +58,21 @@ class PaysForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  isChecked = item => this.state.maladieList.filter(key => key._id === item._id).length > 0
+  isChecked = (item, k) => this.state[`${k}List`].filter(key => key._id === item._id).length > 0
 
-  toggleChange = item => {
-    let maladieList = [];
-    if (this.isChecked(item)){
-      maladieList = this.state.maladieList.filter(key => key._id !== item._id)
+  toggleChange = (item, k) => {
+    let list = [];
+    if (this.isChecked(item, k)){
+      list = this.state[`${k}List`].filter(key => key._id !== item._id)
     } else {
-      maladieList = [...this.state.maladieList, item]
+      list = [...this.state[`${k}List`], item]
     }
-    this.setState({ maladieList });
+    this.setState({ [`${k}List`]: list });
   }
 
   render() {
     const { errors } = this.state;
-  
+    console.log(this.props.centre, this.props.medecin, this.props.maladie);
     return (
       <div className="Pays-form mb-3">
         <div className="card card-info">
@@ -85,10 +89,44 @@ class PaysForm extends Component {
                         return (
                           <div key={key}>
                             {item.name}
-                            <input type="checkbox"
-                              checked={this.isChecked(item)}
-                              onChange={() => this.toggleChange(item)}
-                            />
+                            {/* <input type="checkbox"
+                              checked={this.isChecked(item, key)}
+                              onChange={() => this.toggleChange(item, key)}
+                            /> */}
+                          </div>
+                        )
+                      })
+                    }
+                    </div>
+                  }
+                  if (key === 'medecin') {
+                    return <div key={`${key} medecin`}><p>Medecin</p>
+                    {
+                      this.props.medecin && this.props.medecin.map((item, key) => {
+                        return (
+                          <div key={key}>
+                            {item.name}
+                            {/* <input type="checkbox"
+                              checked={this.isChecked(item, key)}
+                              onChange={() => this.toggleChange(item, key)}
+                            /> */}
+                          </div>
+                        )
+                      })
+                    }
+                    </div>
+                  }
+                  if (key === 'centre') {
+                    return <div key={`${key} centre`}><p>Centre de Vaccination</p>
+                    {
+                      this.props.centre && this.props.centre.map((item, key) => {
+                        return (
+                          <div key={key}>
+                            {item.name}
+                            {/* <input type="checkbox"
+                              checked={this.isChecked(item, key)}
+                              onChange={() => this.toggleChange(item, key)}
+                            /> */}
                           </div>
                         )
                       })

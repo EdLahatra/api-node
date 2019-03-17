@@ -6,11 +6,15 @@ import PaysFeed from './PaysFeed';
 import Spinner from '../common/Spinner';
 import { getPays } from '../../actions/PaysActions';
 import { getMaladie } from '../../actions/MaladieActions';
+import { getCentres } from '../../actions/CentreActions';
+import { getMedecin } from '../../actions/MedecinActions';
 
 class Pays extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.getPays();
     this.props.getMaladie();
+    this.props.getMedecin();
+    this.props.getCentres();
   }
 
   render() {
@@ -23,13 +27,17 @@ class Pays extends Component {
     } else {
       paysContent = <PaysFeed pays={pays} />;
     }
-
+    console.log('medecin', this.props.medecin)
     return (
       <div className="feed">
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <PaysForm maladie={maladie} />
+              <PaysForm
+                maladie={maladie}
+                medecin={this.props.medecin.medecin}
+                centre={this.props.centre.centre}
+              />
               {paysContent}
             </div>
           </div>
@@ -41,6 +49,8 @@ class Pays extends Component {
 
 Pays.propTypes = {
   getMaladie: PropTypes.func.isRequired,
+  getMedecin: PropTypes.func.isRequired,
+  getCentres: PropTypes.func.isRequired,
   getPays: PropTypes.func.isRequired,
   pays: PropTypes.object.isRequired
 };
@@ -48,6 +58,8 @@ Pays.propTypes = {
 const mapStateToProps = state => ({
   pays: state.pays,
   maladie: state.maladie,
+  centre: state.centre,
+  medecin: state.maladie,
 });
 
-export default connect(mapStateToProps, { getPays, getMaladie })(Pays);
+export default connect(mapStateToProps, { getPays, getMaladie, getMedecin, getCentres })(Pays);

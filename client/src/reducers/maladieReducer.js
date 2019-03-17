@@ -1,51 +1,51 @@
 import {
-  ADD_MALADIE,
-  GET_ONE_MALADIE,
-  GET_MALADIE,
-  DELETE_MALADIE,
-  MALADIE_LOADING,
-  UPDATE_MALADIE,
+  ADD_MEDECIN,
+  GET_ONE_MEDECIN,
+  GET_MEDECIN,
+  DELETE_MEDECIN,
+  MEDECIN_LOADING,
+  UPDATE_MEDECIN,
 } from '../actions/types';
 
 const initialState = {
-  maladie: [],
-  one_maladie: {},
+  medecin: [],
+  one_medecin: {},
   loading: false,
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_MALADIE:
+    case UPDATE_MEDECIN:
       return {
         ...state,
-        maladie: [action.payload, ...state.maladie.filter(item => item._id !== action.payload._id)]
+        medecin: [action.payload, ...state.medecin.filter(item => item._id !== action.payload._id)]
       };
-    case MALADIE_LOADING:
+    case MEDECIN_LOADING:
       return {
         ...state,
         loading: true
       };
-    case GET_MALADIE:
+    case GET_MEDECIN:
       return {
         ...state,
-        maladie: action.payload,
+        medecin: action.payload,
         loading: false
       };
-    case GET_ONE_MALADIE:
+    case GET_ONE_MEDECIN:
       return {
         ...state,
-        maladie: action.payload,
+        medecin: action.payload,
         loading: false
       };
-    case ADD_MALADIE:
+    case ADD_MEDECIN:
       return {
         ...state,
-        maladie: [action.payload, ...state.maladie]
+        medecin: [action.payload, ...state.medecin]
       };
-    case DELETE_MALADIE:
+    case DELETE_MEDECIN:
       return {
         ...state,
-        maladie: state.maladie.filter(maladie => maladie._id !== action.payload)
+        medecin: state.medecin.filter(MEDECIN => MEDECIN._id !== action.payload)
       };
     default:
       return state;

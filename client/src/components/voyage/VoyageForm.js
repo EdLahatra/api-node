@@ -14,8 +14,8 @@ class VoyageForm extends Component {
         pays: '',
       },
       name: this.props.data.name || '',
-      depart: this.props.data.depart || '',
-      arrive: this.props.data.arrive || '',
+      dateDepart: this.props.data.dateDepart || '',
+      dateArrive: this.props.data.dateArrive || '',
       pays: this.props.data.pays || '',
     };
 
@@ -37,10 +37,11 @@ class VoyageForm extends Component {
     const newVoyage = {
       name: this.state.name,
       dateDepart: this.state.dateDepart,
-      dateArrive: this.state.dateDepart,
-      id: user._id,
+      dateArrive: this.state.dateArrive,
+      id: user.id,
       pays: this.state.pays || [],
     };
+
     if(this.props.data._id) {
       newVoyage.id = this.props.data._id
       this.props.updateVoyage(newVoyage);
@@ -66,7 +67,6 @@ class VoyageForm extends Component {
 
   render() {
     const { errors } = this.state;
-
     return (
       <div className="Voyage-form mb-3">
         <div className="card card-info">
@@ -92,17 +92,17 @@ class VoyageForm extends Component {
                 />
                 <h6>Date Depart</h6>
                 <TextFieldGroup
-                  name="depart"
+                  name="dateDepart"
                   type="date"
-                  value={this.state.depart}
+                  value={this.state.dateDepart}
                   onChange={this.onChange}
                   error={errors.from}
                 />
                 <h6>Date Arrivée</h6>
                 <TextFieldGroup
-                  name="arrive"
+                  name="dateArrive"
                   type="date"
-                  value={this.state.arrive}
+                  value={this.state.dateArrive}
                   onChange={this.onChange}
                   error={errors.from}
                 />

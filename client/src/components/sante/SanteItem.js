@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
-import { Link } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { deleteSante, updateSante } from '../../actions/SanteActions';
+import attribut from '../../attributs';
 
 class SanteItem extends Component {
   constructor(props) {
@@ -59,7 +58,7 @@ class SanteItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-10">
-            <p className="lead">{sante.name}</p>
+          {attribut.sante.map((key, i) => <div key={i}>{key}: {sante[key]}</div>)}
               <span>
                 <button
                   onClick={this.onDeleteClick.bind(this, sante._id)}

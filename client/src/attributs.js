@@ -1,4 +1,10 @@
-const urgance = [
+const allergie = [
+  'name',
+  'categorie',
+  'description',
+];
+
+const urgence = [
   'description',
   'pays',
   'numero',
@@ -32,6 +38,8 @@ const pays = [
   'monnaie',
   'permis',
   'maladie',
+  'centre',
+  'medecin',
 ];
 
 const sejour = [
@@ -39,10 +47,22 @@ const sejour = [
   'isQuestion',
 ];
 
+const sante = [
+  'sanguin',
+  'poids',
+  'user',
+  'allergie',
+  'problemeSantePasse',
+  'problemeSanteEncours',
+  'naissance',
+];
+
 export default  {
-  urgance,
+  urgence,
   centre,
   voyage,
   pays,
   sejour,
+  sante,
+  allergie,
 };

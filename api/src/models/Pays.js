@@ -30,9 +30,25 @@ const PaysSchema = new Schema({
   },
   maladie: [
     {
-      user: {
+      maladie: {
         type: Schema.Types.ObjectId,
         ref: 'maladie',
+      },
+    },
+  ],
+  centre: [
+    {
+      centre: {
+        type: Schema.Types.ObjectId,
+        ref: 'centre',
+      },
+    },
+  ],
+  medecin: [
+    {
+      medecin: {
+        type: Schema.Types.ObjectId,
+        ref: 'medecin',
       },
     },
   ],

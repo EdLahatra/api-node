@@ -84,6 +84,9 @@ class Navbar extends Component {
           <Link className="navbar-brand" to="/sejour">
             Sejour
           </Link>
+          <Link className="navbar-brand" to="/allergie">
+            Allergie
+          </Link>
           <Link className="navbar-brand" to="/centre">
             Centre de Vacc
           </Link>

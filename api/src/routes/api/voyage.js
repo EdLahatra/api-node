@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import Voyage from '../../models/Voyage';
 import Profile from '../../models/Profile';
 import validatePostInput from '../../validation/voyage';
@@ -87,14 +88,14 @@ router.put(
       // If any errors, send 400 with errors object
       return res.status(400).json(errors);
     }
-    console.log('ffsdfsdfsdfsdf ====================+>');
+
     Voyage.findById(req.params.id)
       .then((post) => {
-        post.name = req.body.name,
-        post.dateDepart = req.body.dateDepart,
-        post.dateArrive = req.body.dateArrive,
-        post.id = Types.ObjectId(req.user.id),
-        post.pays = Types.ObjectId(req.body.pays),
+        post.name = req.body.name;
+        post.dateDepart = req.body.dateDepart;
+        post.dateArrive = req.body.dateArrive;
+        post.user = Types.ObjectId(req.user.id);
+        post.pays = Types.ObjectId(req.body.pays);
 
         // Save
         post.save()

@@ -4,20 +4,31 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const SanteSchema = new Schema({
-  name: {
+  problemeSantePasse: {
     type: String,
   },
-  poit: {
+  problemeSanteEncours: {
     type: String,
   },
-  vaccin: [
-    {
-      vaccin: {
-        type: Schema.Types.ObjectId,
-        ref: 'vaccin',
-      },
-    },
-  ],
+  poids: {
+    type: String,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'users',
+  },
+  sanguin: {
+    type: Schema.Types.ObjectId,
+    ref: 'sanguin',
+  },
+  allergie: {
+    type: Schema.Types.ObjectId,
+    ref: 'allergie',
+  },
+  naissance: {
+    type: Date,
+    default: Date.now,
+  },
   date: {
     type: Date,
     default: Date.now,

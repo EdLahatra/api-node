@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteUrgence, updateUrgence } from '../../actions/UrgenceActions';
+import { deleteAllergie, updateAllergie } from '../../actions/AllergieActions';
 import attribut from '../../attributs';
 
-class UrgenceItem extends Component {
+class AllergieItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,26 +28,26 @@ class UrgenceItem extends Component {
   }
 
   onDeleteClick(id) {
-    this.props.deleteUrgence(id);
+    this.props.deleteAllergie(id);
   }
 
   render() {
-    const { urgence } = this.props;
+    const { allergie } = this.props;
     return (
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-10">
-            {attribut.urgence.map((key, i) => <div key={i}>{key}: {urgence[key]}</div>)}
+            {attribut.allergie.map((key, i) => <div key={i}>{key}: {allergie[key]}</div>)}
             <span>
               <button
-                onClick={this.onDeleteClick.bind(this, urgence._id)}
+                onClick={this.onDeleteClick.bind(this, allergie._id)}
                 type="button"
                 className="btn btn-danger mr-1"
               >
                 <i className="fas fa-times" />
               </button>
               <button
-                onClick={() => this.props.onUpdate(urgence)}
+                onClick={() => this.props.onUpdate(allergie)}
                 type="button"
                 className="btn btn-info mr-1"
               >
@@ -61,14 +61,14 @@ class UrgenceItem extends Component {
   }
 }
 
-UrgenceItem.defaultProps = {
+AllergieItem.defaultProps = {
   showActions: true
 };
 
-UrgenceItem.propTypes = {
-  deleteUrgence: PropTypes.func.isRequired,
-  updateUrgence: PropTypes.func.isRequired,
-  urgence: PropTypes.object.isRequired,
+AllergieItem.propTypes = {
+  deleteAllergie: PropTypes.func.isRequired,
+  updateAllergie: PropTypes.func.isRequired,
+  allergie: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
 
@@ -76,6 +76,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { deleteUrgence, updateUrgence })(
-  UrgenceItem
+export default connect(mapStateToProps, { deleteAllergie, updateAllergie })(
+  AllergieItem
 );

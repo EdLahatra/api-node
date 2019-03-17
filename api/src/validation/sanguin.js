@@ -7,8 +7,8 @@ const validateSanguinInput = (data) => {
 
   data.name = !isEmpty(data.name) ? data.name : '';
 
-  if (!Validator.isLength(data.name, { min: 10, max: 300 })) {
-    errors.name = 'Post must be between 10 and 300 characters';
+  if (!Validator.isLength(data.name, { min: 1, max: 300 })) {
+    errors.name = 'Post must be between 1 and 300 characters';
   }
 
   if (Validator.isEmpty(data.name)) {

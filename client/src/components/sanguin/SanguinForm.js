@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import { addUrgence } from '../../actions/UrgenceActions';
+import { addSanguin } from '../../actions/SanguinActions';
 
-class UrgenceForm extends Component {
+class SanguinForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,11 +27,11 @@ class UrgenceForm extends Component {
 
     const { user } = this.props.auth;
 
-    const newUrgence = {
-      description: this.state.text,
+    const newSanguin = {
+      name: this.state.text,
     };
 
-    this.props.addUrgence(newUrgence);
+    this.props.addSanguin(newSanguin);
     this.setState({ text: '' });
   }
 
@@ -43,14 +43,14 @@ class UrgenceForm extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="Urgence-form mb-3">
+      <div className="Sanguin-form mb-3">
         <div className="card card-info">
           <div className="card-header bg-info text-white">Say Something...</div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <TextAreaFieldGroup
-                  placeholder="Create a Urgence"
+                  placeholder="Create a Sanguin"
                   name="text"
                   value={this.state.text}
                   onChange={this.onChange}
@@ -68,8 +68,8 @@ class UrgenceForm extends Component {
   }
 }
 
-UrgenceForm.propTypes = {
-  addUrgence: PropTypes.func.isRequired,
+SanguinForm.propTypes = {
+  addSanguin: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   // errors: PropTypes.object.isRequired
 };
@@ -79,4 +79,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addUrgence })(UrgenceForm);
+export default connect(mapStateToProps, { addSanguin })(SanguinForm);
