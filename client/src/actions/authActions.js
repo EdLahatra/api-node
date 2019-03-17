@@ -32,7 +32,8 @@ export const loginUser = userData => dispatch => {
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // Set current user
-      dispatch(setCurrentUser(decoded));
+      console.log('decoded', decoded);
+      dispatch(setCurrentUser({ ...decoded, token }));
     })
     .catch(err => {
       const payload = err.response ? err.response.data : err

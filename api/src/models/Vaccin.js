@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 // Create Schema
 const VaccinSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-export default mongoose.model('vaccin',VaccinSchema);
+export default mongoose.model('vaccin', VaccinSchema);

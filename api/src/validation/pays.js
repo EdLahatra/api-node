@@ -1,8 +1,9 @@
+import isEmpty from './is-empty';
+
 const Validator = require('validator');
-const isEmpty = require('./is-empty');
 
 const validatePaysInput = (data) => {
-  let errors = {};
+  const errors = {};
 
   data.name = !isEmpty(data.name) ? data.name : '';
 
@@ -16,7 +17,7 @@ const validatePaysInput = (data) => {
 
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
   };
 };
 

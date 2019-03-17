@@ -1,30 +1,31 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 // Create Schema
 const VoyageSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: 'users',
   },
   pays: {
     type: Schema.Types.ObjectId,
-    ref: 'pays'
+    ref: 'pays',
   },
   name: {
-    type: String
+    type: String,
   },
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   dateDepart: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   dateArrive: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
 });
 

@@ -2,21 +2,25 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
-import SelectListGroup from '../common/SelectListGroupId';
 import { addPays } from '../../actions/PaysActions';
 import attribut from '../../attributs';
+
+const initilState = {
+  name: '',
+  capital: '',
+  indicatifPhone: '',
+  decalageHoraore: '',
+  monnaie: '',
+  permis: '',
+  maladie: '',
+  maladieList: [],
+};
 
 class PaysForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      capital: '',
-      indicatifPhone: '',
-      decalageHoraore: '',
-      monnaie: '',
-      permis: '',
-      maladie: '',
+      ...initilState,
       errors: {}
     };
 
@@ -33,8 +37,6 @@ class PaysForm extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const { user } = this.props.auth;
-
     const newPays = {
       name: this.state.name,
       capital: this.state.capital,
@@ -42,19 +44,31 @@ class PaysForm extends Component {
       decalageHoraore: this.state.decalageHoraore,
       monnaie: this.state.monnaie,
       permis: this.state.permis,
-      maladie: this.state.maladie,
+      maladie: this.state.maladieList,
     };
     this.props.addPays(newPays);
-    this.setState({ text: '' });
+    this.setState(initilState);
   }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  isChecked = item => this.state.maladieList.filter(key => key._id === item._id).length > 0
+
+  toggleChange = item => {
+    let maladieList = [];
+    if (this.isChecked(item)){
+      maladieList = this.state.maladieList.filter(key => key._id !== item._id)
+    } else {
+      maladieList = [...this.state.maladieList, item]
+    }
+    this.setState({ maladieList });
+  }
+
   render() {
     const { errors } = this.state;
-
+  
     return (
       <div className="Pays-form mb-3">
         <div className="card card-info">
@@ -65,17 +79,21 @@ class PaysForm extends Component {
               {
                 attribut.pays.map((key, i) => {
                   if (key === 'maladie') {
-                    return (
-                      <SelectListGroup
-                        key={`${i} ${key}`}
-                        placeholder={key}
-                        value={this.state[key]}
-                        onChange={this.onChange}
-                        options={this.props.maladie || []}
-                        error={errors.maladie}
-                        info=""
-                      />
-                    )
+                    return <div key={`${key} maladie`}><p>Maladie</p>
+                    {
+                      this.props.maladie.map((item, key) => {
+                        return (
+                          <div key={key}>
+                            {item.name}
+                            <input type="checkbox"
+                              checked={this.isChecked(item)}
+                              onChange={() => this.toggleChange(item)}
+                            />
+                          </div>
+                        )
+                      })
+                    }
+                    </div>
                   }
                   return <TextFieldGroup
                   key={`${i} ${key}`}
@@ -87,13 +105,6 @@ class PaysForm extends Component {
                 />
                 })
               }
-                {/* <TextFieldGroup
-                  placeholder="Create a Pays"
-                  name="text"
-                  value={this.state.text}
-                  onChange={this.onChange}
-                  error={errors.text}
-                /> */}
               </div>
               <button type="submit" className="btn btn-dark">
                 Submit

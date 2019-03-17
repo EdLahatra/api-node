@@ -7,7 +7,6 @@ import validateCentreInput from '../../validation/centre';
 const express = require('express');
 
 const router = express.Router();
-const mongoose = require('mongoose');
 const passport = require('passport');
 
 // @route   GET api/posts/test
@@ -22,7 +21,7 @@ router.get('/', (req, res) => {
   Centre.find()
     .sort({ date: -1 })
     .then(posts => res.json(posts))
-    .catch(err => res.status(404).json({ nopostsfound: 'No posts found' }));
+    .catch(() => res.status(404).json({ nopostsfound: 'No posts found' }));
 });
 
 // @route   GET api/posts/:id
@@ -37,7 +36,7 @@ router.get('/:id', (req, res) => {
         res.status(404).json({ nopostfound: 'No post found with that ID' });
       }
     })
-    .catch(err =>
+    .catch(() =>
       res.status(404).json({ nopostfound: 'No post found with that ID' }),
     );
 });
@@ -84,7 +83,7 @@ router.delete(
         // Delete
         post.remove().then(() => res.json({ success: true }));
       })
-      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
   },
 );
 
@@ -118,9 +117,9 @@ router.put(
         // Save
         post.save()
           .then(post => res.json(post))
-          .catch(err => res.status(400).json({ errors: 'No found' }));
+          .catch(() => res.status(400).json({ errors: 'No found' }));
       })
-      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
   },
 );
 
@@ -154,7 +153,7 @@ router.post(
         // Save
         post.save().then(post => res.json(post));
       })
-      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
   },
 );
 
@@ -188,7 +187,7 @@ router.delete(
 
         post.save().then(post => res.json(post));
       })
-      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
   },
 );
 

@@ -1,15 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const passport = require('passport');
-
 // Post model
-const Maladie = require('../../models/Maladie');
+import Maladie from '../../models/Maladie';
 // Profile model
-const Profile = require('../../models/Profile');
+import Profile from '../../models/Profile';
 
 // Validation
-const validatePostInput = require('../../validation/maladie');
+import validatePostInput from '../../validation/maladie';
+
+const passport = require('passport');
+const express = require('express');
+
+const router = express.Router();
 
 // @route   GET api/posts/test
 // @desc    Tests post route
@@ -20,7 +20,7 @@ router.get('/test', (req, res) => res.json({ msg: 'Posts Works' }));
 // @desc    Get posts
 // @access  Public
 router.get('/', (req, res) => {
-  Post.find()
+  Maladie.find()
     .sort({ date: -1 })
     .then(posts => res.json(posts))
     .catch(err => res.status(404).json({ nopostsfound: 'No posts found' }));
@@ -30,16 +30,16 @@ router.get('/', (req, res) => {
 // @desc    Get post by id
 // @access  Public
 router.get('/:id', (req, res) => {
-  Post.findById(req.params.id)
-    .then(post => {
+  Maladie.findById(req.params.id)
+    .then((post) => {
       if (post) {
         res.json(post);
       } else {
-        res.status(404).json({ nopostfound: 'No post found with that ID' })
+        res.status(404).json({ nopostfound: 'No post found with that ID' });
       }
     })
     .catch(err =>
-      res.status(404).json({ nopostfound: 'No post found with that ID' })
+      res.status(404).json({ nopostfound: 'No post found with that ID' }),
     );
 });
 
@@ -68,7 +68,7 @@ router.post(
     });
 
     newMaladie.save().then(post => res.json(post));
-  }
+  },
 );
 
 // @route   DELETE api/posts/:id
@@ -78,9 +78,9 @@ router.delete(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      Post.findById(req.params.id)
-        .then(post => {
+    Profile.findOne({ user: req.user.id }).then((profile) => {
+      Maladie.findById(req.params.id)
+        .then((post) => {
           // Check for post owner
           if (post.user.toString() !== req.user.id) {
             return res
@@ -93,7 +93,7 @@ router.delete(
         })
         .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
     });
-  }
+  },
 );
 
 // @route   POST api/posts/like/:id
@@ -103,9 +103,9 @@ router.post(
   '/like/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      Post.findById(req.params.id)
-        .then(post => {
+    Profile.findOne({ user: req.user.id }).then((profile) => {
+      Maladie.findById(req.params.id)
+        .then((post) => {
           if (
             post.likes.filter(like => like.user.toString() === req.user.id)
               .length > 0
@@ -122,7 +122,7 @@ router.post(
         })
         .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
     });
-  }
+  },
 );
 
 // @route   POST api/posts/unlike/:id
@@ -132,9 +132,9 @@ router.post(
   '/unlike/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      Post.findById(req.params.id)
-        .then(post => {
+    Profile.findOne({ user: req.user.id }).then((profile) => {
+      Maladie.findById(req.params.id)
+        .then((post) => {
           if (
             post.likes.filter(like => like.user.toString() === req.user.id)
               .length === 0
@@ -157,7 +157,7 @@ router.post(
         })
         .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
     });
-  }
+  },
 );
 
 // @route   POST api/posts/comment/:id
@@ -175,13 +175,13 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    Post.findById(req.params.id)
-      .then(post => {
+    Maladie.findById(req.params.id)
+      .then((post) => {
         const newComment = {
           text: req.body.text,
           name: req.body.name,
           avatar: req.body.avatar,
-          user: req.user.id
+          user: req.user.id,
         };
 
         // Add to comments array
@@ -191,7 +191,7 @@ router.post(
         post.save().then(post => res.json(post));
       })
       .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-  }
+  },
 );
 
 // @route   DELETE api/posts/comment/:id/:comment_id
@@ -201,12 +201,12 @@ router.delete(
   '/comment/:id/:comment_id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Post.findById(req.params.id)
-      .then(post => {
+    Maladie.findById(req.params.id)
+      .then((post) => {
         // Check to see if comment exists
         if (
           post.comments.filter(
-            comment => comment._id.toString() === req.params.comment_id
+            comment => comment._id.toString() === req.params.comment_id,
           ).length === 0
         ) {
           return res
@@ -225,7 +225,7 @@ router.delete(
         post.save().then(post => res.json(post));
       })
       .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-  }
+  },
 );
 
 // module.exports = router;

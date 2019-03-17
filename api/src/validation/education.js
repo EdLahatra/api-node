@@ -1,8 +1,9 @@
+import isEmpty from './is-empty';
+
 const Validator = require('validator');
-const isEmpty = require('./is-empty');
 
 const validateEducationInput = (data) => {
-  let errors = {};
+  const errors = {};
 
   data.school = !isEmpty(data.school) ? data.school : '';
   data.degree = !isEmpty(data.degree) ? data.degree : '';
@@ -27,7 +28,7 @@ const validateEducationInput = (data) => {
 
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
   };
 };
 

@@ -1,15 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const passport = require('passport');
-
 // Sanguin model
-const Sanguin = require('../../models/Sanguin');
-// Profile model
-const Profile = require('../../models/Profile');
+import Sanguin from '../../models/Sanguin';
 
 // Validation
-const validateSanguinInput = require('../../validation/sanguin');
+import validateSanguinInput from '../../validation/sanguin';
+
+const passport = require('passport');
+const express = require('express');
+
+const router = express.Router();
 
 // @route   GET api/posts/test
 // @desc    Tests post route
@@ -23,7 +21,7 @@ router.get('/', (req, res) => {
   Sanguin.find()
     .sort({ date: -1 })
     .then(posts => res.json(posts))
-    .catch(err => res.status(404).json({ nopostsfound: 'No posts found' }));
+    .catch(() => res.status(404).json({ nopostsfound: 'No posts found' }));
 });
 
 // @route   GET api/posts/:id
@@ -31,15 +29,15 @@ router.get('/', (req, res) => {
 // @access  Public
 router.get('/:id', (req, res) => {
   Sanguin.findById(req.params.id)
-    .then(post => {
+    .then((post) => {
       if (post) {
         res.json(post);
       } else {
-        res.status(404).json({ nopostfound: 'No post found with that ID' })
+        res.status(404).json({ nopostfound: 'No post found with that ID' });
       }
     })
-    .catch(err =>
-      res.status(404).json({ nopostfound: 'No post found with that ID' })
+    .catch(() =>
+      res.status(404).json({ nopostfound: 'No post found with that ID' }),
     );
 });
 
@@ -63,7 +61,7 @@ router.post(
     });
 
     newSanguin.save().then(post => res.json(post));
-  }
+  },
 );
 
 // @route   DELETE api/posts/:id
@@ -74,12 +72,12 @@ router.delete(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Sanguin.findById(req.params.id)
-      .then(post => {
+      .then((post) => {
         // Delete
         post.remove().then(() => res.json({ success: true }));
       })
-      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-  }
+      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
+  },
 );
 
 // @route   POST api/posts/comment/:id
@@ -98,18 +96,17 @@ router.put(
     }
 
     Sanguin.findById(req.params.id)
-      .then(post => {
-
+      .then((post) => {
         // Add to comments array
         post.name = req.body.name;
 
         // Save
         post.save()
-        .then(post => res.json(post))
-        .catch(err => res.status(400).json({ errors: 'No found' }));
+          .then(post => res.json(post))
+          .catch(() => res.status(400).json({ errors: 'No found' }));
       })
-      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-  }
+      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
+  },
 );
 
 // @route   POST api/posts/comment/:id
@@ -128,12 +125,12 @@ router.post(
     }
 
     Sanguin.findById(req.params.id)
-      .then(post => {
+      .then((post) => {
         const newComment = {
           text: req.body.text,
           name: req.body.name,
           avatar: req.body.avatar,
-          user: req.user.id
+          user: req.user.id,
         };
 
         // Add to comments array
@@ -142,8 +139,8 @@ router.post(
         // Save
         post.save().then(post => res.json(post));
       })
-      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-  }
+      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
+  },
 );
 
 // @route   DELETE api/posts/comment/:id/:comment_id
@@ -154,11 +151,11 @@ router.delete(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Sanguin.findById(req.params.id)
-      .then(post => {
+      .then((post) => {
         // Check to see if comment exists
         if (
           post.comments.filter(
-            comment => comment._id.toString() === req.params.comment_id
+            comment => comment._id.toString() === req.params.comment_id,
           ).length === 0
         ) {
           return res
@@ -176,8 +173,8 @@ router.delete(
 
         post.save().then(post => res.json(post));
       })
-      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-  }
+      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
+  },
 );
 
 // module.exports = router;

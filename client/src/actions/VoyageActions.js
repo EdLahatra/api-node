@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+// import get, { post, put, del } from './api';
+// import { get, post, put, del } from '../utils/setAuthToken';
 import {
   ADD_VOYAGE,
   GET_ERRORS_VOYAGE,
@@ -31,42 +32,44 @@ export const updateVoyage = voyageData => dispatch => {
 };
 
 // Add Post
-export const addVoyage = voyageData => dispatch => {
-  dispatch(clearErrors());
-  axios
-    .post('/api/voyage', voyageData)
-    .then(res =>
-      dispatch({
-        type: ADD_VOYAGE,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS_VOYAGE,
-        payload: err.response
-      })
-    );
-};
+export const addVoyage = voyageData =>
+  async (dispatch) => {
+    dispatch(clearErrors());
+    axios
+      .post('/api/voyage', voyageData)
+      .then(res =>
+        dispatch({
+          type: ADD_VOYAGE,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS_VOYAGE,
+          payload: err.response
+        })
+      );
+  };
 
 // Get Voyages
-export const getVoyage = () => dispatch => {
-  dispatch(setVoyagesLoading());
-  axios
-    .get('/api/voyage')
-    .then(res =>
-      dispatch({
-        type: GET_VOYAGE,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_VOYAGE,
-        payload: []
-      })
-    );
-};
+export const getVoyage = () =>
+  async (dispatch) => {
+    dispatch(setVoyagesLoading());
+    axios
+      .get('/api/voyage')
+      .then(res =>
+        dispatch({
+          type: GET_VOYAGE,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: GET_VOYAGE,
+          payload: []
+        })
+      );
+  };
 
 // Get Post
 export const postVoyage = id => dispatch => {

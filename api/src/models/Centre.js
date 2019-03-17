@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 // Create Schema
 const CentreSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   service: {
     type: String,
@@ -30,8 +31,8 @@ const CentreSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-export default mongoose.model('centre',CentreSchema);
+export default mongoose.model('centre', CentreSchema);

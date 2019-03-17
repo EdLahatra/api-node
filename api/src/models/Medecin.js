@@ -1,33 +1,34 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 // Create Schema
 const MedecinSchema = new Schema({
   pays: {
     type: Schema.Types.ObjectId,
-    ref: 'pays'
+    ref: 'pays',
   },
   nom: {
-    type: String
+    type: String,
   },
   specialite: {
-    type: String
+    type: String,
   },
   telephone: {
-    type: String
+    type: String,
   },
   cp: {
-    type: String
+    type: String,
   },
   langue: {
-    type: String
+    type: String,
   },
   voie: {
-    type: String
+    type: String,
   },
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
 });
 

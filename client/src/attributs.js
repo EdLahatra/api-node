@@ -32,11 +32,17 @@ const pays = [
   'monnaie',
   'permis',
   'maladie',
-]
+];
+
+const sejour = [
+  'description',
+  'isQuestion',
+];
 
 export default  {
   urgance,
   centre,
   voyage,
   pays,
+  sejour,
 };

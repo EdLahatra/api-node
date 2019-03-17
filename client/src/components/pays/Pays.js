@@ -5,10 +5,12 @@ import PaysForm from './PaysForm';
 import PaysFeed from './PaysFeed';
 import Spinner from '../common/Spinner';
 import { getPays } from '../../actions/PaysActions';
+import { getMaladie } from '../../actions/MaladieActions';
 
 class Pays extends Component {
   componentDidMount() {
     this.props.getPays();
+    this.props.getMaladie();
   }
 
   render() {
@@ -38,6 +40,7 @@ class Pays extends Component {
 }
 
 Pays.propTypes = {
+  getMaladie: PropTypes.func.isRequired,
   getPays: PropTypes.func.isRequired,
   pays: PropTypes.object.isRequired
 };
@@ -47,4 +50,4 @@ const mapStateToProps = state => ({
   maladie: state.maladie,
 });
 
-export default connect(mapStateToProps, { getPays })(Pays);
+export default connect(mapStateToProps, { getPays, getMaladie })(Pays);

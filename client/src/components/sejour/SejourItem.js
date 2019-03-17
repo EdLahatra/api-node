@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { deleteSejour, updateSejour } from '../../actions/SejourActions';
-// import attribut from '../../attributs';
+import attribut from '../../attributs';
 
 class SejourItem extends Component {
   constructor(props) {
@@ -60,7 +60,13 @@ class SejourItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-10">
-            <p className="lead">{sejour.description}</p>
+            {attribut.sejour.map((key, i) => {
+              if (key === 'isQuestion') {
+                return <div key={i}>{key}: {sejour[key] ? 'yes' : 'no' }</div>
+              }
+              return <div key={i}>{key}: {sejour[key]}</div>
+            })}
+            {/* <p className="lead">{sejour.description}</p> */}
               <span>
                 <button
                   onClick={this.onDeleteClick.bind(this, sejour._id)}

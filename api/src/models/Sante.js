@@ -1,26 +1,27 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 // Create Schema
 const SanteSchema = new Schema({
   name: {
-    type: String
+    type: String,
   },
   poit: {
-    type: String
+    type: String,
   },
   vaccin: [
     {
       vaccin: {
         type: Schema.Types.ObjectId,
-        ref: 'vaccin'
-      }
-    }
+        ref: 'vaccin',
+      },
+    },
   ],
   date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 export default mongoose.model('sante', SanteSchema);

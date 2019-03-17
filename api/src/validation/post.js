@@ -1,8 +1,9 @@
+import isEmpty from './is-empty';
+
 const Validator = require('validator');
-const isEmpty = require('./is-empty');
 
 const validatePostInput = (data) => {
-  let errors = {};
+  const errors = {};
 
   data.text = !isEmpty(data.text) ? data.text : '';
 
@@ -16,7 +17,7 @@ const validatePostInput = (data) => {
 
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
   };
 };
 

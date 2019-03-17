@@ -1,8 +1,9 @@
+import isEmpty from './is-empty';
+
 const Validator = require('validator');
-const isEmpty = require('./is-empty');
 
 const validateRegisterInput = (data) => {
-  let errors = {};
+  const errors = {};
 
   data.name = !isEmpty(data.name) ? data.name : '';
   data.email = !isEmpty(data.email) ? data.email : '';
@@ -35,15 +36,13 @@ const validateRegisterInput = (data) => {
 
   if (Validator.isEmpty(data.password2)) {
     errors.password2 = 'Confirm Password field is required';
-  } else {
-    if (!Validator.equals(data.password, data.password2)) {
-      errors.password2 = 'Passwords must match';
-    }
+  } else if (!Validator.equals(data.password, data.password2)) {
+    errors.password2 = 'Passwords must match';
   }
 
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
   };
 };
 

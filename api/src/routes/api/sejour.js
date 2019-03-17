@@ -1,13 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const passport = require('passport');
-
 // Sejour model
-const Sejour = require('../../models/Sejour');
+import Sejour from '../../models/Sejour';
 
 // Validation
-const validateSejourInput = require('../../validation/sejour');
+import validateSejourInput from '../../validation/sejour';
+
+const passport = require('passport');
+const express = require('express');
+
+const router = express.Router();
 
 // @route   GET api/posts/test
 // @desc    Tests post route
@@ -29,15 +29,15 @@ router.get('/', (req, res) => {
 // @access  Public
 router.get('/:id', (req, res) => {
   Sejour.findById(req.params.id)
-    .then(post => {
+    .then((post) => {
       if (post) {
         res.json(post);
       } else {
-        res.status(404).json({ nopostfound: 'No post found with that ID' })
+        res.status(404).json({ nopostfound: 'No post found with that ID' });
       }
     })
     .catch(err =>
-      res.status(404).json({ nopostfound: 'No post found with that ID' })
+      res.status(404).json({ nopostfound: 'No post found with that ID' }),
     );
 });
 
@@ -58,10 +58,11 @@ router.post(
 
     const newSejour = new Sejour({
       description: req.body.description,
+      isQuestion: req.body.isQuestion,
     });
 
     newSejour.save().then(post => res.json(post));
-  }
+  },
 );
 
 // @route   DELETE api/posts/:id
@@ -72,12 +73,12 @@ router.delete(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Sejour.findById(req.params.id)
-      .then(post => {
+      .then((post) => {
         // Delete
         post.remove().then(() => res.json({ success: true }));
       })
       .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-  }
+  },
 );
 
 // @route   POST api/posts/comment/:id
@@ -96,18 +97,17 @@ router.put(
     }
 
     Sejour.findById(req.params.id)
-      .then(post => {
-
+      .then((post) => {
         // Add to comments array
         post.description = req.body.description;
 
         // Save
         post.save()
-        .then(post => res.json(post))
-        .catch(err => res.status(400).json({ errors: 'No found' }));
+          .then(post => res.json(post))
+          .catch(err => res.status(400).json({ errors: 'No found' }));
       })
       .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-  }
+  },
 );
 
 // @route   POST api/posts/comment/:id
@@ -126,12 +126,12 @@ router.post(
     }
 
     Sejour.findById(req.params.id)
-      .then(post => {
+      .then((post) => {
         const newComment = {
           text: req.body.text,
           description: req.body.description,
           avatar: req.body.avatar,
-          user: req.user.id
+          user: req.user.id,
         };
 
         // Add to comments array
@@ -141,7 +141,7 @@ router.post(
         post.save().then(post => res.json(post));
       })
       .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-  }
+  },
 );
 
 // @route   DELETE api/posts/comment/:id/:comment_id
@@ -152,11 +152,11 @@ router.delete(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Sejour.findById(req.params.id)
-      .then(post => {
+      .then((post) => {
         // Check to see if comment exists
         if (
           post.comments.filter(
-            comment => comment._id.toString() === req.params.comment_id
+            comment => comment._id.toString() === req.params.comment_id,
           ).length === 0
         ) {
           return res
@@ -175,7 +175,7 @@ router.delete(
         post.save().then(post => res.json(post));
       })
       .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-  }
+  },
 );
 
 // module.exports = router;

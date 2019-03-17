@@ -4,11 +4,16 @@ import { connect } from 'react-redux';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addSejour } from '../../actions/SejourActions';
 
+const initialState = {
+  text: '',
+  isChecked: false,
+};
+
 class SejourForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
+      ...initialState,
       errors: {}
     };
 
@@ -29,10 +34,11 @@ class SejourForm extends Component {
 
     const newSejour = {
       description: this.state.text,
+      isQuestion: this.state.isChecked
     };
 
     this.props.addSejour(newSejour);
-    this.setState({ text: '' });
+    this.setState(initialState);
   }
 
   onChange(e) {
@@ -40,7 +46,7 @@ class SejourForm extends Component {
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, isChecked } = this.state;
 
     return (
       <div className="Sejour-form mb-3">
@@ -55,6 +61,13 @@ class SejourForm extends Component {
                   value={this.state.text}
                   onChange={this.onChange}
                   error={errors.text}
+                />
+              </div>
+              <div>
+                IsQuestion
+                <input type="checkbox"
+                  checked={isChecked}
+                  onChange={() => this.setState({ isChecked: !isChecked})}
                 />
               </div>
               <button type="submit" className="btn btn-dark">

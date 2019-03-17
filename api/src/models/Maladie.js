@@ -1,47 +1,48 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 // Create Schema
 const MaladieSchema = new Schema({
   name: {
-    type: String
+    type: String,
   },
   sejour: [
     {
       sejour: {
         type: Schema.Types.ObjectId,
-        ref: 'sejour'
-      }
-    }
+        ref: 'sejour',
+      },
+    },
   ],
   vaccin: [
     {
       vaccin: {
         type: Schema.Types.ObjectId,
-        ref: 'vaccin'
-      }
-    }
+        ref: 'vaccin',
+      },
+    },
   ],
   vaccinSugg: [
     {
       vaccin: {
         type: Schema.Types.ObjectId,
-        ref: 'vaccin'
-      }
-    }
+        ref: 'vaccin',
+      },
+    },
   ],
   medecin: [
     {
       vaccin: {
         type: Schema.Types.ObjectId,
-        ref: 'medecin'
-      }
-    }
+        ref: 'medecin',
+      },
+    },
   ],
   date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 export default mongoose.model('maladie', MaladieSchema);

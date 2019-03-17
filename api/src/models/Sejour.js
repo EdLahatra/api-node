@@ -1,20 +1,21 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 // Create Schema
 const SejourSchema = new Schema({
   description: {
     type: String,
-    required: true
+    required: true,
   },
   isQuestion: {
     type: Boolean,
-    default: false
+    default: false,
   },
   date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-export default mongoose.model('sejour',SejourSchema);
+export default mongoose.model('sejour', SejourSchema);
