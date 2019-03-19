@@ -7,6 +7,7 @@ import Spinner from '../common/Spinner';
 import { getSante } from '../../actions/SanteActions';
 import { getSanguin } from '../../actions/SanguinActions';
 import { getAllergie } from '../../actions/AllergieActions';
+
 class Sante extends Component {
   constructor(props) {
     super(props);

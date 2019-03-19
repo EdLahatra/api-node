@@ -16,6 +16,8 @@ import medecin from './medecinReducer';
 import categorie from './categorieReducer';
 import sanguin from './sanguinReducer';
 import allergie from './allergieReducer';
+import secours from './secoursReducer';
+import documents from './documentsReducer';
 
 export default combineReducers({
   auth,
@@ -34,4 +36,6 @@ export default combineReducers({
   sanguin,
   categorie,
   allergie,
+  secours,
+  documents,
 });

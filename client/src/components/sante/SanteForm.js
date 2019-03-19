@@ -98,6 +98,7 @@ class SanteForm extends Component {
                     if (key === 'user') return;
                     if (key === 'naissance') return(
                       <TextFieldGroup
+                        key={key}
                         name="naissance"
                         type="date"
                         value={this.state.naissance}
@@ -142,6 +143,7 @@ class SanteForm extends Component {
                     );
 
                     return <TextFieldGroup
+                    key={key}
                     placeholder={key}
                     name={key}
                     value={this.state[key]}

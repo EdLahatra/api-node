@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
-import { addAllergie, updateAllergie } from '../../actions/AllergieActions';
+import { addSecours, updateSecours } from '../../actions/SecoursActions';
 import attribut from '../../attributs';
 
-class AllergieForm extends Component {
+class SecoursForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,17 +31,17 @@ class AllergieForm extends Component {
 
     const { user } = this.props.auth;
 
-    const newAllergie = {
+    const newSecours = {
       description: this.state.description,
       categorie: this.state.categorie,
       name: this.state.name,
     };
 
     if(this.props.data._id) {
-      newAllergie.id = this.props.data._id
-      this.props.updateAllergie(newAllergie);
+      newSecours.id = this.props.data._id
+      this.props.updateSecours(newSecours);
     } else {
-      this.props.addAllergie(newAllergie);
+      this.props.addSecours(newSecours);
     }
 
     this.props.onClose();
@@ -60,13 +60,13 @@ class AllergieForm extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="Allergie-form mb-3">
+      <div className="Secours-form mb-3">
         <div className="card card-info">
           <div className="card-header bg-info description-white">Say Something...</div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
               {
-                attribut.allergie && attribut.allergie.map((item, key) => {
+                attribut.secours && attribut.secours.map((item, key) => {
                   return <div key={key} className="form-group">
                   <TextFieldGroup
                     placeholder={item}
@@ -89,10 +89,10 @@ class AllergieForm extends Component {
   }
 }
 
-AllergieForm.propTypes = {
-  updateAllergie: PropTypes.func.isRequired,
+SecoursForm.propTypes = {
+  updateSecours: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  addAllergie: PropTypes.func.isRequired,
+  addSecours: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   pays: PropTypes.any,
@@ -104,4 +104,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addAllergie, updateAllergie })(AllergieForm);
+export default connect(mapStateToProps, { addSecours, updateSecours })(SecoursForm);

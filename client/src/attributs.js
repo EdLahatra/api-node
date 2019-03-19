@@ -57,7 +57,31 @@ const sante = [
   'naissance',
 ];
 
+const checklist = [
+  'user',
+  'intitule',
+  'ordre',
+  'categorie',
+  'commentaire',
+];
+
+const secours = [
+  'user',
+  'description',
+  'commentaire',
+];
+
+const documents = [
+  'user',
+  'doc',
+  'description',
+  'commentaire',
+];
+
 export default  {
+  documents,
+  secours,
+  checklist,
   urgence,
   centre,
   voyage,

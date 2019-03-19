@@ -81,7 +81,7 @@ class PaysForm extends Component {
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
               {
-                attribut.pays.map((key, i) => {
+                attribut.pays && attribut.pays.map((key, i) => {
                   if (key === 'maladie') {
                     return <div key={`${key} maladie`}><p>Maladie</p>
                     {

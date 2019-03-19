@@ -36,6 +36,8 @@ import Urgences from './components/urgence/Urgences';
 import Sanguin from './components/sanguin/Sanguin';
 import Categorie from './components/categorie/Categorie';
 import Allergie from './components/allergie/Allergie';
+import Documents from './components/documents/Documents';
+import Secours from './components/secours/Secours';
 import NotFound from './components/not-found/NotFound';
 
 import './App.css';
@@ -105,6 +107,12 @@ class App extends Component {
                   path="/add-education"
                   component={AddEducation}
                 />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/secours" component={Secours} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/documents" component={Documents} />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/centre" component={Centres} />

@@ -53,7 +53,7 @@ class Navbar extends Component {
 
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
-        <div className="container">
+        <div className="container1">
           <Link className="navbar-brand" to="/sante">
             Sante
           </Link>
@@ -92,6 +92,12 @@ class Navbar extends Component {
           </Link>
           <Link className="navbar-brand" to="/urgence">
             Num Urgence
+          </Link>
+          <Link className="navbar-brand" to="/secours">
+            Secours
+          </Link>
+          <Link className="navbar-brand" to="/documents">
+            Documents
           </Link>
           <div className="collapse navbar-collapse" id="mobile-nav">
             {isAuthenticated ? authLinks : guestLinks}
