@@ -59,10 +59,11 @@ router.post(
     }
 
     const newMaladie = new Maladie({
+      value: req.body.name,
+      label: req.body.name,
       description: req.body.description,
       name: req.body.name,
-      sejour: req.body.medecin || [],
-      medecin: req.body.medecin || [],
+      sejour: req.body.sejour || [],
       vaccin: req.body.vaccin || [],
       vaccinSugg: req.body.vaccinSugg || [],
     });
@@ -78,21 +79,47 @@ router.delete(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Profile.findOne({ user: req.user.id }).then((profile) => {
-      Maladie.findById(req.params.id)
-        .then((post) => {
-          // Check for post owner
-          if (post.user.toString() !== req.user.id) {
-            return res
-              .status(401)
-              .json({ notauthorized: 'User not authorized' });
-          }
+    Maladie.findById(req.params.id)
+      .then((post) => {
+        // Delete
+        post.remove().then(() => res.json({ success: true }));
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+  },
+);
 
-          // Delete
-          post.remove().then(() => res.json({ success: true }));
-        })
-        .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-    });
+// @route   POST api/posts/comment/:id
+// @desc    Add comment to post
+// @access  Private
+router.put(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateSejourInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // If any errors, send 400 with errors object
+      return res.status(400).json(errors);
+    }
+
+    Maladie.findById(req.params.id)
+      .then((post) => {
+        // Add to comments array
+        post.description = req.body.description;
+        post.value = req.body.description;
+        post.label = req.body.description;
+        post.name = req.body.name;
+        post.sejour = req.body.sejour;
+        post.vaccin = req.body.vaccin;
+        post.vaccinSugg = req.body.vaccinSugg;
+
+        // Save
+        post.save()
+          .then(post => res.json(post))
+          .catch(err => res.status(400).json({ errors: 'No found' }));
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
   },
 );
 

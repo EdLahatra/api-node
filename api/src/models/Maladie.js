@@ -31,14 +31,14 @@ const MaladieSchema = new Schema({
       },
     },
   ],
-  medecin: [
-    {
-      vaccin: {
-        type: Schema.Types.ObjectId,
-        ref: 'medecin',
-      },
-    },
-  ],
+  label: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now,

@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Select from 'react-select';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroupMultiple from '../common/SelectListGroupMultiple';
 import { addMaladie } from '../../actions/MaladieActions';
+
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+];
 
 class MaladieForm extends Component {
   constructor(props) {
@@ -13,11 +20,16 @@ class MaladieForm extends Component {
       errors: {},
       vaccin: '',
       vaccinList: [],
-      sejourList: []
+      sejourList: [],
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
   }
 
   componentWillReceiveProps(newProps) {
@@ -34,35 +46,15 @@ class MaladieForm extends Component {
     const newMaladie = {
       name: this.state.text,
       vaccin: this.state.vaccinList,
-      sejour: this.state.isCheckedSejour,
+      sejour: this.state.sejourList,
     };
 
     this.props.addMaladie(newMaladie);
-    this.setState({ text: '', vaccin: [] });
+    this.setState({ text: '', vaccinList: [], sejourList: [] });
   }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-  }
-
-  toggleChange = item => {
-    let vaccinList = [];
-    if (this.isChecked(item)){
-      vaccinList = this.state.vaccinList.filter(key => key._id !== item._id)
-    } else {
-      vaccinList = [...this.state.vaccinList, item]
-    }
-    this.setState({ vaccinList });
-  }
-
-  toggleChangeSejour = item => {
-    let sejourList = [];
-    if (this.isCheckedSejour(item)){
-      sejourList = this.state.sejourList.filter(key => key._id !== item._id)
-    } else {
-      sejourList = [...this.state.sejourList, item]
-    }
-    this.setState({ sejourList });
   }
 
   isChecked = item => this.state.vaccinList.filter(key => key._id === item._id).length > 0
@@ -70,8 +62,7 @@ class MaladieForm extends Component {
   isCheckedSejour = item => this.state.sejourList.filter(key => key._id === item._id).length > 0
 
   render() {
-    const { errors, vaccinList } = this.state;
-
+    const { errors, vaccinList, sejourList } = this.state;
     return (
       <div className="Maladie-form mb-3">
         <div className="card card-info">
@@ -87,33 +78,21 @@ class MaladieForm extends Component {
                   error={errors.text}
                 />
                 <p>Vaccin</p>
-                {
-                  this.props.vaccin.map((item, key) => {
-                    return (
-                      <div key={key}>
-                        {item.name}
-                        <input type="checkbox"
-                          checked={this.isChecked(item)}
-                          onChange={() => this.toggleChange(item)}
-                        />
-                      </div>
-                    )
-                  })
-                }
+                <Select
+                  name="vaccin"
+                  value={vaccinList}
+                  onChange={vaccinList => this.setState({ vaccinList })}
+                  options={this.props.vaccin}
+                  isMulti
+                />
                 <p>Sejour</p>
-                {
-                  this.props.sejour.map((item, key) => {
-                    return (
-                      <div key={`${key} sejour`}>
-                        {item.description}
-                        <input type="checkbox"
-                          checked={this.isChecked(item)}
-                          onChange={() => this.toggleChange(item)}
-                        />
-                      </div>
-                    )
-                  })
-                }
+                <Select
+                  name="sejour"
+                  value={sejourList}
+                  onChange={sejourList => this.setState({ sejourList })}
+                  options={this.props.sejour}
+                  isMulti
+                />
               </div>
               <button type="submit" className="btn btn-dark">
                 Submit

@@ -57,6 +57,8 @@ router.post(
     }
 
     const newSejour = new Sejour({
+      value: req.body.description,
+      label: req.body.description,
       description: req.body.description,
       isQuestion: req.body.isQuestion,
     });
@@ -100,7 +102,8 @@ router.put(
       .then((post) => {
         // Add to comments array
         post.description = req.body.description;
-
+        post.value = req.body.description;
+        post.label = req.body.description;
         // Save
         post.save()
           .then(post => res.json(post))

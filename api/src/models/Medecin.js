@@ -4,6 +4,14 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const MedecinSchema = new Schema({
+  label: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: String,
+    required: true,
+  },
   pays: {
     type: Schema.Types.ObjectId,
     ref: 'pays',

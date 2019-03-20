@@ -78,7 +78,14 @@ const documents = [
   'commentaire',
 ];
 
+const maladie = [
+  'name',
+  'sejour',
+  'vaccin',
+];
+
 export default  {
+  maladie,
   documents,
   secours,
   checklist,

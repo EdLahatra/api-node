@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { deleteMaladie, updateMaladie } from '../../actions/MaladieActions';
+import attribut from '../../attributs';
 
 class MaladieItem extends Component {
   constructor(props) {
@@ -59,6 +60,15 @@ class MaladieItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-10">
+          {attribut.maladie.map((key, i) => {
+            console.log(maladie[key])
+              if (typeof maladie[key] === 'object') {
+                return <div key={i}>{key}: {
+                  maladie[key].map(p => <p key={p._id}>{p._id}</p>)
+                }</div>
+              }
+              // return <div key={i}>{key}: {maladie[key]}</div>
+            })}
             <p className="lead">{maladie.name}</p>
               <span>
                 <button

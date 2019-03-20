@@ -4,6 +4,14 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const VaccinSchema = new Schema({
+  label: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,

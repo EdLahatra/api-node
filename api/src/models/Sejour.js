@@ -4,6 +4,14 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const SejourSchema = new Schema({
+  label: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     required: true,

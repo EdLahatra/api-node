@@ -58,6 +58,8 @@ router.post(
 
     const newVaccin = new Vaccin({
       name: req.body.name,
+      value: req.body.name,
+      label: req.body.name,
     });
 
     newVaccin.save().then(post => res.json(post));
@@ -99,6 +101,8 @@ router.put(
       .then((post) => {
         // Add to comments array
         post.name = req.body.name;
+        post.value = req.body.name;
+        post.label = req.body.name;
 
         // Save
         post.save()

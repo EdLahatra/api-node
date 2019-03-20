@@ -4,6 +4,14 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const SanguinSchema = new Schema({
+  label: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
