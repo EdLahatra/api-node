@@ -1,5 +1,6 @@
 // Checklist model
 import Checklist from '../../models/Checklist';
+import User from '../../models/User';
 
 // Validation
 import validateChecklistInput from '../../validation/checklist';
@@ -14,6 +15,21 @@ const router = express.Router();
 // @desc    Tests post route
 // @access  Public
 router.get('/test', (req, res) => res.json({ msg: 'Checklists Works' }));
+
+// @route   GET api/users/current
+// @desc    Return current user
+// @access  Private
+router.get(
+  '/user',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.user.id)
+      .then((post) => {
+        if (!post) res.status(404).json({ postnotfound: 'No post found' });
+        res.json({ checklist: post.checklist });
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+  });
 
 // @route   GET api/posts
 // @desc    Get posts
@@ -58,10 +74,69 @@ router.post(
     }
 
     const newChecklist = new Checklist({
-      description: req.body.description,
+      // intitule: req.body.intitule,
+      // commentaire: req.body.commentaire,
+      intitule: req.body.intitule,
+      ordre: req.body.ordre,
+      // categorie: req.body.categorie,
+      commentaire: req.body.commentaire,
     });
 
     newChecklist.save().then(post => res.json(post));
+  },
+);
+
+// @route   POST api/posts/like/:id
+// @desc    Like post
+// @access  Private
+router.put(
+  '/like-unlink',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    console.log('req.body =====>', req.body);
+    User.findById(req.user.id)
+      .then((post) => {
+        // Add user id to likes array
+        post.checklist = req.body;
+
+        post.save().then(() => res.json(req.body));
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+  },
+);
+
+// @route   POST api/posts/unlike/:id
+// @desc    Unlike post
+// @access  Private
+router.post(
+  '/unlike/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findOne({ user: req.user.id }).then((profile) => {
+      Post.findById(req.params.id)
+        .then((post) => {
+          if (
+            post.likes.filter(like => like.user.toString() === req.user.id)
+              .length === 0
+          ) {
+            return res
+              .status(400)
+              .json({ notliked: 'You have not yet liked this post' });
+          }
+
+          // Get remove index
+          const removeIndex = post.likes
+            .map(item => item.user.toString())
+            .indexOf(req.user.id);
+
+          // Splice out of array
+          post.likes.splice(removeIndex, 1);
+
+          // Save
+          post.save().then(post => res.json(post));
+        })
+        .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+    });
   },
 );
 
@@ -99,7 +174,7 @@ router.put(
     Checklist.findById(req.params.id)
       .then((post) => {
         // Add to comments array
-        post.description = req.body.description;
+        post.intitule = req.body.intitule;
 
         // Save
         post.save().then(post => res.json(post));

@@ -67,25 +67,25 @@ mongoose
     console.error('error ==========>', e.message);
   });
 
-
+mongoose.set('useCreateIndex', true);
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(
-  new JwtStrategy(opts, (jwtPayload, done) => {
-    User.findById(jwtPayload.id)
-      .then((user) => {
-        if (user) {
-          return done(null, user);
-        }
-        return done(null, false);
-      })
-      .catch(err => console.log(err));
-  }),
-);
+// passport.use(
+//   new JwtStrategy(opts, (jwtPayload, done) => {
+//     User.findById(jwtPayload.id)
+//       .then((user) => {
+//         if (user) {
+//           return done(null, user);
+//         }
+//         return done(null, false);
+//       })
+//       .catch(err => console.log(err));
+//   }),
+// );
 
 // Passport Config
-// require('./src/config/passport')(passport);
+require('./src/config/passport')(passport);
 
 // Use Routes
 app.use('/api/users', users);

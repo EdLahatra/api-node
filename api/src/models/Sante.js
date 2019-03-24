@@ -21,13 +21,16 @@ const SanteSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'sanguin',
   },
-  allergie: {
-    type: Schema.Types.ObjectId,
-    ref: 'allergie',
-  },
+  allergie: [
+    {
+      allergie: {
+        type: Schema.Types.ObjectId,
+        ref: 'allergie',
+      },
+    },
+  ],
   naissance: {
-    type: Date,
-    default: Date.now,
+    type: Number,
   },
   date: {
     type: Date,

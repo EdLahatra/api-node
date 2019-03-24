@@ -3,13 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addQuestion } from '../../actions/QuestionActions';
+import attribut from '../../attributs';
 
+const initial = {
+  text: '',
+  errors: {},
+  user: '',
+  intitule: '',
+  ordre: '',
+  categorie: '',
+  commentaire: '',
+}
 class QuestionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
-      errors: {}
+      ...initial,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -28,11 +37,14 @@ class QuestionForm extends Component {
     const { user } = this.props.auth;
 
     const newQuestion = {
-      description: this.state.text,
+      intitule: this.state.intitule,
+      ordre: this.state.ordre,
+      categorie: this.state.categorie,
+      commentaire: this.state.commentaire,
     };
 
     this.props.addQuestion(newQuestion);
-    this.setState({ text: '' });
+    this.setState({ ...initial });
   }
 
   onChange(e) {
@@ -48,15 +60,22 @@ class QuestionForm extends Component {
           <div className="card-header bg-info text-white">Say Something...</div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
-              <div className="form-group">
-                <TextAreaFieldGroup
-                  placeholder="Create a Question"
-                  name="text"
-                  value={this.state.text}
-                  onChange={this.onChange}
-                  error={errors.text}
-                />
-              </div>
+              {
+                attribut.checklist.map(key => {
+                  if (key === 'user') {
+                    return <div key={key} />;
+                  }
+                  return <div className="form-group" key={key}>
+                  <TextAreaFieldGroup
+                    placeholder={`Creaction ${key}`}
+                    name={key}
+                    value={this.state[key]}
+                    onChange={this.onChange}
+                    error={errors[key]}
+                  />
+                </div>
+                })
+              }
               <button type="submit" className="btn btn-dark">
                 Submit
               </button>

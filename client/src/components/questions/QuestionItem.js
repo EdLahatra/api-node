@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { deleteQuestion, updateQuestion } from '../../actions/QuestionActions';
+import attribut from '../../attributs';
 
 class QuestionItem extends Component {
   constructor(props) {
@@ -59,7 +60,9 @@ class QuestionItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-10">
-            <p className="lead">{checklist.description}</p>
+          {attribut.checklist.map((key, i) => <div key={i}>{key}: {checklist[key]}</div>
+            )}
+            {/* <p className="lead">{checklist.description}</p> */}
               <span>
                 <button
                   onClick={this.onDeleteClick.bind(this, checklist._id)}

@@ -67,7 +67,9 @@ const checklist = [
 
 const secours = [
   'user',
-  'description',
+  'intitule',
+  'ordre',
+  'categorie',
   'commentaire',
 ];
 

@@ -2,17 +2,17 @@ import isEmpty from './is-empty';
 
 const Validator = require('validator');
 
-const validateAllergieInput = (data) => {
+const validatePostInput = (data) => {
   const errors = {};
 
-  data.name = !isEmpty(data.name) ? data.name : '';
+  data.intitule = !isEmpty(data.intitule) ? data.intitule : '';
 
-  if (!Validator.isLength(data.name, { min: 2, max: 300 })) {
-    errors.name = 'Post must be between 2 and 300 characters';
+  if (!Validator.isLength(data.intitule, { min: 4, max: 300 })) {
+    errors.intitule = 'Post must be between 4 and 300 characters';
   }
 
-  if (Validator.isEmpty(data.name)) {
-    errors.name = 'Text field is required';
+  if (Validator.isEmpty(data.intitule)) {
+    errors.intitule = 'Text field is required';
   }
 
   return {
@@ -21,4 +21,4 @@ const validateAllergieInput = (data) => {
   };
 };
 
-export default validateAllergieInput;
+export default validatePostInput;

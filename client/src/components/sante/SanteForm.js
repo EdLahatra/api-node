@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
+import Select from 'react-select';
 import { addSante, updateSante } from '../../actions/SanteActions';
 import attribut from '../../attributs';
 
@@ -36,7 +37,7 @@ class SanteForm extends Component {
     const {
       sanguin,
       poids,
-      allergie,
+      allergieList,
       problemeSantePasse,
       problemeSanteEncours,
       naissance,
@@ -44,7 +45,7 @@ class SanteForm extends Component {
     const newSante = {
       sanguin,
       poids,
-      allergie,
+      allergie: allergieList,
       problemeSantePasse,
       problemeSanteEncours,
       naissance,
@@ -67,7 +68,7 @@ class SanteForm extends Component {
     });
   }
 
-  onChange(e) {
+  onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
 
@@ -84,7 +85,7 @@ class SanteForm extends Component {
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, sanguinList, allergieList } = this.state;
 
     return (
       <div className="Sante-form mb-3">
@@ -100,14 +101,20 @@ class SanteForm extends Component {
                       <TextFieldGroup
                         key={key}
                         name="naissance"
-                        type="date"
+                        type="number"
                         value={this.state.naissance}
                         onChange={this.onChange}
                         error={errors.naissance}
                       />
                       );
                     if (key === 'sanguin') return(
-                      <div key={`${key}`}><p>Groupe Sanguin</p>
+                      <div key={`${key}`}><p>Group Sanguin</p>
+                {/* <Select
+                  name="sanguin"
+                  value={sanguinList}
+                  onChange={sanguinList => this.setState({ sanguinList })}
+                  options={this.props.sanguin}
+                /> */}
                     {
                       this.props.sanguin.map((item, i) => {
                         return (
@@ -126,7 +133,14 @@ class SanteForm extends Component {
 
                     if (key === 'allergie') return(
                       <div key={`${key}`}><p>allergie</p>
-                    {
+                      <Select
+                  name="allergie"
+                  value={allergieList}
+                  onChange={allergieList => this.setState({ allergieList })}
+                  options={this.props.allergie}
+                  isMulti
+                />
+                    {/* {
                       this.props.allergie.map((item, i) => {
                         return (
                           <div key={i}>
@@ -138,7 +152,7 @@ class SanteForm extends Component {
                           </div>
                         )
                       })
-                    }
+                    } */}
                     </div>
                     );
 

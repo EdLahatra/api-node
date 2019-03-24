@@ -21,12 +21,31 @@ router.get('/test', (req, res) => res.json({ msg: 'Posts Works' }));
 // @desc    Get posts
 // @access  Public
 router.get('/', (req, res) => {
-  console.log('Voyage');
+  console.log('Voyage', req.user);
   Voyage.find()
     .sort({ date: -1 })
     .then(posts => res.json(posts))
     .catch(err => res.status(404).json({ nopostsfound: 'No posts found' }));
 });
+
+// @route   GET api/voyage-user
+// @desc    Get post by id
+// @access  Public
+router.get('/user/:userId', (req, res) => {
+  console.log('req.user.id', req.params.userId);
+  Voyage.find({ user: req.params.userId })
+    .then((post) => {
+      if (post) {
+        res.json(post);
+      } else {
+        res.status(404).json({ nopostfound: 'No post found with that ID' });
+      }
+    })
+    .catch(err =>
+      res.status(404).json({ nopostfound: 'No post found with that ID' }),
+    );
+});
+
 
 // @route   GET api/posts/:id
 // @desc    Get post by id

@@ -5,14 +5,14 @@ const Validator = require('validator');
 const validatePostInput = (data) => {
   const errors = {};
 
-  data.description = !isEmpty(data.description) ? data.description : '';
+  data.intitule = !isEmpty(data.intitule) ? data.intitule : '';
 
-  if (!Validator.isLength(data.description, { min: 10, max: 300 })) {
-    errors.description = 'Post must be between 10 and 300 characters';
+  if (!Validator.isLength(data.intitule, { min: 4, max: 300 })) {
+    errors.intitule = 'Post must be between 4 and 300 characters';
   }
 
-  if (Validator.isEmpty(data.description)) {
-    errors.description = 'Text field is required';
+  if (Validator.isEmpty(data.intitule)) {
+    errors.intitule = 'Text field is required';
   }
 
   return {

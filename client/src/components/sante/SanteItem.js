@@ -58,7 +58,12 @@ class SanteItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-10">
-          {attribut.sante.map((key, i) => <div key={i}>{key}: {sante[key]}</div>)}
+          {attribut.sante.map((key, i) => {
+            if (key === 'allergie') {
+              return <div key={i}>{key}: {sante[key].map(i => <p>{i._id}</p>)}</div>
+            }
+            return <div key={i}>{key}: {sante[key]}</div>
+          })}
               <span>
                 <button
                   onClick={this.onDeleteClick.bind(this, sante._id)}

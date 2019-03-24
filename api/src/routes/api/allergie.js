@@ -69,6 +69,8 @@ router.post(
 
     const newAllergie = new Allergie({
       name: req.body.name,
+      value: req.body.name,
+      label: req.body.name,
       description: req.body.description,
       categorie: req.body.categorie,
     });
@@ -112,6 +114,8 @@ router.put(
       .then((post) => {
         // Add to comments array
         post.name = req.body.name;
+        post.label = req.body.name;
+        post.value = req.body.name;
         post.categorie = req.body.categorie;
         post.description = req.body.description;
         // Save

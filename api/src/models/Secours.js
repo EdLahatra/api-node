@@ -4,15 +4,31 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const SecoursSchema = new Schema({
-  name: {
+  intitule: {
     type: String,
     required: true,
   },
-  categorie: {
+  commentaire: {
     type: String,
   },
-  description: {
+  personnalisation: {
     type: String,
+  },
+  ordre: {
+    type: Number,
+    unique: false,
+    validate: {
+      validator: Number.isInteger,
+      message: '{VALUE} is not an integer value',
+    },
+  },
+  categorie: {
+    type: Schema.Types.ObjectId,
+    ref: 'categorie',
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'users',
   },
   date: {
     type: Date,

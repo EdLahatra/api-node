@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import TextFieldGroup from '../common/TextFieldGroup';
-import { addSecours, updateSecours } from '../../actions/SecoursActions';
+import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import { addSecours } from '../../actions/SecoursActions';
 import attribut from '../../attributs';
 
 class SecoursForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      description: this.props.data.description || '',
-      categorie: this.props.data.categorie || '',
-      name: this.props.data.name || '',
-      errors: {
-      },
+      text: '',
+      errors: {},
+      user: '',
+      intitule: '',
+      ordre: '',
+      categorie: '',
+      commentaire: '',
     };
 
     this.onChange = this.onChange.bind(this);
@@ -32,24 +34,14 @@ class SecoursForm extends Component {
     const { user } = this.props.auth;
 
     const newSecours = {
-      description: this.state.description,
+      intitule: this.state.intitule,
+      ordre: this.state.ordre,
       categorie: this.state.categorie,
-      name: this.state.name,
+      commentaire: this.state.commentaire,
     };
 
-    if(this.props.data._id) {
-      newSecours.id = this.props.data._id
-      this.props.updateSecours(newSecours);
-    } else {
-      this.props.addSecours(newSecours);
-    }
-
-    this.props.onClose();
-    this.setState({
-      description: '',
-      name: '',
-      categorie: '',
-    });
+    this.props.addSecours(newSecours);
+    this.setState({ text: '' });
   }
 
   onChange(e) {
@@ -62,18 +54,21 @@ class SecoursForm extends Component {
     return (
       <div className="Secours-form mb-3">
         <div className="card card-info">
-          <div className="card-header bg-info description-white">Say Something...</div>
+          <div className="card-header bg-info text-white">Say Something...</div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
               {
-                attribut.secours && attribut.secours.map((item, key) => {
-                  return <div key={key} className="form-group">
-                  <TextFieldGroup
-                    placeholder={item}
-                    name={item}
-                    value={this.state[item]}
+                attribut.secours.map(key => {
+                  if (key === 'user') {
+                    return <div key={key} />;
+                  }
+                  return <div className="form-group" key={key}>
+                  <TextAreaFieldGroup
+                    placeholder={`Creaction ${key}`}
+                    name={key}
+                    value={this.state[key]}
                     onChange={this.onChange}
-                    error={errors[item]}
+                    error={errors[key]}
                   />
                 </div>
                 })
@@ -90,18 +85,14 @@ class SecoursForm extends Component {
 }
 
 SecoursForm.propTypes = {
-  updateSecours: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
   addSecours: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  pays: PropTypes.any,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  pays: state.pays,
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addSecours, updateSecours })(SecoursForm);
+export default connect(mapStateToProps, { addSecours })(SecoursForm);

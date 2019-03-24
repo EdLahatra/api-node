@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const ChecklistSchema = new Schema({
-  description: {
+  intitule: {
     type: String,
     required: true,
   },

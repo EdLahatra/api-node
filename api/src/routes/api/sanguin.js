@@ -57,6 +57,8 @@ router.post(
     }
 
     const newSanguin = new Sanguin({
+      value: req.body.name,
+      label: req.body.name,
       name: req.body.name,
     });
 
@@ -99,6 +101,8 @@ router.put(
       .then((post) => {
         // Add to comments array
         post.name = req.body.name;
+        post.label = req.body.name;
+        post.value = req.body.name;
 
         // Save
         post.save()

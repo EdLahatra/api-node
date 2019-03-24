@@ -1,6 +1,6 @@
 // Sejour model
 import Sejour from '../../models/Sejour';
-
+import Maladie from '../../models/Maladie';
 // Validation
 import validateSejourInput from '../../validation/sejour';
 
@@ -38,6 +38,30 @@ router.get('/:id', (req, res) => {
     })
     .catch(err =>
       res.status(404).json({ nopostfound: 'No post found with that ID' }),
+    );
+});
+
+// @route   GET api/posts/:id
+// @desc    Get post by id
+// @access  Public
+router.get('/maladie/:id', (req, res) => {
+  console.log('req.params.id', req.params.id);
+  Maladie.findById(req.params.id)
+    .then((post) => {
+      console.log('sfdsfsdfsdfsd');
+      if (post) {
+        const data = post.sejour.map(async (k) => {
+          const d = await Sejour.findById(k.sejour).exec();
+          console.log('data', d);
+          return d;
+        });
+        res.json(data);
+      } else {
+        res.status(404).json({ nopostfound: 'No post found with that ID sss' });
+      }
+    })
+    .catch(err =>
+      res.status(404).json({ nopostfound: 'No post found with that ID dsdfsdfds' }),
     );
 });
 

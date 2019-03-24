@@ -52,6 +52,14 @@ const PaysSchema = new Schema({
       },
     },
   ],
+  urgence: [
+    {
+      urgence: {
+        type: Schema.Types.ObjectId,
+        ref: 'urgence',
+      },
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,

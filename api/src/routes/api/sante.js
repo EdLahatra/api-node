@@ -17,6 +17,22 @@ router.get('/test', (req, res) => res.json({ msg: 'Posts Works' }));
 // @route   GET api/posts
 // @desc    Get posts
 // @access  Public
+router.get(
+  '/user',
+  // passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Sante.find()
+      .then((sante) => {
+        if (!sante) res.status(404).json({ postnotfound: 'No post found' });
+        const s = sante.filter(i => i.user === req.user.id);
+        res.json({ sante: s.length > 0 ? s[0] : {} });
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+  });
+
+// @route   GET api/posts
+// @desc    Get posts
+// @access  Public
 router.get('/', (req, res) => {
   Sante.find()
     .sort({ date: -1 })
@@ -55,21 +71,14 @@ router.post(
       // If any errors, send 400 with errors object
       return res.status(400).json(errors);
     }
-    //   'sanguin',
-    // 'poids',
-    // 'age',
-    // 'user',
-    // 'allergie',
-    // 'problemeSantePasse',
-    // 'problemeSanteEncours',
-    // 'naissance',
+
     const newSante = new Sante({
       poids: req.body.poids,
       naissance: req.body.naissance,
       problemeSantePasse: req.body.problemeSantePasse,
       problemeSanteEncours: req.body.problemeSanteEncours,
       user: Types.ObjectId(req.user.id),
-      allergie: Types.ObjectId(req.body.allergie),
+      allergie: req.body.allergie,
       sanguin: Types.ObjectId(req.body.sanguin),
     });
 

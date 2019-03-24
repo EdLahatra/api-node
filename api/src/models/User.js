@@ -19,6 +19,26 @@ const UserSchema = new Schema({
   avatar: {
     type: String,
   },
+  pays: {
+    type: Schema.Types.ObjectId,
+    ref: 'pays',
+  },
+  checklist: [
+    {
+      checklist: {
+        type: Schema.Types.ObjectId,
+        ref: 'checklist',
+      },
+    },
+  ],
+  secours: [
+    {
+      secours: {
+        type: Schema.Types.ObjectId,
+        ref: 'secours',
+      },
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,

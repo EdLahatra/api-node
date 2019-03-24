@@ -4,6 +4,12 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const MaladieSchema = new Schema({
+  label: {
+    type: String,
+  },
+  value: {
+    type: String,
+  },
   name: {
     type: String,
   },

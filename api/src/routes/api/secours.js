@@ -1,8 +1,9 @@
-// Secours model
+// secours model
 import Secours from '../../models/Secours';
+import User from '../../models/User';
 
 // Validation
-import validateSecoursInput from '../../validation/secours';
+import validatesecoursInput from '../../validation/secours';
 
 const passport = require('passport');
 const express = require('express');
@@ -13,7 +14,22 @@ const router = express.Router();
 // @route   GET api/posts/test
 // @desc    Tests post route
 // @access  Public
-router.get('/test', (req, res) => res.json({ msg: 'Secours Works' }));
+router.get('/test', (req, res) => res.json({ msg: 'secourss Works' }));
+
+// @route   GET api/users/current
+// @desc    Return current user
+// @access  Private
+router.get(
+  '/user',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.user.id)
+      .then((post) => {
+        if (!post) res.status(404).json({ postnotfound: 'No post found' });
+        res.json({ secours: post.secours });
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+  });
 
 // @route   GET api/posts
 // @desc    Get posts
@@ -22,7 +38,7 @@ router.get('/', (req, res) => {
   Secours.find()
     .sort({ date: -1 })
     .then(posts => res.json(posts))
-    .catch(() => res.status(404).json({ nopostsfound: 'No posts found' }));
+    .catch(err => res.status(404).json({ nopostsfound: 'No posts found' }));
 });
 
 // @route   GET api/posts/:id
@@ -37,20 +53,10 @@ router.get('/:id', (req, res) => {
         res.status(404).json({ nopostfound: 'No post found with that ID' });
       }
     })
-    .catch(() =>
+    .catch(err =>
       res.status(404).json({ nopostfound: 'No post found with that ID' }),
     );
 });
-
-
-// const keys = require('../config/keys');
-// const passportJWT = require('passport-jwt');
-// const ExtractJWT = require('passport-jwt').ExtractJwt;
-// const JWTStrategy = require('passport-jwt').Strategy;
-// const opts = {};
-
-// opts.jwtFromRequest = ExtractJWT.fromAuthHeaderWithScheme('jwt');
-// opts.secretOrKey = keys.secretOrKey;
 
 // @route   POST api/posts
 // @desc    Create post
@@ -59,7 +65,7 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateSecoursInput(req.body);
+    const { errors, isValid } = validatesecoursInput(req.body);
 
     // Check Validation
     if (!isValid) {
@@ -68,12 +74,69 @@ router.post(
     }
 
     const newSecours = new Secours({
-      name: req.body.name,
-      description: req.body.description,
-      categorie: req.body.categorie,
+      // intitule: req.body.intitule,
+      // commentaire: req.body.commentaire,
+      intitule: req.body.intitule,
+      ordre: req.body.ordre,
+      // categorie: req.body.categorie,
+      commentaire: req.body.commentaire,
     });
 
     newSecours.save().then(post => res.json(post));
+  },
+);
+
+// @route   POST api/posts/like/:id
+// @desc    Like post
+// @access  Private
+router.put(
+  '/like-unlink',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    console.log('req.body =====>', req.body);
+    User.findById(req.user.id)
+      .then((post) => {
+        // Add user id to likes array
+        post.secours = req.body;
+
+        post.save().then(() => res.json(req.body));
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+  },
+);
+
+// @route   POST api/posts/unlike/:id
+// @desc    Unlike post
+// @access  Private
+router.post(
+  '/unlike/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findOne({ user: req.user.id }).then((profile) => {
+      Post.findById(req.params.id)
+        .then((post) => {
+          if (
+            post.likes.filter(like => like.user.toString() === req.user.id)
+              .length === 0
+          ) {
+            return res
+              .status(400)
+              .json({ notliked: 'You have not yet liked this post' });
+          }
+
+          // Get remove index
+          const removeIndex = post.likes
+            .map(item => item.user.toString())
+            .indexOf(req.user.id);
+
+          // Splice out of array
+          post.likes.splice(removeIndex, 1);
+
+          // Save
+          post.save().then(post => res.json(post));
+        })
+        .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+    });
   },
 );
 
@@ -89,7 +152,7 @@ router.delete(
         // Delete
         post.remove().then(() => res.json({ success: true }));
       })
-      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
   },
 );
 
@@ -100,7 +163,7 @@ router.put(
   '/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateSecoursInput(req.body);
+    const { errors, isValid } = validatesecoursInput(req.body);
 
     // Check Validation
     if (!isValid) {
@@ -111,15 +174,12 @@ router.put(
     Secours.findById(req.params.id)
       .then((post) => {
         // Add to comments array
-        post.name = req.body.name;
-        post.categorie = req.body.categorie;
-        post.description = req.body.description;
+        post.intitule = req.body.intitule;
+
         // Save
-        post.save()
-          .then(post => res.json(post))
-          .catch(() => res.status(400).json({ errors: 'No found' }));
+        post.save().then(post => res.json(post));
       })
-      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
   },
 );
 
@@ -130,7 +190,7 @@ router.post(
   '/comment/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateSecoursInput(req.body);
+    const { errors, isValid } = validatesecoursInput(req.body);
 
     // Check Validation
     if (!isValid) {
@@ -153,7 +213,7 @@ router.post(
         // Save
         post.save().then(post => res.json(post));
       })
-      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
   },
 );
 
@@ -187,8 +247,9 @@ router.delete(
 
         post.save().then(post => res.json(post));
       })
-      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
   },
 );
 
+// module.exports = router;
 export default router;

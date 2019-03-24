@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Select from 'react-select';
 import TextFieldGroup from '../common/TextFieldGroup';
 import { addPays } from '../../actions/PaysActions';
 import attribut from '../../attributs';
@@ -70,8 +71,13 @@ class PaysForm extends Component {
     this.setState({ [`${k}List`]: list });
   }
 
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  }
+
   render() {
-    const { errors } = this.state;
+    const { errors, medecinList, maladieList } = this.state;
     console.log(this.props.centre, this.props.medecin, this.props.maladie);
     return (
       <div className="Pays-form mb-3">
@@ -84,6 +90,13 @@ class PaysForm extends Component {
                 attribut.pays && attribut.pays.map((key, i) => {
                   if (key === 'maladie') {
                     return <div key={`${key} maladie`}><p>Maladie</p>
+                <Select
+                  name="maladie"
+                  value={maladieList}
+                  onChange={maladieList => this.setState({ maladieList })}
+                  options={this.props.maladie}
+                  isMulti
+                />
                     {
                       this.props.maladie.map((item, key) => {
                         return (
