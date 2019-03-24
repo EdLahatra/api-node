@@ -51,6 +51,11 @@ app.use((req, res, next) => {
   next();
 });
 
+const cors = require('cors');
+
+app.use(cors());
+app.options('*', cors());
+
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -107,8 +112,8 @@ app.use('/api/voyage', voyage);
 app.use('/api/centres', centre);
 app.use('/api/urgence', urgence);
 
-app.listen(5000, () => {
-  console.log(`server started on port ${5000} (${5000})`);
+app.listen(3030, () => {
+  console.log(`server started on port ${3030} (${3030})`);
 });
 
 export default app;

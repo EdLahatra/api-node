@@ -12,11 +12,13 @@ import {
   UPDATE_VOYAGE,
 } from './types';
 
+import config from '../utils/config';
+
 // Add Post
 export const updateVoyage = voyageData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/voyage/${voyageData.id}`, voyageData)
+    .put(`${config.baseUrl}/api/voyage/${voyageData.id}`, voyageData)
     .then(res =>
       dispatch({
         type: UPDATE_VOYAGE,
@@ -36,7 +38,7 @@ export const addVoyage = voyageData =>
   async (dispatch) => {
     dispatch(clearErrors());
     axios
-      .post('/api/voyage', voyageData)
+      .post(`${config.baseUrl}/api/voyage/`, voyageData)
       .then(res =>
         dispatch({
           type: ADD_VOYAGE,
@@ -56,7 +58,7 @@ export const getVoyage = () =>
   async (dispatch) => {
     dispatch(setVoyagesLoading());
     axios
-      .get('/api/voyage')
+      .get(`${config.baseUrl}/api/voyage`)
       .then(res =>
         dispatch({
           type: GET_VOYAGE,
