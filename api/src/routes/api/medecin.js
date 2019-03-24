@@ -57,6 +57,8 @@ router.post(
 
     const newMedecin = new Medecin({
       name: req.body.name,
+      label: req.body.name,
+      value: req.body.name,
     });
 
     newMedecin.save().then(post => res.json(post));
@@ -98,6 +100,8 @@ router.put(
       .then((post) => {
         // Add to comments array
         post.name = req.body.name;
+        post.label = req.body.name;
+        post.value = req.body.name;
 
         // Save
         post.save()

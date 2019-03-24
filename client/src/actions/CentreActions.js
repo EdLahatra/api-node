@@ -10,12 +10,13 @@ import {
   DELETE_CENTRE,
   UPDATE_CENTRE,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateCentre = centreData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/centres/${centreData.id}`, centreData)
+    .put(`${config.baseUrl}/api/centres/${centreData.id}`, centreData)
     .then(res =>
       dispatch({
         type: UPDATE_CENTRE,
@@ -34,7 +35,7 @@ export const updateCentre = centreData => dispatch => {
 export const addCentre = centreData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/centres', centreData)
+    .post(`${config.baseUrl}/api/centres`, centreData)
     .then(res =>
       dispatch({
         type: ADD_CENTRE,
@@ -53,7 +54,7 @@ export const addCentre = centreData => dispatch => {
 export const getCentres = () => dispatch => {
   dispatch(setCentresLoading());
   axios
-    .get('/api/centres')
+    .get(`${config.baseUrl}/api/centres`)
     .then(res =>
       dispatch({
         type: GET_CENTRE,
@@ -72,7 +73,7 @@ export const getCentres = () => dispatch => {
 export const postCentre = id => dispatch => {
   dispatch(setCentresLoading());
   axios
-    .get(`/api/centres/${id}`)
+    .get(`${config.baseUrl}/api/centres/${id}`)
     .then(res =>
       dispatch({
         type: GET_CENTRE,
@@ -90,7 +91,7 @@ export const postCentre = id => dispatch => {
 // Delete Centres
 export const deleteCentre = id => dispatch => {
   axios
-    .delete(`/api/centres/${id}`)
+    .delete(`${config.baseUrl}/api/centres/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_CENTRE,

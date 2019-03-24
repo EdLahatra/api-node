@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 import TextFieldGroup from '../common/TextFieldGroup';
+import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addPays } from '../../actions/PaysActions';
 import attribut from '../../attributs';
 
@@ -17,6 +18,8 @@ const initilState = {
   maladieList: [],
   centreList: [],
   medecinList: [],
+  isChecked: false,
+  commentaire: '',
 };
 
 class PaysForm extends Component {
@@ -50,6 +53,10 @@ class PaysForm extends Component {
       maladie: this.state.maladieList,
       centre: this.state.centreList,
       medecin: this.state.medecinList,
+      eau: {
+        potable: this.state.isChecked,
+        commentaire: this.state.commentaire,
+      }
     };
     this.props.addPays(newPays);
     this.setState(initilState);
@@ -77,8 +84,9 @@ class PaysForm extends Component {
   }
 
   render() {
-    const { errors, medecinList, maladieList } = this.state;
-    console.log(this.props.centre, this.props.medecin, this.props.maladie);
+    const { errors, medecinList, maladieList, isChecked, centreList } = this.state;
+    console.log('this.props.medecin', this.props.medecin);
+
     return (
       <div className="Pays-form mb-3">
         <div className="card card-info">
@@ -97,40 +105,28 @@ class PaysForm extends Component {
                   options={this.props.maladie}
                   isMulti
                 />
-                    {
-                      this.props.maladie.map((item, key) => {
-                        return (
-                          <div key={key}>
-                            {item.name}
-                            {/* <input type="checkbox"
-                              checked={this.isChecked(item, key)}
-                              onChange={() => this.toggleChange(item, key)}
-                            /> */}
-                          </div>
-                        )
-                      })
-                    }
                     </div>
                   }
                   if (key === 'medecin') {
                     return <div key={`${key} medecin`}><p>Medecin</p>
-                    {
-                      this.props.medecin && this.props.medecin.map((item, key) => {
-                        return (
-                          <div key={key}>
-                            {item.name}
-                            {/* <input type="checkbox"
-                              checked={this.isChecked(item, key)}
-                              onChange={() => this.toggleChange(item, key)}
-                            /> */}
-                          </div>
-                        )
-                      })
-                    }
+                    <Select
+                  name="medecin"
+                  value={medecinList}
+                  onChange={medecinList => this.setState({ medecinList })}
+                  options={this.props.medecin}
+                  isMulti
+                />
                     </div>
                   }
                   if (key === 'centre') {
                     return <div key={`${key} centre`}><p>Centre de Vaccination</p>
+                    <Select
+                  name="centre"
+                  value={centreList}
+                  onChange={centreList => this.setState({ centreList })}
+                  options={this.props.centre}
+                  isMulti
+                />
                     {
                       this.props.centre && this.props.centre.map((item, key) => {
                         return (
@@ -156,6 +152,23 @@ class PaysForm extends Component {
                 />
                 })
               }
+              <p>Eau</p>
+              <div>
+                Eau potable
+                <input type="checkbox"
+                  checked={isChecked}
+                  onChange={() => this.setState({ isChecked: !isChecked})}
+                />
+              </div>
+              <div className="form-group">
+                <TextAreaFieldGroup
+                  placeholder="Commentaires"
+                  name="commentaire"
+                  value={this.state.commentaire}
+                  onChange={this.onChange}
+                  error={errors.commentaire}
+                />
+              </div>
               </div>
               <button type="submit" className="btn btn-dark">
                 Submit

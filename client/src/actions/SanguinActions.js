@@ -9,12 +9,13 @@ import {
   DELETE_SANGUIN,
   UPDATE_SANGUIN,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateSanguin = data => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/sanguin/${data.id}`, data)
+    .put(`${config.baseUrl}/api/sanguin/${data.id}`, data)
     .then(res =>
       dispatch({
         type: UPDATE_SANGUIN,
@@ -33,7 +34,7 @@ export const updateSanguin = data => dispatch => {
 export const addSanguin = data => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/sanguin', data)
+    .post(`${config.baseUrl}/api/sanguin`, data)
     .then(res =>
       dispatch({
         type: ADD_SANGUIN,
@@ -52,7 +53,7 @@ export const addSanguin = data => dispatch => {
 export const getSanguin = () => dispatch => {
   dispatch(setSanguinLoading());
   axios
-    .get('/api/sanguin')
+    .get(`${config.baseUrl}/api/sanguin`)
     .then(res =>
       dispatch({
         type: GET_SANGUIN,
@@ -71,7 +72,7 @@ export const getSanguin = () => dispatch => {
 export const postSanguin = id => dispatch => {
   dispatch(setSanguinLoading());
   axios
-    .get(`/api/sanguin/${id}`)
+    .get(`${config.baseUrl}/api/sanguin/${id}`)
     .then(res =>
       dispatch({
         type: GET_SANGUIN,
@@ -89,7 +90,7 @@ export const postSanguin = id => dispatch => {
 // Delete SANGUINs
 export const deleteSanguin = id => dispatch => {
   axios
-    .delete(`/api/sanguin/${id}`)
+    .delete(`${config.baseUrl}/api/sanguin/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_SANGUIN,

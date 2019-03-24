@@ -9,12 +9,13 @@ import {
   DELETE_DOCUMENTS,
   UPDATE_DOCUMENTS,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateDocuments = DOCUMENTSData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/documents/${DOCUMENTSData.id}`, DOCUMENTSData)
+    .put(`${config.baseUrl}/api/documents/${DOCUMENTSData.id}`, DOCUMENTSData)
     .then(res =>
       dispatch({
         type: UPDATE_DOCUMENTS,
@@ -33,7 +34,7 @@ export const updateDocuments = DOCUMENTSData => dispatch => {
 export const addDocuments = DOCUMENTSData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/documents', DOCUMENTSData)
+    .post(`${config.baseUrl}/api/documents`, DOCUMENTSData)
     .then(res =>
       dispatch({
         type: ADD_DOCUMENTS,
@@ -52,7 +53,7 @@ export const addDocuments = DOCUMENTSData => dispatch => {
 export const getDocuments = () => dispatch => {
   dispatch(setDocumentsLoading());
   axios
-    .get('/api/documents')
+    .get(`${config.baseUrl}/api/documents`)
     .then(res =>
       dispatch({
         type: GET_DOCUMENTS,
@@ -71,7 +72,7 @@ export const getDocuments = () => dispatch => {
 export const postDocuments = id => dispatch => {
   dispatch(setDocumentsLoading());
   axios
-    .get(`/api/documents/${id}`)
+    .get(`${config.baseUrl}/api/documents/${id}`)
     .then(res =>
       dispatch({
         type: GET_DOCUMENTS,
@@ -89,7 +90,7 @@ export const postDocuments = id => dispatch => {
 // Delete DOCUMENTS
 export const deleteDocuments = id => dispatch => {
   axios
-    .delete(`/api/documents/${id}`)
+    .delete(`${config.baseUrl}/api/documents/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_DOCUMENTS,

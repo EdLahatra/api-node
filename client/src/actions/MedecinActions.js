@@ -10,12 +10,13 @@ import {
   DELETE_MEDECIN,
   UPDATE_MEDECIN,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateMedecin = medecinData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/medecin/${medecinData.id}`, medecinData)
+    .put(`${config.baseUrl}/api/medecin/${medecinData.id}`, medecinData)
     .then(res =>
       dispatch({
         type: UPDATE_MEDECIN,
@@ -34,7 +35,7 @@ export const updateMedecin = medecinData => dispatch => {
 export const addMedecin = medecinData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/medecin', medecinData)
+    .post(`${config.baseUrl}/api/medecin`, medecinData)
     .then(res =>
       dispatch({
         type: ADD_MEDECIN,
@@ -53,7 +54,7 @@ export const addMedecin = medecinData => dispatch => {
 export const getMedecin = () => dispatch => {
   dispatch(setMedecinsLoading());
   axios
-    .get('/api/medecin')
+    .get(`${config.baseUrl}/api/medecin`)
     .then(res =>
       dispatch({
         type: GET_MEDECIN,
@@ -72,7 +73,7 @@ export const getMedecin = () => dispatch => {
 export const postMedecin = id => dispatch => {
   dispatch(setMedecinsLoading());
   axios
-    .get(`/api/medecin/${id}`)
+    .get(`${config.baseUrl}/api/medecin/${id}`)
     .then(res =>
       dispatch({
         type: GET_ONE_MEDECIN,
@@ -90,7 +91,7 @@ export const postMedecin = id => dispatch => {
 // Delete Medecins
 export const deleteMedecin = id => dispatch => {
   axios
-    .delete(`/api/medecin/${id}`)
+    .delete(`${config.baseUrl}/api/medecin/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_MEDECIN,

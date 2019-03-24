@@ -10,12 +10,13 @@ import {
   DELETE_SEJOUR,
   UPDATE_SEJOUR,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateSejour = sejourData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/sejour/${sejourData.id}`, sejourData)
+    .put(`${config.baseUrl}/api/sejour/${sejourData.id}`, sejourData)
     .then(res =>
       dispatch({
         type: UPDATE_SEJOUR,
@@ -34,7 +35,7 @@ export const updateSejour = sejourData => dispatch => {
 export const addSejour = sejourData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/sejour', sejourData)
+    .post(`${config.baseUrl}/api/sejour`, sejourData)
     .then(res =>
       dispatch({
         type: ADD_SEJOUR,
@@ -53,7 +54,7 @@ export const addSejour = sejourData => dispatch => {
 export const getSejours = () => dispatch => {
   dispatch(setSejoursLoading());
   axios
-    .get('/api/sejour')
+    .get(`${config.baseUrl}/api/sejour`)
     .then(res =>
       dispatch({
         type: GET_SEJOUR,
@@ -72,7 +73,7 @@ export const getSejours = () => dispatch => {
 export const postSejour = id => dispatch => {
   dispatch(setSejoursLoading());
   axios
-    .get(`/api/sejour/${id}`)
+    .get(`${config.baseUrl}/api/sejour/${id}`)
     .then(res =>
       dispatch({
         type: GET_SEJOUR,
@@ -90,7 +91,7 @@ export const postSejour = id => dispatch => {
 // Delete Sejours
 export const deleteSejour = id => dispatch => {
   axios
-    .delete(`/api/sejour/${id}`)
+    .delete(`${config.baseUrl}/api/sejour/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_SEJOUR,

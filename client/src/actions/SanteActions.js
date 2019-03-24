@@ -10,12 +10,13 @@ import {
   DELETE_SANTE,
   UPDATE_SANTE,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateSante = santeData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/sante/${santeData.id}`, santeData)
+    .put(`${config.baseUrl}/api/sante/${santeData.id}`, santeData)
     .then(res =>
       dispatch({
         type: UPDATE_SANTE,
@@ -34,7 +35,7 @@ export const updateSante = santeData => dispatch => {
 export const addSante = santeData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/sante', santeData)
+    .post(`${config.baseUrl}/api/sante`, santeData)
     .then(res =>
       dispatch({
         type: ADD_SANTE,
@@ -53,7 +54,7 @@ export const addSante = santeData => dispatch => {
 export const getSante = () => dispatch => {
   dispatch(setSantesLoading());
   axios
-    .get('/api/sante')
+    .get(`${config.baseUrl}/api/sante`)
     .then(res =>
       dispatch({
         type: GET_SANTE,
@@ -72,7 +73,7 @@ export const getSante = () => dispatch => {
 export const postSante = id => dispatch => {
   dispatch(setSantesLoading());
   axios
-    .get(`/api/sante/${id}`)
+    .get(`${config.baseUrl}/api/sante/${id}`)
     .then(res =>
       dispatch({
         type: GET_ONE_SANTE,
@@ -90,7 +91,7 @@ export const postSante = id => dispatch => {
 // Delete Santes
 export const deleteSante = id => dispatch => {
   axios
-    .delete(`/api/sante/${id}`)
+    .delete(`${config.baseUrl}/api/sante/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_SANTE,

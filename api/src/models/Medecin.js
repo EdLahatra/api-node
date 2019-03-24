@@ -12,6 +12,10 @@ const MedecinSchema = new Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  },
   pays: {
     type: Schema.Types.ObjectId,
     ref: 'pays',

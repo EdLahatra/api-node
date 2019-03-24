@@ -9,12 +9,13 @@ import {
   DELETE_SECOURS,
   UPDATE_SECOURS,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateSecours = SECOURSData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/secours/${SECOURSData.id}`, SECOURSData)
+    .put(`${config.baseUrl}/api/secours/${SECOURSData.id}`, SECOURSData)
     .then(res =>
       dispatch({
         type: UPDATE_SECOURS,
@@ -33,7 +34,7 @@ export const updateSecours = SECOURSData => dispatch => {
 export const addSecours = SECOURSData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/secours', SECOURSData)
+    .post(`${config.baseUrl}/api/secours`, SECOURSData)
     .then(res =>
       dispatch({
         type: ADD_SECOURS,
@@ -52,7 +53,7 @@ export const addSecours = SECOURSData => dispatch => {
 export const getSecours = () => dispatch => {
   dispatch(setSecoursLoading());
   axios
-    .get('/api/secours')
+    .get(`${config.baseUrl}/api/secours`)
     .then(res =>
       dispatch({
         type: GET_SECOURS,
@@ -71,7 +72,7 @@ export const getSecours = () => dispatch => {
 export const postSecours = id => dispatch => {
   dispatch(setSecoursLoading());
   axios
-    .get(`/api/secours/${id}`)
+    .get(`${config.baseUrl}/api/secours/${id}`)
     .then(res =>
       dispatch({
         type: GET_SECOURS,
@@ -89,7 +90,7 @@ export const postSecours = id => dispatch => {
 // Delete SECOURS
 export const deleteSecours = id => dispatch => {
   axios
-    .delete(`/api/secours/${id}`)
+    .delete(`${config.baseUrl}/api/secours/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_SECOURS,

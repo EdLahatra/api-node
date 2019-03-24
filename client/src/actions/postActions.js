@@ -9,6 +9,7 @@ import {
   POST_LOADING,
   DELETE_POST
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const addPost = postData => dispatch => {

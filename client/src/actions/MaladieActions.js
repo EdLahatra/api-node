@@ -10,12 +10,13 @@ import {
   DELETE_MALADIE,
   UPDATE_MALADIE,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateMaladie = maladieData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/maladie/${maladieData.id}`, maladieData)
+    .put(`${config.baseUrl}/api/maladie/${maladieData.id}`, maladieData)
     .then(res =>
       dispatch({
         type: UPDATE_MALADIE,
@@ -34,7 +35,7 @@ export const updateMaladie = maladieData => dispatch => {
 export const addMaladie = maladieData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/maladie', maladieData)
+    .post(`${config.baseUrl}/api/maladie`, maladieData)
     .then(res =>
       dispatch({
         type: ADD_MALADIE,
@@ -53,7 +54,7 @@ export const addMaladie = maladieData => dispatch => {
 export const getMaladie = () => dispatch => {
   dispatch(setMaladiesLoading());
   axios
-    .get('/api/maladie')
+    .get(`${config.baseUrl}/api/maladie`)
     .then(res =>
       dispatch({
         type: GET_MALADIE,
@@ -72,7 +73,7 @@ export const getMaladie = () => dispatch => {
 export const postMaladie = id => dispatch => {
   dispatch(setMaladiesLoading());
   axios
-    .get(`/api/maladie/${id}`)
+    .get(`${config.baseUrl}/api/maladie/${id}`)
     .then(res =>
       dispatch({
         type: GET_ONE_MALADIE,
@@ -90,7 +91,7 @@ export const postMaladie = id => dispatch => {
 // Delete Maladies
 export const deleteMaladie = id => dispatch => {
   axios
-    .delete(`/api/maladie/${id}`)
+    .delete(`${config.baseUrl}/api/maladie/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_MALADIE,

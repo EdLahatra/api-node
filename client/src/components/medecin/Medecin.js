@@ -14,7 +14,7 @@ class Medecin extends Component {
   render() {
     const { medecin, loading } = this.props.medecin;
     let medecinContent;
-
+    console.log('v ;!sd v!s!cv !xc!vcx', medecin);
     if (medecin === null || loading) {
       medecinContent = <Spinner />;
     } else {

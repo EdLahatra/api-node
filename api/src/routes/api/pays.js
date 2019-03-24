@@ -66,6 +66,7 @@ router.post(
       maladie: req.body.maladie || [],
       centre: req.body.centre || [],
       medecin: req.body.medecin || [],
+      eau: req.body.eau,
     });
 
     newPays.save().then(post => res.json(post));
@@ -115,6 +116,7 @@ router.put(
         post.maladie = req.body.maladie;
         post.centre = req.body.centre;
         post.medecin = req.body.medecin;
+        post.eau = req.body.eau;
 
         // Save
         post.save()

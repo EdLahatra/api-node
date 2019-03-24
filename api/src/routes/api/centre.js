@@ -58,6 +58,8 @@ router.post(
 
     const newCentre = new Centre({
       name: req.body.name,
+      label: req.body.name,
+      value: req.body.name,
       service: req.body.service,
       numero: req.body.numero,
       rue: req.body.rue,
@@ -105,6 +107,8 @@ router.put(
     Centre.findById(req.params.id)
       .then((post) => {
         // Add to comments array
+        post.name = req.body.name;
+        post.label = req.body.name;
         post.name = req.body.name;
         post.service = req.body.service,
         post.numero = req.body.numero,

@@ -20,6 +20,8 @@ class Pays extends Component {
   render() {
     const { pays, loading } = this.props.pays;
     const { maladie } = this.props.maladie;
+    const { medecin } = this.props.medecin;
+    console.log('MEDECIN', medecin)
     let paysContent;
 
     if (pays === null || loading) {
@@ -27,7 +29,7 @@ class Pays extends Component {
     } else {
       paysContent = <PaysFeed pays={pays} />;
     }
-    console.log('medecin', this.props.medecin)
+    console.log('medecin medecin medecin', medecin)
     return (
       <div className="feed">
         <div className="container">
@@ -35,7 +37,7 @@ class Pays extends Component {
             <div className="col-md-12">
               <PaysForm
                 maladie={maladie}
-                medecin={this.props.medecin.medecin}
+                medecin={medecin}
                 centre={this.props.centre.centre}
               />
               {paysContent}

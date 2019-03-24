@@ -10,12 +10,13 @@ import {
   DELETE_CATEGORIE,
   UPDATE_CATEGORIE,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateCategorie = CategorieData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/categorie/${CategorieData.id}`, CategorieData)
+    .put(`${config.baseUrl}/api/categorie/${CategorieData.id}`, CategorieData)
     .then(res =>
       dispatch({
         type: UPDATE_CATEGORIE,
@@ -34,7 +35,7 @@ export const updateCategorie = CategorieData => dispatch => {
 export const addCategorie = CategorieData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/categorie', CategorieData)
+    .post(`${config.baseUrl}/api/categorie`, CategorieData)
     .then(res =>
       dispatch({
         type: ADD_CATEGORIE,
@@ -53,7 +54,7 @@ export const addCategorie = CategorieData => dispatch => {
 export const getCategorie = () => dispatch => {
   dispatch(setCategoriesLoading());
   axios
-    .get('/api/categorie')
+    .get(`${config.baseUrl}/api/categorie`)
     .then(res =>
       dispatch({
         type: GET_CATEGORIE,
@@ -72,7 +73,7 @@ export const getCategorie = () => dispatch => {
 export const postCategorie = id => dispatch => {
   dispatch(setCategoriesLoading());
   axios
-    .get(`/api/categorie/${id}`)
+    .get(`${config.baseUrl}/api/categorie/${id}`)
     .then(res =>
       dispatch({
         type: GET_ONE_CATEGORIE,
@@ -90,7 +91,7 @@ export const postCategorie = id => dispatch => {
 // Delete Categories
 export const deleteCategorie = id => dispatch => {
   axios
-    .delete(`/api/categorie/${id}`)
+    .delete(`${config.baseUrl}/api/categorie/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_CATEGORIE,

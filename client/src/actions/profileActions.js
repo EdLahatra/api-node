@@ -8,6 +8,7 @@ import {
   GET_ERRORS,
   SET_CURRENT_USER
 } from './types';
+import config from '../utils/config';
 
 // Get current profile
 export const getCurrentProfile = () => dispatch => {

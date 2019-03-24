@@ -10,12 +10,13 @@ import {
   DELETE_URGENCE,
   UPDATE_URGENCE,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateUrgence = urgenceData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/urgence/${urgenceData.id}`, urgenceData)
+    .put(`${config.baseUrl}/api/urgence/${urgenceData.id}`, urgenceData)
     .then(res =>
       dispatch({
         type: UPDATE_URGENCE,
@@ -34,7 +35,7 @@ export const updateUrgence = urgenceData => dispatch => {
 export const addUrgence = urgenceData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/urgence', urgenceData)
+    .post(`${config.baseUrl}/api/urgence`, urgenceData)
     .then(res =>
       dispatch({
         type: ADD_URGENCE,
@@ -53,7 +54,7 @@ export const addUrgence = urgenceData => dispatch => {
 export const getUrgence = () => dispatch => {
   dispatch(setUrgenceLoading());
   axios
-    .get('/api/urgence')
+    .get(`${config.baseUrl}/api/urgence`)
     .then(res =>
       dispatch({
         type: GET_URGENCE,
@@ -72,7 +73,7 @@ export const getUrgence = () => dispatch => {
 export const postUrgence = id => dispatch => {
   dispatch(setUrgenceLoading());
   axios
-    .get(`/api/urgence/${id}`)
+    .get(`${config.baseUrl}/api/urgence/${id}`)
     .then(res =>
       dispatch({
         type: GET_URGENCE,
@@ -90,7 +91,7 @@ export const postUrgence = id => dispatch => {
 // Delete urgence
 export const deleteUrgence = id => dispatch => {
   axios
-    .delete(`/api/urgence/${id}`)
+    .delete(`${config.baseUrl}/api/urgence/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_URGENCE,

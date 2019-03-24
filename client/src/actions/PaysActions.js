@@ -10,12 +10,13 @@ import {
   DELETE_PAYS,
   UPDATE_PAYS,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updatePays = paysData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/pays/${paysData.id}`, paysData)
+    .put(`${config.baseUrl}/api/pays/${paysData.id}`, paysData)
     .then(res =>
       dispatch({
         type: UPDATE_PAYS,
@@ -34,7 +35,7 @@ export const updatePays = paysData => dispatch => {
 export const addPays = paysData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/pays', paysData)
+    .post(`${config.baseUrl}/api/pays`, paysData)
     .then(res =>
       dispatch({
         type: ADD_PAYS,
@@ -53,7 +54,7 @@ export const addPays = paysData => dispatch => {
 export const getPays = () => dispatch => {
   dispatch(setPayssLoading());
   axios
-    .get('/api/pays')
+    .get(`${config.baseUrl}/api/pays`)
     .then(res =>
       dispatch({
         type: GET_PAYS,
@@ -72,7 +73,7 @@ export const getPays = () => dispatch => {
 export const postPays = id => dispatch => {
   dispatch(setPayssLoading());
   axios
-    .get(`/api/pays/${id}`)
+    .get(`${config.baseUrl}/api/pays/${id}`)
     .then(res =>
       dispatch({
         type: GET_ONE_PAYS,
@@ -90,7 +91,7 @@ export const postPays = id => dispatch => {
 // Delete Payss
 export const deletePays = id => dispatch => {
   axios
-    .delete(`/api/pays/${id}`)
+    .delete(`${config.baseUrl}/api/pays/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_PAYS,

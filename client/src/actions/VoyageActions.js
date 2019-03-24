@@ -77,7 +77,7 @@ export const getVoyage = () =>
 export const postVoyage = id => dispatch => {
   dispatch(setVoyagesLoading());
   axios
-    .get(`/api/voyage/${id}`)
+    .get(`${config.baseUrl}/api/voyage/${id}`)
     .then(res =>
       dispatch({
         type: GET_ONE_VOYAGE,
@@ -95,7 +95,7 @@ export const postVoyage = id => dispatch => {
 // Delete Voyages
 export const deleteVoyage = id => dispatch => {
   axios
-    .delete(`/api/voyage/${id}`)
+    .delete(`${config.baseUrl}/api/voyage/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_VOYAGE,

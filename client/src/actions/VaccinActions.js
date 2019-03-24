@@ -10,12 +10,13 @@ import {
   DELETE_VACCIN,
   UPDATE_VACCIN,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateVaccin = vaccinData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/vaccin/${vaccinData.id}`, vaccinData)
+    .put(`${config.baseUrl}/api/vaccin/${vaccinData.id}`, vaccinData)
     .then(res =>
       dispatch({
         type: UPDATE_VACCIN,
@@ -34,7 +35,7 @@ export const updateVaccin = vaccinData => dispatch => {
 export const addVaccin = vaccinData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/vaccin', vaccinData)
+    .post(`${config.baseUrl}/api/vaccin`, vaccinData)
     .then(res =>
       dispatch({
         type: ADD_VACCIN,
@@ -53,7 +54,7 @@ export const addVaccin = vaccinData => dispatch => {
 export const getVaccin = () => dispatch => {
   dispatch(setVaccinsLoading());
   axios
-    .get('/api/vaccin')
+    .get(`${config.baseUrl}/api/vaccin`)
     .then(res =>
       dispatch({
         type: GET_VACCIN,
@@ -72,7 +73,7 @@ export const getVaccin = () => dispatch => {
 export const postVaccin = id => dispatch => {
   dispatch(setVaccinsLoading());
   axios
-    .get(`/api/vaccin/${id}`)
+    .get(`${config.baseUrl}/api/vaccin/${id}`)
     .then(res =>
       dispatch({
         type: GET_ONE_VACCIN,
@@ -90,7 +91,7 @@ export const postVaccin = id => dispatch => {
 // Delete Vaccins
 export const deleteVaccin = id => dispatch => {
   axios
-    .delete(`/api/vaccin/${id}`)
+    .delete(`${config.baseUrl}/api/vaccin/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_VACCIN,

@@ -28,6 +28,15 @@ const PaysSchema = new Schema({
     type: String,
     required: true,
   },
+  eau: {
+    potable: {
+      type: Boolean,
+      default: false,
+    },
+    commentaire: {
+      type: String,
+    },
+  },
   maladie: [
     {
       maladie: {

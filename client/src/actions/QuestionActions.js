@@ -10,12 +10,13 @@ import {
   DELETE_QUESTION,
   UPDATE_QUESTION,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateQuestion = questionData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/checklist/${questionData.id}`, questionData)
+    .put(`${config.baseUrl}/api/checklist/${questionData.id}`, questionData)
     .then(res =>
       dispatch({
         type: UPDATE_QUESTION,
@@ -34,7 +35,7 @@ export const updateQuestion = questionData => dispatch => {
 export const addQuestion = questionData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/checklist', questionData)
+    .post(`${config.baseUrl}/api/checklist`, questionData)
     .then(res =>
       dispatch({
         type: ADD_QUESTION,
@@ -53,7 +54,7 @@ export const addQuestion = questionData => dispatch => {
 export const getQuestions = () => dispatch => {
   dispatch(setQuestionsLoading());
   axios
-    .get('/api/checklist')
+    .get(`${config.baseUrl}/api/checklist`)
     .then(res =>
       dispatch({
         type: GET_QUESTIONS,
@@ -72,7 +73,7 @@ export const getQuestions = () => dispatch => {
 export const postQuestion = id => dispatch => {
   dispatch(setQuestionsLoading());
   axios
-    .get(`/api/checklist/${id}`)
+    .get(`${config.baseUrl}/api/checklist/${id}`)
     .then(res =>
       dispatch({
         type: GET_QUESTION,
@@ -90,7 +91,7 @@ export const postQuestion = id => dispatch => {
 // Delete Questions
 export const deleteQuestion = id => dispatch => {
   axios
-    .delete(`/api/checklist/${id}`)
+    .delete(`${config.baseUrl}/api/checklist/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_QUESTION,

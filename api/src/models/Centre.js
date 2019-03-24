@@ -8,6 +8,14 @@ const CentreSchema = new Schema({
     type: String,
     required: true,
   },
+  label: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: String,
+    required: true,
+  },
   service: {
     type: String,
   },
