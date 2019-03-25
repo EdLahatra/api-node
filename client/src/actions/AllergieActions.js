@@ -9,12 +9,13 @@ import {
   DELETE_ALLERGIE,
   UPDATE_ALLERGIE,
 } from './types';
+import config from '../utils/config';
 
 // Add Post
 export const updateAllergie = ALLERGIEData => dispatch => {
   dispatch(clearErrors());
   axios
-    .put(`/api/allergie/${ALLERGIEData.id}`, ALLERGIEData)
+    .put(`${config.baseUrl}/api/allergie/${ALLERGIEData.id}`, ALLERGIEData)
     .then(res =>
       dispatch({
         type: UPDATE_ALLERGIE,
@@ -33,7 +34,7 @@ export const updateAllergie = ALLERGIEData => dispatch => {
 export const addAllergie = ALLERGIEData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/allergie', ALLERGIEData)
+    .post(`${config.baseUrl}/api/allergie`, ALLERGIEData)
     .then(res =>
       dispatch({
         type: ADD_ALLERGIE,
@@ -52,7 +53,7 @@ export const addAllergie = ALLERGIEData => dispatch => {
 export const getAllergie = () => dispatch => {
   dispatch(setAllergieLoading());
   axios
-    .get('/api/allergie')
+    .get(`${config.baseUrl}/api/allergie`)
     .then(res =>
       dispatch({
         type: GET_ALLERGIE,
@@ -71,7 +72,7 @@ export const getAllergie = () => dispatch => {
 export const postAllergie = id => dispatch => {
   dispatch(setAllergieLoading());
   axios
-    .get(`/api/allergie/${id}`)
+    .get(`${config.baseUrl}/api/allergie/${id}`)
     .then(res =>
       dispatch({
         type: GET_ALLERGIE,
@@ -89,7 +90,7 @@ export const postAllergie = id => dispatch => {
 // Delete ALLERGIE
 export const deleteAllergie = id => dispatch => {
   axios
-    .delete(`/api/allergie/${id}`)
+    .delete(`${config.baseUrl}/api/allergie/${id}`)
     .then(res =>
       dispatch({
         type: DELETE_ALLERGIE,

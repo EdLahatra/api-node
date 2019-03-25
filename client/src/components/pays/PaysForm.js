@@ -85,7 +85,6 @@ class PaysForm extends Component {
 
   render() {
     const { errors, medecinList, maladieList, isChecked, centreList } = this.state;
-    console.log('this.props.medecin', this.props.medecin);
 
     return (
       <div className="Pays-form mb-3">
@@ -96,6 +95,27 @@ class PaysForm extends Component {
               <div className="form-group">
               {
                 attribut.pays && attribut.pays.map((key, i) => {
+                  if (key === 'eau') {
+                    return <div key={key}>
+                      <p>Eau</p>
+                        <div>
+                          Eau potable
+                          <input type="checkbox"
+                            checked={isChecked}
+                            onChange={() => this.setState({ isChecked: !isChecked})}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <TextAreaFieldGroup
+                            placeholder="Commentaires"
+                            name="commentaire"
+                            value={this.state.commentaire}
+                            onChange={this.onChange}
+                            error={errors.commentaire}
+                          />
+                        </div>
+                      </div>
+                  }
                   if (key === 'maladie') {
                     return <div key={`${key} maladie`}><p>Maladie</p>
                 <Select
@@ -139,23 +159,6 @@ class PaysForm extends Component {
                 />
                 })
               }
-              <p>Eau</p>
-              <div>
-                Eau potable
-                <input type="checkbox"
-                  checked={isChecked}
-                  onChange={() => this.setState({ isChecked: !isChecked})}
-                />
-              </div>
-              <div className="form-group">
-                <TextAreaFieldGroup
-                  placeholder="Commentaires"
-                  name="commentaire"
-                  value={this.state.commentaire}
-                  onChange={this.onChange}
-                  error={errors.commentaire}
-                />
-              </div>
               </div>
               <button type="submit" className="btn btn-dark">
                 Submit

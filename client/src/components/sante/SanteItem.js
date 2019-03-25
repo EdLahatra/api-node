@@ -60,9 +60,9 @@ class SanteItem extends Component {
           <div className="col-md-10">
           {attribut.sante.map((key, i) => {
             if (key === 'allergie') {
-              return <div key={i}>{key}: {sante[key].map(i => <p>{i._id}</p>)}</div>
+              return <div key={`${i} ${key}`}>{key}: {sante[key].map(i => <p key={i._id}>{i._id}</p>)}</div>
             }
-            return <div key={i}>{key}: {sante[key]}</div>
+            return <div key={`${i} ${key}`}>{key}: {sante[key]}</div>
           })}
               <span>
                 <button
