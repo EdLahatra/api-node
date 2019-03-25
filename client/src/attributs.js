@@ -40,6 +40,7 @@ const pays = [
   'maladie',
   'centre',
   'medecin',
+  'eau',
 ];
 
 const sejour = [

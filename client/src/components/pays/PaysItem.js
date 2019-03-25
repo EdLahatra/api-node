@@ -61,7 +61,16 @@ class PaysItem extends Component {
         <div className="row">
           <div className="col-md-10">
           {attribut.pays.map((key, i) => {
+            if (key === 'eau') {
+              return<div key={i}>{key} Potable: {pays[key].potable ? 'yes' : 'no'} { pays[key].commentaire ? pays[key].commentaire : ''}</div>
+            }
             if (key === 'maladie') {
+              return<div key={i}>{key}: {pays[key].map(k => <p key={k._id}>{k._id}</p>)}</div>
+            }
+            if (key === 'centre') {
+              return<div key={i}>{key}: {pays[key].map(k => <p key={k._id}>{k._id}</p>)}</div>
+            }
+            if (key === 'medecin') {
               return<div key={i}>{key}: {pays[key].map(k => <p key={k._id}>{k._id}</p>)}</div>
             }
             return <div key={i}>{key}: {pays[key]}</div>

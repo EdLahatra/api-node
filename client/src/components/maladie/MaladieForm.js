@@ -20,6 +20,7 @@ class MaladieForm extends Component {
       errors: {},
       vaccin: '',
       vaccinList: [],
+      vaccinSuggList: [],
       sejourList: [],
     };
 
@@ -46,6 +47,7 @@ class MaladieForm extends Component {
     const newMaladie = {
       name: this.state.text,
       vaccin: this.state.vaccinList,
+      vaccinSugg: this.state.vaccinSuggList,
       sejour: this.state.sejourList,
     };
 
@@ -62,7 +64,7 @@ class MaladieForm extends Component {
   isCheckedSejour = item => this.state.sejourList.filter(key => key._id === item._id).length > 0
 
   render() {
-    const { errors, vaccinList, sejourList } = this.state;
+    const { errors, vaccinList, sejourList, vaccinSuggList } = this.state;
     return (
       <div className="Maladie-form mb-3">
         <div className="card card-info">
@@ -82,6 +84,14 @@ class MaladieForm extends Component {
                   name="vaccin"
                   value={vaccinList}
                   onChange={vaccinList => this.setState({ vaccinList })}
+                  options={this.props.vaccin}
+                  isMulti
+                />
+                <p>vaccin à Sugg</p>
+                <Select
+                  name="vaccinSuggList"
+                  value={vaccinSuggList}
+                  onChange={vaccinSuggList => this.setState({ vaccinSuggList })}
                   options={this.props.vaccin}
                   isMulti
                 />

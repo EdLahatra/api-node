@@ -55,16 +55,18 @@ export const getMedecin = () => dispatch => {
   dispatch(setMedecinsLoading());
   axios
     .get(`${config.baseUrl}/api/medecin`)
-    .then(res =>
+    .then(res => {
+      console.log('res res', res);
       dispatch({
         type: GET_MEDECIN,
         payload: res.data
       })
+      }
     )
     .catch(err =>
       dispatch({
         type: GET_MEDECIN,
-        payload: null
+        payload: []
       })
     );
 };

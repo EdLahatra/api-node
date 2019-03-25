@@ -21,7 +21,7 @@ class Pays extends Component {
     const { pays, loading } = this.props.pays;
     const { maladie } = this.props.maladie;
     const { medecin } = this.props.medecin;
-    console.log('MEDECIN', medecin)
+
     let paysContent;
 
     if (pays === null || loading) {
@@ -29,7 +29,7 @@ class Pays extends Component {
     } else {
       paysContent = <PaysFeed pays={pays} />;
     }
-    console.log('medecin medecin medecin', medecin)
+
     return (
       <div className="feed">
         <div className="container">
@@ -61,7 +61,7 @@ const mapStateToProps = state => ({
   pays: state.pays,
   maladie: state.maladie,
   centre: state.centre,
-  medecin: state.maladie,
+  medecin: state.medecin,
 });
 
 export default connect(mapStateToProps, { getPays, getMaladie, getMedecin, getCentres })(Pays);

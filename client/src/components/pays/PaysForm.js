@@ -127,19 +127,6 @@ class PaysForm extends Component {
                   options={this.props.centre}
                   isMulti
                 />
-                    {
-                      this.props.centre && this.props.centre.map((item, key) => {
-                        return (
-                          <div key={key}>
-                            {item.name}
-                            {/* <input type="checkbox"
-                              checked={this.isChecked(item, key)}
-                              onChange={() => this.toggleChange(item, key)}
-                            /> */}
-                          </div>
-                        )
-                      })
-                    }
                     </div>
                   }
                   return <TextFieldGroup
