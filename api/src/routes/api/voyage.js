@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
 // @desc    Get post by id
 // @access  Public
 router.get('/user/:userId', (req, res) => {
-  console.log('req.user.id', req.params.userId);
+  console.log('req.user.id ====>', req.params.userId);
   Voyage.find({ user: req.params.userId })
     .then((post) => {
       if (post) {

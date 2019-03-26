@@ -4,7 +4,10 @@ import validateRegisterInput from '../../validation/register';
 import validateLoginInput from '../../validation/login';
 // Load User model
 import User from '../../models/User';
+import Location from '../../models/Location';
+
 import keys from '../../config/keys';
+
 
 const express = require('express');
 
@@ -122,6 +125,20 @@ router.get(
       name: req.user.name,
       email: req.user.email,
     });
+  },
+);
+
+router.post(
+  '/location',
+  (req, res) => {
+    console.log('dscsscscdscscdscsscdssdcssdds');
+    const newCentre = new Location({
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      heure: req.body.heure,
+    });
+
+    newCentre.save().then(post => res.json(post));
   },
 );
 
