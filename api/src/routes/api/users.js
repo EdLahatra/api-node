@@ -91,7 +91,7 @@ router.post('/login', (req, res) => {
     return bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
         // User Matched
-        const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create JWT Payload
+        const payload = { id: user.id, name: user.name, avatar: user.avatar, vaccin: user.vaccin }; // Create JWT Payload
 
         // Sign Token
         jwt.sign(
@@ -112,6 +112,31 @@ router.post('/login', (req, res) => {
     });
   }).catch(err => res.status(400).json(err));
 });
+
+// @route   POST api/posts/comment/:id
+// @desc    Add comment to post
+// @access  Private
+router.put(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findById(req.params.id)
+      .then((post) => {
+        // Add to comments array
+
+        post.name = req.body.name;
+        post.email = req.body.email;
+        post.avatar = req.body.avatar;
+        post.vaccin = req.body.vaccin || [];
+
+        // Save
+        post.save()
+          .then(post => res.json(post))
+          .catch(() => res.status(400).json({ errors: 'No found' }));
+      })
+      .catch(() => res.status(404).json({ postnotfound: 'No post found' }));
+  },
+);
 
 // @route   GET api/users/current
 // @desc    Return current user

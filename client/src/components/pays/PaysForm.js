@@ -15,6 +15,7 @@ const initilState = {
   monnaie: '',
   permis: '',
   maladie: '',
+  prise: '',
   maladieList: [],
   centreList: [],
   medecinList: [],
@@ -53,6 +54,7 @@ class PaysForm extends Component {
       maladie: this.state.maladieList,
       centre: this.state.centreList,
       medecin: this.state.medecinList,
+      prise: this.state.prise,
       eau: {
         potable: this.state.isChecked,
         commentaire: this.state.commentaire,

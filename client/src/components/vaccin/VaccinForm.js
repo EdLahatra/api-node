@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import TextFieldGroup from '../common/TextFieldGroup';
 import { addVaccin } from '../../actions/VaccinActions';
 
 class VaccinForm extends Component {
@@ -9,6 +10,7 @@ class VaccinForm extends Component {
     super(props);
     this.state = {
       text: '',
+      rappel: '',
       errors: {}
     };
 
@@ -29,6 +31,7 @@ class VaccinForm extends Component {
 
     const newVaccin = {
       name: this.state.text,
+      rappel: this.state.rappel,
     };
     this.props.addVaccin(newVaccin);
     this.setState({ text: '' });
@@ -54,6 +57,13 @@ class VaccinForm extends Component {
                   value={this.state.text}
                   onChange={this.onChange}
                   error={errors.text}
+                />
+                <TextFieldGroup
+                  placeholder="numbre mois"
+                  name="rappel"
+                  value={this.state.rappel}
+                  onChange={this.onChange}
+                  error={errors.rappel}
                 />
               </div>
               <button type="submit" className="btn btn-dark">

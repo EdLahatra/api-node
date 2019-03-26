@@ -23,6 +23,14 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'pays',
   },
+  vaccin: [
+    {
+      vaccin: {
+        type: Schema.Types.ObjectId,
+        ref: 'vaccin',
+      },
+    },
+  ],
   checklist: [
     {
       checklist: {

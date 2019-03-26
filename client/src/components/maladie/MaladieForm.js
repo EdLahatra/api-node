@@ -17,6 +17,7 @@ class MaladieForm extends Component {
     super(props);
     this.state = {
       text: '',
+      description: '',
       errors: {},
       vaccin: '',
       vaccinList: [],
@@ -46,6 +47,7 @@ class MaladieForm extends Component {
 
     const newMaladie = {
       name: this.state.text,
+      description: this.state.description,
       vaccin: this.state.vaccinList,
       vaccinSugg: this.state.vaccinSuggList,
       sejour: this.state.sejourList,
@@ -76,6 +78,13 @@ class MaladieForm extends Component {
                   placeholder="Create a Maladie"
                   name="text"
                   value={this.state.text}
+                  onChange={this.onChange}
+                  error={errors.text}
+                />
+                <TextAreaFieldGroup
+                  placeholder="Description"
+                  name="description"
+                  value={this.state.description}
                   onChange={this.onChange}
                   error={errors.text}
                 />

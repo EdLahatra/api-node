@@ -37,11 +37,7 @@ const MaladieSchema = new Schema({
       },
     },
   ],
-  label: {
-    type: String,
-    required: true,
-  },
-  value: {
+  description: {
     type: String,
     required: true,
   },

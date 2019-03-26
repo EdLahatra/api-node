@@ -16,6 +16,10 @@ const VaccinSchema = new Schema({
     type: String,
     required: true,
   },
+  rappel: {
+    type: Number,
+    default: 0,
+  },
   date: {
     type: Date,
     default: Date.now,

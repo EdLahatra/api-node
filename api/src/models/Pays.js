@@ -10,23 +10,21 @@ const PaysSchema = new Schema({
   },
   capital: {
     type: String,
-    required: true,
   },
   indicatifPhone: {
     type: String,
-    required: true,
   },
   decalageHoraore: {
     type: String,
-    required: true,
   },
   monnaie: {
     type: String,
-    required: true,
   },
   permis: {
     type: String,
-    required: true,
+  },
+  prise: {
+    type: String,
   },
   eau: {
     potable: {
