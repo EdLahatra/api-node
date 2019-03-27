@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import Modal from 'react-responsive-modal';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import TextFieldGroup from '../common/TextFieldGroup';
 import { deleteVaccin, updateVaccin } from '../../actions/VaccinActions';
 
 class VaccinItem extends Component {
@@ -12,6 +13,7 @@ class VaccinItem extends Component {
     super(props);
     this.state = {
       text: '',
+      rappel: '',
       errors: {},
       open: false,
       id: null,
@@ -31,7 +33,7 @@ class VaccinItem extends Component {
   }
  
   onOpenModal = (data) => {
-    this.setState({ open: true, id: data._id, text: data.name });
+    this.setState({ open: true, id: data._id, text: data.name, rappel: data.rappel, });
   };
  
   onCloseModal = () => {
@@ -45,6 +47,7 @@ class VaccinItem extends Component {
   onUpdateClick(id) {
     const description = {
       name: this.state.text,
+      rappel: this.state.rappel,
       id,
     };
     this.onCloseModal();
@@ -91,6 +94,14 @@ class VaccinItem extends Component {
                       value={this.state.text}
                       onChange={this.onChange}
                       error={errors.text}
+                    />
+                    <TextFieldGroup
+                      placeholder="Create a Vaccin"
+                      name="rappel"
+                      type="number"
+                      value={this.state.rappel}
+                      onChange={this.onChange}
+                      error={errors.rappel}
                     />
                   </div>
                 </form>

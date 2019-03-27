@@ -10,7 +10,7 @@ class VaccinForm extends Component {
     super(props);
     this.state = {
       text: '',
-      rappel: '',
+      rappel: null,
       errors: {}
     };
 
@@ -59,8 +59,9 @@ class VaccinForm extends Component {
                   error={errors.text}
                 />
                 <TextFieldGroup
-                  placeholder="numbre mois"
+                  placeholder="numbre année"
                   name="rappel"
+                  type="number"
                   value={this.state.rappel}
                   onChange={this.onChange}
                   error={errors.rappel}
