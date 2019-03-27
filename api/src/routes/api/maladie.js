@@ -62,6 +62,7 @@ router.post(
       value: req.body.name,
       label: req.body.name,
       description: req.body.description,
+      risque: req.body.risque,
       name: req.body.name,
       sejour: req.body.sejour || [],
       vaccin: req.body.vaccin || [],
@@ -110,6 +111,7 @@ router.put(
         post.value = req.body.description;
         post.label = req.body.description;
         post.name = req.body.name;
+        post.risque = req.body.risque;
         post.sejour = req.body.sejour;
         post.vaccin = req.body.vaccin;
         post.vaccinSugg = req.body.vaccinSugg;

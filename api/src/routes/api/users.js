@@ -118,15 +118,12 @@ router.post('/login', (req, res) => {
 // @access  Private
 router.put(
   '/:id',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findById(req.params.id)
       .then((post) => {
         // Add to comments array
 
-        post.name = req.body.name;
-        post.email = req.body.email;
-        post.avatar = req.body.avatar;
         post.vaccin = req.body.vaccin || [];
 
         // Save

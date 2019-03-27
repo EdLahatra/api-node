@@ -86,6 +86,7 @@ const maladie = [
   'name',
   'sejour',
   'vaccin',
+  'risque',
 ];
 
 export default  {

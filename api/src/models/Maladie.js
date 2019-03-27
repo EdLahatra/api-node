@@ -13,6 +13,9 @@ const MaladieSchema = new Schema({
   name: {
     type: String,
   },
+  risque: {
+    type: String,
+  },
   sejour: [
     {
       sejour: {

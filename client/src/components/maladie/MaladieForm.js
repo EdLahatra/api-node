@@ -23,6 +23,7 @@ class MaladieForm extends Component {
       vaccinList: [],
       vaccinSuggList: [],
       sejourList: [],
+      risque: '',
     };
 
     this.onChange = this.onChange.bind(this);
@@ -51,6 +52,7 @@ class MaladieForm extends Component {
       vaccin: this.state.vaccinList,
       vaccinSugg: this.state.vaccinSuggList,
       sejour: this.state.sejourList,
+      risque: this.state.risque,
     };
 
     this.props.addMaladie(newMaladie);
@@ -87,6 +89,13 @@ class MaladieForm extends Component {
                   value={this.state.description}
                   onChange={this.onChange}
                   error={errors.text}
+                />
+                <TextAreaFieldGroup
+                  placeholder="Les Risques principaux"
+                  name="risque"
+                  value={this.state.risque}
+                  onChange={this.onChange}
+                  error={errors.risque}
                 />
                 <p>Vaccin</p>
                 <Select

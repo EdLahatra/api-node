@@ -25,9 +25,11 @@ const UserSchema = new Schema({
   },
   vaccin: [
     {
-      vaccin: {
-        type: Schema.Types.ObjectId,
-        ref: 'vaccin',
+      _id: {
+        type: String,
+      },
+      date: {
+        type: String,
       },
     },
   ],

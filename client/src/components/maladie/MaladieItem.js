@@ -67,9 +67,9 @@ class MaladieItem extends Component {
                   maladie[key].map(p => <p key={p._id}>{p._id}</p>)
                 }</div>
               }
-              // return <div key={i}>{key}: {maladie[key]}</div>
+              return <div key={i}>{key}: {maladie[key]}</div>
             })}
-            <p className="lead">{maladie.name}</p>
+            {/* <p className="lead">{maladie.name}</p> */}
               <span>
                 <button
                   onClick={this.onDeleteClick.bind(this, maladie._id)}
